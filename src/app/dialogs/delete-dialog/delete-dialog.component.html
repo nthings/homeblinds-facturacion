@@ -1,0 +1,20 @@
+<h2 matDialogTitle>
+  <span>Eliminar</span>
+  <i class="pe-7s-trash icon pull-right"></i>
+</h2>
+<mat-dialog-content>
+    Desea Eliminar: <b> {{data.message}} </b>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-6">
+        <button class="btn btn-default" matDialogClose>Cerrar</button>
+      </div>
+      <div class="col-xs-6">
+        <!-- [matDialogClose]="true" -->
+        <button type="submit" (click)="deleteUser()" class="btn btn-success">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

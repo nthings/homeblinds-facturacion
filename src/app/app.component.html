@@ -1,0 +1,12 @@
+<div class="wrapper">
+    <div class="sidebar" data-color="red" data-image="" *ngIf="user.logged">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(/assets/img/sidebar-5.jpg)"></div>
+    </div>
+
+    <div class="main-panel" [ngClass]="{'full-width': !user.logged}">
+        <navbar-cmp [user]="user"></navbar-cmp>
+        <router-outlet></router-outlet>
+        <footer-cmp></footer-cmp>
+    </div>
+</div>

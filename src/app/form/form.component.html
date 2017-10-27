@@ -1,0 +1,44 @@
+<form id="facturaForm" (ngSubmit)="onSubmit(facturaForm)" [formGroup]="facturaForm" novalidate>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="dialog-subtitle">Datos del Cliente</h2>
+                <mat-form-field class="col-xs-12 col-sm-6 full-width">
+                    <input type="text" matInput placeholder="RFC" formControlName="rfc" required>
+                    <mat-error *ngIf="facturaForm.controls['rfc'].hasError('required')">
+                        El RFC es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-xs-12 col-sm-6 full-width">
+                    <input type="text" matInput placeholder="Razón Social" formControlName="razonsocial"
+                           required>
+                    <mat-error *ngIf="facturaForm.controls['razonsocial'].hasError('required')">
+                        La Razón Social es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12">
+                <h2 class="dialog-subtitle">Forma de Pago</h2>
+                <mat-form-field class="col-xs-12 col-sm-6 full-width">
+                    <input type="text" matInput placeholder="Forma de Pago" formControlName="formadepago" required>
+                    <mat-error *ngIf="facturaForm.controls['formadepago'].hasError('required')">
+                        La Forma de Pago es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12">
+                <h2 class="dialog-subtitle">Conceptos</h2>
+                <mat-form-field class="col-xs-12 col-sm-6 full-width">
+                    <input type="text" matInput placeholder="Forma de Pago" formControlName="formadepago" required>
+                    <mat-error *ngIf="facturaForm.controls['formadepago'].hasError('required')">
+                        La Forma de Pago es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!--<mat-checkbox class="col-xs-12 margin-bottom-25" formControlName="bloqueado">Bloqueado</mat-checkbox>-->
+
+        </div>
+    </div>
+</form>
