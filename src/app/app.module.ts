@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {
+    MatAutocompleteModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -84,7 +85,8 @@ import {AuthenticationService} from './utils/services/authentication.service';
         MatFormFieldModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatAutocompleteModule
     ],
     providers: [
         AuthGuard,
