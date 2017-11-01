@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
                         nombre = nombre.substr(0, nombre.indexOf(' '));
                     }
                     this.notify.success('pe-7s-like2', 'Bienvenido ' + nombre);
-                    this.router.navigate(['/facturas']);
+                    this.router.navigate(['/factura']);
                 } else {
                     this.notify.error('pe-7s-delete-user', 'Credenciales Incorrectas.');
                 }

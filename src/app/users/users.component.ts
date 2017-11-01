@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 
 import {TableData} from '../utils/interfaces/TableData';
@@ -8,7 +8,6 @@ import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.comp
 
 import {UserService} from '../utils/services/user.service';
 import {NotifyService} from '../utils/services/notify.service';
-import {UserDepartmentsDialogComponent} from "../dialogs/user-departments-dialog/user-departments-dialog.component";
 
 @Component({
     selector: 'app-users',
@@ -51,11 +50,11 @@ export class UsersComponent implements OnInit {
 
     ngOnInit() {
         this.tableClients = {
-            columns: ['N° Empleado', 'Nombre', 'Apellidos', 'Fecha De Nacimiento', 'Teléfono', 'Email', 'Nombre de Usuario', 'Departamentos', 'Acciones'],
+            columns: ['Nombre', 'Apellidos', 'Nombre de Usuario', 'Acciones'],
             rows: []
         };
 
-        this.state = "inactive";
+        this.state = 'inactive';
         this.getUsers();
 
     }
@@ -71,42 +70,42 @@ export class UsersComponent implements OnInit {
     }
 
     openDialog(): void {
-        let dialogRef = this.dialog.open(UserDialogComponent, {
+        const dialogRef = this.dialog.open(UserDialogComponent, {
             width: '500px',
             data: null
-        });
+        } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success("pe-7s-check", "Usuario agregado correctamente");
+                this.notify.success('pe-7s-check', 'Usuario agregado correctamente');
                 this.getUsers();
             }
         });
     }
 
     openEditUserDialog(user): void {
-        let dialogRef = this.dialog.open(UserDialogComponent, {
+        const dialogRef = this.dialog.open(UserDialogComponent, {
             width: '500px',
             data: user
-        });
+        } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success("pe-7s-check", "Usuario editado correctamente");
+                this.notify.success('pe-7s-check', 'Usuario editado correctamente');
                 this.getUsers();
             }
         });
     }
 
     openDeleteUserDialog(user): void {
-        let dialogRef = this.dialog.open(DeleteDialogComponent, {
+        const dialogRef = this.dialog.open(DeleteDialogComponent, {
             width: '500px',
             data: {_id: user._id, message: user.nombre + ' ' + user.apellidos, service: this.userService}
-        });
+        } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success("pe-7s-check", "Usuario Eliminado correctamente");
+                this.notify.success('pe-7s-check', 'Usuario Eliminado correctamente');
                 this.getUsers();
             }
         });

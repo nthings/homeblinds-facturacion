@@ -20,7 +20,7 @@ export class DeleteDialogComponent {
         this.dialogRef.close();
     }
 
-    deleteUser() {
+    delete() {
         this.data.service.delete(this.data._id).subscribe(
             data => {
                 this.dialogRef.close(true);

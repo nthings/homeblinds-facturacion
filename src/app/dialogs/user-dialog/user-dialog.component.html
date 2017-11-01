@@ -8,13 +8,6 @@
             <div class="row">
                 <h2 class="dialog-subtitle">Datos Personales</h2>
                 <mat-form-field class="col-xs-12 col-sm-6">
-                    <input type="text" matInput placeholder="Numero De Empleado" formControlName="numeroempleado"
-                           required>
-                    <mat-error *ngIf="userForm.controls['numeroempleado'].hasError('required')">
-                        El Numero De Empleado es <strong>requerido</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="col-xs-12 col-sm-6">
                     <input type="text" matInput placeholder="Nombre" formControlName="nombre" required>
                     <mat-error *ngIf="userForm.controls['nombre'].hasError('required')">
                         El Nombre es <strong>requerido</strong>
@@ -27,21 +20,6 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="col-xs-12 col-sm-6">
-                    <input matInput [matDatepicker]="birthDatePicker" placeholder="Fecha de Nacimiento"
-                           formControlName="fechadenacimiento" required>
-                    <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #birthDatePicker></mat-datepicker>
-                    <mat-error *ngIf="userForm.controls['fechadenacimiento'].hasError('required')">
-                        La Fecha de Nacimiento es <strong>requerida</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="col-xs-12 col-sm-6">
-                    <input type="tel" matInput placeholder="Teléfono" formControlName="telefono">
-                </mat-form-field>
-                <mat-form-field class="col-xs-12 col-sm-6">
-                    <input type="email" matInput placeholder="Email" formControlName="email">
-                </mat-form-field>
-                <mat-form-field class="col-xs-12 col-sm-6">
                     <input type="text" matInput placeholder="Nombre de Usuario" formControlName="username" required>
                     <mat-error *ngIf="userForm.controls['username'].hasError('required')">
                         El Nombre de Usuario es <strong>requerido</strong>
@@ -51,86 +29,11 @@
                     <input type="password" matInput placeholder="Contraseña" formControlName="password"
                            [required]="!edit">
                     <mat-error *ngIf="userForm.controls['password'].hasError('required')">
-                        La contraseña es <strong>requerida</strong>
+                        La Contraseña es <strong>requerida</strong>
                     </mat-error>
                 </mat-form-field>
                 <div class="col-xs-12">
                     <p class="dialogSubtitle">{{passMessage}}</p>
-                </div>
-                <mat-checkbox class="col-xs-12 margin-bottom-25" formControlName="bloqueado">Bloqueado</mat-checkbox>
-
-                <div class="col-xs-12" style="height: 40px; margin-bottom: 15px">
-                    <div class="col-xs-4 padding-left-0">
-                        <h2 class="dialog-subtitle">Departamentos</h2>
-                    </div>
-                    <div class="col-xs-8">
-                        <button type="button" class="btn btn-primary btn-fill pull-right"
-                                (click)="addDepartamento()">
-                            <i class="pe-7s-plus icon"></i>
-                            <span>Departamento</span>
-                        </button>
-                    </div>
-                </div>
-                <div formArrayName="departamentos">
-                    <div class="col-xs-12 margin-bottom-25"
-                         *ngFor="let departamento of userForm.get('departamentos').controls; let i=index">
-                        <div [formGroupName]="i">
-                            <div class="col-xs-5">
-                                <mat-form-field class="full-width">
-                                    <!--<input type="text" matInput placeholder="Departamento" formControlName="departamento" required>-->
-                                    <mat-select placeholder="Departamento" formControlName="departamento" required>
-                                        <mat-option *ngFor="let department of departments" [value]="department._id">
-                                            {{department.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error
-                                        *ngIf="departamento.hasError('required')">
-                                        El Departamento es <strong>requerido</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div
-                                [ngClass]=" i == 0 && (userForm.get('departamentos').controls.length == 1) ? 'col-xs-7' : 'col-xs-4'">
-                                <button type="button" class="btn btn-primary btn-fill btn-block" (click)="addRol(i)">
-                                    <i class="pe-7s-plus icon"></i>
-                                    <span>Rol</span>
-                                </button>
-                            </div>
-                            <div class="col-xs-3">
-                                <button
-                                    *ngIf="i != 0 || (userForm.get('departamentos').controls.length) > 1"
-                                    type="button" class="btn btn-danger btn-fill" (click)="removeDepartamento(i)">
-                                    <i class="pe-7s-close-circle icon"></i>
-                                </button>
-                            </div>
-                            <div formArrayName="roles">
-                                <div class="col-xs-12"
-                                     *ngFor="let rol of userForm.get('departamentos').controls[i].get('roles').controls; let x=index">
-                                    <div class="col-xs-6">
-                                        <mat-form-field class="full-width">
-                                            <!--<input type="text" matInput placeholder="Rol" [formControlName]="x" required>-->
-                                            <mat-select placeholder="Rol" [formControlName]="x" required>
-                                                <mat-option *ngFor="let role of roles" [value]="role._id">
-                                                    {{role.name}}
-                                                </mat-option>
-                                            </mat-select>
-                                            <mat-error
-                                                *ngIf="rol.hasError('required')">
-                                                El Rol es <strong>requerido</strong>
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <button
-                                            *ngIf="x != 0 || (userForm.get('departamentos').controls[i].get('roles').controls.length) > 1"
-                                            type="button" class="btn btn-danger btn-fill" (click)="removeRol(i, x)">
-                                            <i class="pe-7s-close-circle icon"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -7,10 +7,12 @@ import {ModPasswordComponent} from './mod-password/mod-password.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './utils/guards/auth.guard';
 import {FormComponent} from './form/form.component';
+import {FacturasComponent} from './facturas/facturas.component';
 
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
-    {path: 'facturas', canActivate: [AuthGuard], component: FormComponent},
+    {path: 'factura', canActivate: [AuthGuard], component: FormComponent},
+    {path: 'facturas-existentes', canActivate: [AuthGuard], component: FacturasComponent},
     // {path: 'usuarios', canActivate: [AuthGuard, NewUserGuard], component: UsersComponent},
     // {path: 'usuario', canActivate: [AuthGuard, NewUserGuard], component: UserComponent},
     {path: 'mod-pass', canActivate: [AuthGuard], component: ModPasswordComponent},

@@ -1,0 +1,90 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mat-elevation-z8">
+                    <div class="header">
+                        <div class="col-xs-12">
+                            <h4 class="title">Facturas</h4>
+                        </div>
+                        <!-- <p class="category">Here is a subtitle for this table</p> -->
+                    </div>
+                    <div class="content">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <ng-container *ngFor="let cell of tableFacturas.columns; let index=index;">
+                                        <th *ngIf="index != (tableFacturas.columns.length - 1)">{{ cell }}</th>
+                                        <th *ngIf="index == (tableFacturas.columns.length - 1)" [@column]="state">{{
+                                            cell }}
+                                        </th>
+                                    </ng-container>
+                                </tr>
+                                </thead>
+                                <tbody *ngIf="tableFacturas.rows.length">
+                                <tr *ngFor="let factura of tableFacturas.rows; let index = index;"
+                                    (mouseover)="states[index] = 'active'; state = 'active'"
+                                    (mouseout)="states[index] = 'inactive'; state = 'inactive'"
+                                    (touchstart)="states[index] = 'active'; state = 'active'"
+                                    (touchend)="states[index] = 'inactive'; state = 'inactive'">
+                                    <td>
+                                        <table class="table table-hover table-striped mat-elevation-z8">
+                                            <thead>
+                                            <tr>
+                                                <th>RFC</th>
+                                                <th>Razón Social</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>{{clientes[index]?.rfc}}</td>
+                                                <td>{{clientes[index]?.razonsocial}}</td>
+                                                <td>{{clientes[index]?.email}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>{{factura.formadepago}}</td>
+                                    <td>{{factura.subtotal}}</td>
+                                    <td>{{factura.iva}}</td>
+                                    <td>{{factura.totalneto}}</td>
+                                    <td>{{factura.createdAt | date: 'shortDate'}}</td>
+                                    <td [@buttons]="states[index]">
+                                        <div class="col-xs-4">
+                                            <button mat-mini-fab color="basic"
+                                                    (click)="sendFactura(factura._id)">
+                                                <i class="pe-7s-cloud-upload icon"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button mat-mini-fab color="primary"
+                                                    (click)="openEditFacturaDialog(factura)">
+                                                <i class="pe-7s-note icon"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <button mat-mini-fab color="warn"
+                                                    (click)="openDeleteDialog(factura)">
+                                                <i class="pe-7s-trash icon"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tbody *ngIf="!tableFacturas.rows.length">
+                                <tr>
+                                    <td class="text-center" [attr.colspan]="tableFacturas.columns.length">
+                                        <h2>NO HAY FACTURAS DADOS DE ALTA</h2>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

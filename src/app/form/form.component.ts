@@ -1,5 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {ClientDialogComponent} from '../dialogs/client-dialog/client-dialog.component';
+import {NotifyService} from '../utils/services/notify.service';
+import {ClientService} from '../utils/services/client.service';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/startWith';
+import {FacturaService} from '../utils/services/factura.service';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-form',
@@ -7,11 +16,9 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
     styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+    isMobile: Boolean = false;
     facturaForm: FormGroup = new FormGroup({
         cliente: new FormControl(),
-        // rfc: new FormControl(),
-        // razonsocial: new FormControl(),
-        // email: new FormControl(),
         formadepago: new FormControl(),
         conceptos: new FormArray([
             new FormGroup({
@@ -27,6 +34,8 @@ export class FormComponent implements OnInit {
         totalneto: new FormControl(),
     });
 
+    clients: any = [];
+    filteredClients: Observable<string[]>;
     formasdepago = [
         'Efectivo',
         'Cheque nominativo',
@@ -56,10 +65,67 @@ export class FormComponent implements OnInit {
         'METROS LINEALES'
     ];
 
-    constructor() {
+    constructor(public dialog: MatDialog,
+                private notify: NotifyService,
+                private clientService: ClientService,
+                private facturaService: FacturaService,
+                private router: Router) {
     }
 
     ngOnInit() {
+        this.getClients();
+
+        this.filteredClients = this.facturaForm.get('cliente').valueChanges
+            .startWith(null)
+            .map(val => val ? this.filter(val) : this.clients.slice());
+
+        this.facturaForm.get('cliente').valueChanges.subscribe(
+            rfc => {
+                this.clients.forEach((client) => {
+                    if (client.rfc !== rfc) {
+                        this.facturaForm.get('cliente').setErrors({clientDontExists: true});
+                    } else {
+                        this.facturaForm.get('cliente').setErrors(null);
+                    }
+                });
+            }
+        );
+    }
+
+    filter(val: string): string[] {
+        return this.clients.filter(option =>
+            option.razonsocial.toLowerCase().includes(val.toLowerCase())
+            || option.razonsocial.toLowerCase().indexOf(val.toLowerCase()) === 0
+            || option.rfc.toLowerCase().includes(val.toLowerCase())
+            || option.rfc.toLowerCase().indexOf(val.toLowerCase()) === 0);
+    }
+
+    getClients() {
+        this.clientService.getAll().subscribe(data => {
+            this.clients = data;
+        });
+    }
+
+    onResize(event) {
+        if (event.target.innerWidth < 992) {
+            this.isMobile = true;
+        } else {
+            this.isMobile = false;
+        }
+    }
+
+    openAddClientDialog(): void {
+        const dialogRef = this.dialog.open(ClientDialogComponent, {
+            width: '500px',
+            data: null
+        } as MatDialogConfig);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.notify.success('pe-7s-check', 'Cliente agregado correctamente');
+                this.getClients();
+            }
+        });
     }
 
     calcularImporte(i): void {
@@ -101,5 +167,29 @@ export class FormComponent implements OnInit {
         this.facturaForm.get('subtotal').setValue(subtotal);
         this.facturaForm.get('iva').setValue(iva);
         this.facturaForm.get('totalneto').setValue(totalneto);
+    }
+
+    onSubmit(facturaForm) {
+        this.facturaService.addFactura(facturaForm.value).subscribe(
+            data => {
+                console.log(data);
+                this.notify.success('pe-7s-check', 'Factura agregada correctamente');
+                this.facturaService.send(data._id).subscribe(
+                    dataSend => {
+                        console.log(dataSend);
+                        this.notify.success('pe-7s-check', 'Factura enviada correctamente');
+                        this.router.navigate(['/facturas-existentes']);
+                    },
+                    err => {
+                        console.log(err);
+                        this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                    }
+                );
+            },
+            err => {
+                console.log(err);
+                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+            }
+        );
     }
 }

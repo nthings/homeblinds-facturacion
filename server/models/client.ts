@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
 
 const clientSchema = new mongoose.Schema({

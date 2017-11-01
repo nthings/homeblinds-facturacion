@@ -37,17 +37,18 @@ import {SearchPipe} from './utils/pipes/search.pipe';
 // Dialogs
 import {UserDialogComponent} from './dialogs/user-dialog/user-dialog.component';
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
-import {DepartmentDialogComponent} from './dialogs/department-dialog/department-dialog.component';
+import {ClientDialogComponent} from './dialogs/client-dialog/client-dialog.component';
 import {RolesDialogComponent} from './dialogs/roles-dialog/roles-dialog.component';
-import {UserDepartmentsDialogComponent} from './dialogs/user-departments-dialog/user-departments-dialog.component';
 
 // Services
-import {DepartmentService} from './utils/services/department.service';
+import {ClientService} from './utils/services/client.service';
 import {RoleService} from './utils/services/role.service';
 import {UserService} from './utils/services/user.service';
 import {NotifyService} from './utils/services/notify.service';
 import {AuthGuard} from './utils/guards/auth.guard';
 import {AuthenticationService} from './utils/services/authentication.service';
+import {FacturaService} from "./utils/services/factura.service";
+import { FacturasComponent } from './facturas/facturas.component';
 
 @NgModule({
     declarations: [
@@ -59,11 +60,11 @@ import {AuthenticationService} from './utils/services/authentication.service';
         UserDialogComponent,
         ModPasswordComponent,
         DeleteDialogComponent,
-        DepartmentDialogComponent,
+        ClientDialogComponent,
         RolesDialogComponent,
-        UserDepartmentsDialogComponent,
         LoginComponent,
-        FormComponent
+        FormComponent,
+        FacturasComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -90,10 +91,11 @@ import {AuthenticationService} from './utils/services/authentication.service';
     ],
     providers: [
         AuthGuard,
-        DepartmentService,
+        ClientService,
         RoleService,
         AuthenticationService,
         UserService,
+        FacturaService,
         NotifyService
     ],
     bootstrap: [AppComponent],
@@ -101,8 +103,7 @@ import {AuthenticationService} from './utils/services/authentication.service';
         UserDialogComponent,
         DeleteDialogComponent,
         RolesDialogComponent,
-        DepartmentDialogComponent,
-        UserDepartmentsDialogComponent
+        ClientDialogComponent,
     ]
 })
 export class AppModule {
