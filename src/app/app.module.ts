@@ -29,6 +29,7 @@ import {UsersComponent} from './users/users.component';
 import {ModPasswordComponent} from './mod-password/mod-password.component';
 import {LoginComponent} from './login/login.component';
 import {FormComponent} from './form/form.component';
+import { FacturasComponent } from './facturas/facturas.component';
 
 // Pipes
 import {SafeHtml} from './utils/pipes/safeHtml';
@@ -39,6 +40,8 @@ import {UserDialogComponent} from './dialogs/user-dialog/user-dialog.component';
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
 import {ClientDialogComponent} from './dialogs/client-dialog/client-dialog.component';
 import {RolesDialogComponent} from './dialogs/roles-dialog/roles-dialog.component';
+import {ConceptosDialogComponent} from './dialogs/conceptos-dialog/conceptos-dialog.component';
+
 
 // Services
 import {ClientService} from './utils/services/client.service';
@@ -47,8 +50,7 @@ import {UserService} from './utils/services/user.service';
 import {NotifyService} from './utils/services/notify.service';
 import {AuthGuard} from './utils/guards/auth.guard';
 import {AuthenticationService} from './utils/services/authentication.service';
-import {FacturaService} from "./utils/services/factura.service";
-import { FacturasComponent } from './facturas/facturas.component';
+import {FacturaService} from './utils/services/factura.service';
 
 @NgModule({
     declarations: [
@@ -62,6 +64,7 @@ import { FacturasComponent } from './facturas/facturas.component';
         DeleteDialogComponent,
         ClientDialogComponent,
         RolesDialogComponent,
+        ConceptosDialogComponent,
         LoginComponent,
         FormComponent,
         FacturasComponent
@@ -104,6 +107,7 @@ import { FacturasComponent } from './facturas/facturas.component';
         DeleteDialogComponent,
         RolesDialogComponent,
         ClientDialogComponent,
+        ConceptosDialogComponent
     ]
 })
 export class AppModule {

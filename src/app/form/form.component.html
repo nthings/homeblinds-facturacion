@@ -133,9 +133,17 @@
                 </mat-form-field>
             </div>
 
-            <div class="col-xs-12" [ngClass]="{'text-center': !isMobile}">
+            <div class="col-xs-12 col-sm-6" [ngClass]="{'text-center': !isMobile}">
                 <button type="submit" form="facturaForm" class="btn btn-success btn-fill"
                         [ngClass]="{'btn-block': isMobile}" [disabled]="facturaForm.invalid">
+                    <i class="pe-7s-upload icon"></i>
+                    <span>Guardar Factura</span>
+                </button>
+            </div>
+
+            <div class="col-xs-12 col-sm-6" [ngClass]="{'text-center': !isMobile, 'margin-top-15': isExtraSmall}">
+                <button (click)="sendFactura(); $event.preventDefault()" class="btn btn-default btn-fill"
+                        [ngClass]="{'btn-block': isMobile}" [disabled]="!id">
                     <i class="pe-7s-upload icon"></i>
                     <span>Enviar Factura</span>
                 </button>

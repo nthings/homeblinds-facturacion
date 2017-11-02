@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import {FacturaService} from '../utils/services/factura.service';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-form',
@@ -17,6 +17,8 @@ import {Router} from "@angular/router";
 })
 export class FormComponent implements OnInit {
     isMobile: Boolean = false;
+    isExtraSmall: Boolean = false;
+    id: String = null;
     facturaForm: FormGroup = new FormGroup({
         cliente: new FormControl(),
         formadepago: new FormControl(),
@@ -69,7 +71,8 @@ export class FormComponent implements OnInit {
                 private notify: NotifyService,
                 private clientService: ClientService,
                 private facturaService: FacturaService,
-                private router: Router) {
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -90,6 +93,35 @@ export class FormComponent implements OnInit {
                 });
             }
         );
+
+        this.route.params.subscribe(params => {
+            const param: any = params;
+            if (param.id) {
+                this.id = param.id;
+                this.facturaService.get(param.id).subscribe(
+                    factura => {
+                        console.log(factura);
+                        this.facturaForm.get('cliente').setValue(factura.cliente);
+                        this.facturaForm.get('formadepago').setValue(factura.formadepago);
+                        this.facturaForm.get('subtotal').setValue(factura.subtotal);
+                        this.facturaForm.get('iva').setValue(factura.iva);
+                        this.facturaForm.get('totalneto').setValue(factura.totalneto);
+
+                        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
+                        for (let a = 0; a < factura.conceptos.length; a++) {
+                            if (a !== 0) {
+                                this.addConcepto();
+                            }
+                            conceptos.at(a).get('cantidad').setValue(factura.conceptos[a].cantidad);
+                            conceptos.at(a).get('unidad').setValue(factura.conceptos[a].unidad);
+                            conceptos.at(a).get('descripcion').setValue(factura.conceptos[a].descripcion);
+                            conceptos.at(a).get('valorunitario').setValue(factura.conceptos[a].valorunitario);
+                            conceptos.at(a).get('importe').setValue(factura.conceptos[a].importe);
+                        }
+                    }
+                );
+            }
+        });
     }
 
     filter(val: string): string[] {
@@ -111,6 +143,12 @@ export class FormComponent implements OnInit {
             this.isMobile = true;
         } else {
             this.isMobile = false;
+        }
+
+        if (event.target.innerWidth < 767) {
+            this.isExtraSmall = true;
+        } else {
+            this.isExtraSmall = false;
         }
     }
 
@@ -170,24 +208,39 @@ export class FormComponent implements OnInit {
     }
 
     onSubmit(facturaForm) {
-        this.facturaService.addFactura(facturaForm.value).subscribe(
+        if (this.id) {
+            this.facturaService.editFactura(facturaForm.value, this.id).subscribe(
+                data => {
+                    console.log(data);
+                    this.notify.success('pe-7s-check', 'Factura editada correctamente');
+                },
+                err => {
+                    console.log(err);
+                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                }
+            );
+        } else {
+            this.facturaService.addFactura(facturaForm.value).subscribe(
+                data => {
+                    console.log(data);
+                    this.id = data._id;
+                    this.notify.success('pe-7s-check', 'Factura agregada correctamente');
+                },
+                err => {
+                    console.log(err);
+                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                }
+            );
+        }
+
+    }
+
+    sendFactura() {
+        this.facturaService.send(this.id).subscribe(
             data => {
-                console.log(data);
-                this.notify.success('pe-7s-check', 'Factura agregada correctamente');
-                this.facturaService.send(data._id).subscribe(
-                    dataSend => {
-                        console.log(dataSend);
-                        this.notify.success('pe-7s-check', 'Factura enviada correctamente');
-                        this.router.navigate(['/facturas-existentes']);
-                    },
-                    err => {
-                        console.log(err);
-                        this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-                    }
-                );
+                this.notify.success('pe-7s-check', 'Factura enviada correctamente');
             },
-            err => {
-                console.log(err);
+            error => {
                 this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
             }
         );

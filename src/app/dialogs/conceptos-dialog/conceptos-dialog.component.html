@@ -1,0 +1,47 @@
+<h2 class="row" matDialogTitle>
+    <div class="col-xs-6">
+        <span>{{title}}</span>
+    </div>
+    <div class="col-xs-6">
+        <i [ngClass]="icon" class="icon pull-right"></i>
+    </div>
+
+</h2>
+<mat-dialog-content>
+    <div class="content">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped text-center">
+                <thead>
+                <tr>
+                    <th class="text-center" *ngFor="let cell of tableConceptos.columns; let index=index;">{{ cell }}</th>
+                </tr>
+                </thead>
+                <tbody *ngIf="tableConceptos.rows.length">
+                <tr *ngFor="let concepto of tableConceptos.rows; let index = index;">
+                    <td>{{concepto.cantidad}}</td>
+                    <td>{{concepto.unidad}}</td>
+                    <td class="small">{{concepto.descripcion}}</td>
+                    <td>{{concepto.valorunitario}}</td>
+                    <td>{{concepto.importe}}</td>
+                </tr>
+                </tbody>
+                <tbody *ngIf="!tableConceptos.rows.length">
+                <tr>
+                    <td class="text-center" [attr.colspan]="tableConceptos.columns.length">
+                        <h2>NO HAY CONCEPTOS DADOS DE ALTA PARA LA FACTURA</h2>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-default btn-block" matDialogClose>Cerrar</button>
+            </div>
+        </div>
+    </div>
+</mat-dialog-actions>

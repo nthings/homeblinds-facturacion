@@ -51,6 +51,7 @@
                                     <td>{{factura.iva}}</td>
                                     <td>{{factura.totalneto}}</td>
                                     <td>{{factura.createdAt | date: 'shortDate'}}</td>
+                                    <td><button mat-button (click)="openConceptosDialog(factura)">Ver</button></td>
                                     <td [@buttons]="states[index]">
                                         <div class="col-xs-4">
                                             <button mat-mini-fab color="basic"
@@ -60,7 +61,7 @@
                                         </div>
                                         <div class="col-xs-4">
                                             <button mat-mini-fab color="primary"
-                                                    (click)="openEditFacturaDialog(factura)">
+                                                    (click)="openEditFacturaDialog(factura._id)">
                                                 <i class="pe-7s-note icon"></i>
                                             </button>
                                         </div>

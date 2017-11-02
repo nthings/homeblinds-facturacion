@@ -6,6 +6,8 @@ import {FacturaService} from '../utils/services/factura.service';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {ClientService} from '../utils/services/client.service';
 import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
+import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-dialog.component';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-facturas',
@@ -45,12 +47,13 @@ export class FacturasComponent implements OnInit {
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,
                 private facturaService: FacturaService,
-                private clientService: ClientService) {
+                private clientService: ClientService,
+                private router: Router) {
     }
 
     ngOnInit() {
         this.tableFacturas = {
-            columns: ['Cliente', 'Forma de Pago', 'Sub-Total', 'I.V.A.', 'Total Neto', 'Fecha de Creación', 'Acciones'],
+            columns: ['Cliente', 'Forma de Pago', 'Sub-Total', 'I.V.A.', 'Total Neto', 'Fecha de Creación', 'Conceptos', 'Acciones'],
             rows: []
         };
         this.state = 'inactive';
@@ -70,6 +73,13 @@ export class FacturasComponent implements OnInit {
         });
     }
 
+    openConceptosDialog(factura): void {
+        const dialogRef = this.dialog.open(ConceptosDialogComponent, {
+            width: '500px',
+            data: factura.conceptos
+        } as MatDialogConfig);
+    }
+
     sendFactura(id) {
         this.facturaService.send(id).subscribe(
             data => {
@@ -81,20 +91,10 @@ export class FacturasComponent implements OnInit {
         );
     }
 
-    // openEditFacturaDialog(user): void {
-    //     const dialogRef = this.dialog.open(UserDialogComponent, {
-    //         width: '500px',
-    //         data: user
-    //     } as MatDialogConfig);
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         if (result) {
-    //             this.notify.success('pe-7s-check', 'Usuario editado correctamente');
-    //             this.getFacturas();
-    //         }
-    //     });
-    // }
-    //
+    openEditFacturaDialog(id): void {
+        this.router.navigate(['/factura/' + id]);
+    }
+
     openDeleteDialog(factura): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent, {
             width: '500px',

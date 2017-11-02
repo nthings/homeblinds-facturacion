@@ -6,6 +6,8 @@ const facturaCtrl = new FacturaCtrl();
 
 router.get('/all', facturaCtrl.getAll);
 
+router.get('/get/:id', facturaCtrl.get);
+
 router.post('/add', facturaCtrl.insert);
 
 router.post('/edit/:id', facturaCtrl.update);

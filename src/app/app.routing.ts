@@ -12,6 +12,7 @@ import {FacturasComponent} from './facturas/facturas.component';
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'factura', canActivate: [AuthGuard], component: FormComponent},
+    {path: 'factura/:id', canActivate: [AuthGuard], component: FormComponent},
     {path: 'facturas-existentes', canActivate: [AuthGuard], component: FacturasComponent},
     // {path: 'usuarios', canActivate: [AuthGuard, NewUserGuard], component: UsersComponent},
     // {path: 'usuario', canActivate: [AuthGuard, NewUserGuard], component: UserComponent},
