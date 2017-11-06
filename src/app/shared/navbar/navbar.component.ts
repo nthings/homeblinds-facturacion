@@ -54,10 +54,7 @@ export class NavbarComponent implements OnInit {
         this.listTitles.push({path: 'usuarios', title: 'Usuarios'});
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-
         this.menuItems = ROUTES_NAV_BAR.filter(menuItem => menuItem);
-
-        console.log(this.listTitles);
     }
 
     sidebarOpen() {

@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit({value, valid}) {
-        console.log(value);
         this.auth.login(value).subscribe(result => {
                 if (result === true) {
                     let nombre = this.auth.user.nombre;

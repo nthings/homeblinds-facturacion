@@ -27,7 +27,6 @@ export class ModPasswordComponent implements OnInit {
 
     onSubmit({value, valid}) {
         value.username = this.auth.user.username;
-        console.log(value);
         if (value.password !== value.rePassword) {
             this.notify.error('pe-7s-close-circle', 'Password diferentes.');
         } else {

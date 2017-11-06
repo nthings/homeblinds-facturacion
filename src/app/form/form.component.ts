@@ -100,7 +100,6 @@ export class FormComponent implements OnInit {
                 this.id = param.id;
                 this.facturaService.get(param.id).subscribe(
                     factura => {
-                        console.log(factura);
                         this.facturaForm.get('cliente').setValue(factura.cliente);
                         this.facturaForm.get('formadepago').setValue(factura.formadepago);
                         this.facturaForm.get('subtotal').setValue(factura.subtotal);
@@ -211,7 +210,6 @@ export class FormComponent implements OnInit {
         if (this.id) {
             this.facturaService.editFactura(facturaForm.value, this.id).subscribe(
                 data => {
-                    console.log(data);
                     this.notify.success('pe-7s-check', 'Factura editada correctamente');
                 },
                 err => {
@@ -222,7 +220,6 @@ export class FormComponent implements OnInit {
         } else {
             this.facturaService.addFactura(facturaForm.value).subscribe(
                 data => {
-                    console.log(data);
                     this.id = data._id;
                     this.notify.success('pe-7s-check', 'Factura agregada correctamente');
                 },

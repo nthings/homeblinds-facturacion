@@ -3,16 +3,16 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 
 import {TableData} from '../utils/interfaces/TableData';
-import {UserDialogComponent} from '../dialogs/user-dialog/user-dialog.component';
 import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
 
-import {UserService} from '../utils/services/user.service';
 import {NotifyService} from '../utils/services/notify.service';
+import {ClientService} from '../utils/services/client.service';
+import {ClientDialogComponent} from '../dialogs/client-dialog/client-dialog.component';
 
 @Component({
-    selector: 'app-users',
-    templateUrl: './users.component.html',
-    styleUrls: ['./users.component.css'],
+    selector: 'app-clientes',
+    templateUrl: './clientes.component.html',
+    styleUrls: ['./clientes.component.css'],
     animations: [
         trigger('buttons', [
             state('inactive', style({
@@ -38,77 +38,75 @@ import {NotifyService} from '../utils/services/notify.service';
         ])
     ]
 })
-export class UsersComponent implements OnInit {
+export class ClientesComponent implements OnInit {
     states;
     state;
     public tableClients: TableData;
 
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,
-                private userService: UserService) {
+                private clientService: ClientService) {
     }
 
     ngOnInit() {
         this.tableClients = {
-            columns: ['Nombre', 'Apellidos', 'Nombre de Usuario', 'Acciones'],
+            columns: ['RFC', 'Razon Social', 'Fecha de Creación', 'Email', 'Acciones'],
             rows: []
         };
 
         this.state = 'inactive';
-        this.getUsers();
+        this.getClients();
 
     }
 
-    getUsers() {
-        this.userService.getAll().subscribe(data => {
-            console.log(data);
+    getClients() {
+        this.clientService.getAll().subscribe(data => {
             this.tableClients.rows = data;
             this.states = new Array(this.tableClients.rows.length).fill('inactive');
         });
 
-        // this.dataSource = new UsersDataSource(this.userService);
+        // this.dataSource = new UsersDataSource(this.clientService);
     }
 
     openDialog(): void {
-        const dialogRef = this.dialog.open(UserDialogComponent, {
+        const dialogRef = this.dialog.open(ClientDialogComponent, {
             width: '500px',
             data: null
         } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success('pe-7s-check', 'Usuario agregado correctamente');
-                this.getUsers();
+                this.notify.success('pe-7s-check', 'Cliente agregado correctamente');
+                this.getClients();
             }
         });
     }
 
-    openEditUserDialog(user): void {
-        const dialogRef = this.dialog.open(UserDialogComponent, {
+    openEditClientDialog(client): void {
+        const dialogRef = this.dialog.open(ClientDialogComponent, {
             width: '500px',
-            data: user
+            data: client
         } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success('pe-7s-check', 'Usuario editado correctamente');
-                this.getUsers();
+                this.notify.success('pe-7s-check', 'Cliente editado correctamente');
+                this.getClients();
             }
         });
     }
 
-    openDeleteUserDialog(user): void {
+    openDeleteClientDialog(client): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent, {
             width: '500px',
-            data: {_id: user._id, message: user.nombre + ' ' + user.apellidos, service: this.userService}
+            data: {_id: client._id, message: client.razonsocial, service: this.clientService}
         } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success('pe-7s-check', 'Usuario Eliminado correctamente');
-                this.getUsers();
+                this.notify.success('pe-7s-check', 'Cliente Eliminado correctamente');
+                this.getClients();
             }
         });
     }
-
 }

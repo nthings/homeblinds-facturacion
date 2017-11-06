@@ -28,7 +28,6 @@ export class ClientDialogComponent implements OnInit {
 
     ngOnInit() {
         if (this.data) {
-            console.log(this.data);
             this.title = 'Editar Cliente';
             this.icon = 'pe-7s-note icon';
             this.edit = true;
@@ -49,7 +48,6 @@ export class ClientDialogComponent implements OnInit {
         if (this.edit) {
             this.clientService.editClient(value, this.data._id).subscribe(
                 data => {
-                    console.log(data);
                     this.dialogRef.close(true);
                 },
                 err => {
@@ -64,7 +62,6 @@ export class ClientDialogComponent implements OnInit {
         } else {
             this.clientService.addClient(value).subscribe(
                 data => {
-                    console.log(data);
                     this.dialogRef.close(true);
                 },
                 err => {
