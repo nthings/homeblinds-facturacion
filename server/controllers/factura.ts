@@ -36,8 +36,8 @@ export default class FacturaCtrl extends BaseCtrl {
                     // },
                     service: 'Hotmail',
                     auth: {
-                        user: process.env.HOTMAIL_USER,
-                        pass: process.env.HOTMAIL_PASSWORD
+                        user: '' + process.env.HOTMAIL_USER + '',
+                        pass: '' + process.env.HOTMAIL_PASSWORD + ''
                     }
                 });
                 const mailOptions = {
