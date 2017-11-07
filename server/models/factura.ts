@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
 const facturaSchema = new mongoose.Schema({
-        cliente: String,
+        cliente: mongoose.Schema.Types.Mixed,
         formadepago: String,
         conceptos: [
             {

@@ -6,15 +6,6 @@ import * as nodemailer from 'nodemailer';
 export default class FacturaCtrl extends BaseCtrl {
     model = Factura;
 
-    getAll = (req, res) => {
-        this.model.find({}, (err, docs) => {
-            if (err) {
-                return console.error(err);
-            }
-            res.json(docs);
-        });
-    }
-
     send = (req, res) => {
         this.model.findOne({_id: req.params.id}, (err, factura: any) => {
             if (err) {
@@ -55,6 +46,30 @@ export default class FacturaCtrl extends BaseCtrl {
                     res.status(200).send('Envíamos correctamente la factura');
                 });
             });
+        });
+    }
+
+    replaceReferenceClient = (req, res) => {
+        this.model.find({cliente: req.body.rfc}, (err, facturas) => {
+            if (err) {
+                console.log(err);
+                return res.sendStatus(500);
+            }
+            if (!facturas) {
+                return res.sendStatus(200);
+            }
+
+            facturas.forEach((factura) => {
+                factura.cliente = req.body;
+                this.model.findOneAndUpdate({_id: factura._id}, factura, (errUpdate) => {
+                    if (errUpdate) {
+                        console.error(errUpdate);
+                        return res.sendStatus(500);
+                    }
+                });
+            });
+
+            res.sendStatus(200);
         });
     }
 }

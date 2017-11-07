@@ -19,7 +19,6 @@ import {
 } from '@angular/material';
 import {AppRoutingModule} from './app.routing';
 import {NavbarModule} from './shared/navbar/navbar.module';
-import {FooterModule} from './shared/footer/footer.module';
 import {SidebarModule} from './sidebar/sidebar.module';
 
 // Components
@@ -67,7 +66,6 @@ import { ClientesComponent } from './clientes/clientes.component';
         ReactiveFormsModule,
         HttpModule,
         NavbarModule,
-        FooterModule,
         SidebarModule,
         RouterModule,
         AppRoutingModule,

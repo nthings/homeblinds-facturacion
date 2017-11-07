@@ -100,7 +100,11 @@ export class FormComponent implements OnInit {
                 this.id = param.id;
                 this.facturaService.get(param.id).subscribe(
                     factura => {
-                        this.facturaForm.get('cliente').setValue(factura.cliente);
+                        if (typeof(factura.cliente) === 'string') {
+                            this.facturaForm.get('cliente').setValue(factura.cliente);
+                        } else {
+                            this.facturaForm.get('cliente').setValue(factura.cliente.rfc);
+                        }
                         this.facturaForm.get('formadepago').setValue(factura.formadepago);
                         this.facturaForm.get('subtotal').setValue(factura.subtotal);
                         this.facturaForm.get('iva').setValue(factura.iva);

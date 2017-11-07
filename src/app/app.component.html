@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="sidebar" data-color="red" data-image="" *ngIf="user.logged">
+    <div class="sidebar" data-color="blue" data-image="" *ngIf="user.logged">
         <app-sidebar></app-sidebar>
         <div class="sidebar-background" style="background-image: url(/assets/img/background.png)"></div>
     </div>
@@ -7,6 +7,5 @@
     <div class="main-panel" [ngClass]="{'full-width': !user.logged}">
         <navbar-cmp [user]="user"></navbar-cmp>
         <router-outlet></router-outlet>
-        <footer-cmp></footer-cmp>
     </div>
 </div>

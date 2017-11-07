@@ -16,4 +16,6 @@ router.delete('/delete/:id', facturaCtrl.delete);
 
 router.get('/send/:id', facturaCtrl.send);
 
+router.post('/replaceClient', facturaCtrl.replaceReferenceClient);
+
 export const FacturaRoutes: Router = router;

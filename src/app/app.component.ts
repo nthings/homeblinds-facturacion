@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
         this.auth.loggedOutEmitted$.subscribe(
             user => {
                 this.user = user;
-                this.router.navigate(['/']);
+                this.router.navigate(['/login']);
             }
         );
     }

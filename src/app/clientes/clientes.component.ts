@@ -8,6 +8,7 @@ import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.comp
 import {NotifyService} from '../utils/services/notify.service';
 import {ClientService} from '../utils/services/client.service';
 import {ClientDialogComponent} from '../dialogs/client-dialog/client-dialog.component';
+import {FacturaService} from '../utils/services/factura.service';
 
 @Component({
     selector: 'app-clientes',
@@ -45,7 +46,8 @@ export class ClientesComponent implements OnInit {
 
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,
-                private clientService: ClientService) {
+                private clientService: ClientService,
+                private facturaService: FacturaService) {
     }
 
     ngOnInit() {
@@ -104,8 +106,12 @@ export class ClientesComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success('pe-7s-check', 'Cliente Eliminado correctamente');
-                this.getClients();
+                this.facturaService.replaceClient(client).subscribe(
+                    data => {
+                        this.notify.success('pe-7s-check', 'Cliente Eliminado correctamente.');
+                        this.getClients();
+                    }
+                );
             }
         });
     }
