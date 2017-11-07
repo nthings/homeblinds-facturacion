@@ -25,21 +25,19 @@ export default class FacturaCtrl extends BaseCtrl {
                     return res.sendStatus(404);
                 }
                 factura.cliente = cliente;
-                const smtp = nodemailer.createTransport({
-                    host: 'smtp.live.com', // hostname
-                    secureConnection: false,  // TLS requires secureConnection to be false
-                    port: 587, // port for secure SMTP
-                    auth: {
-                        user: '' + process.env.HOTMAIL_USER + '',
-                        pass: '' + process.env.HOTMAIL_PASSWORD + ''
-                    },
-                    tls: {
-                        ciphers: 'SSLv3'
-                    }
-                }, (errTransport) => {
-                    console.log(errTransport);
-                    return res.status(500);
-                });
+                // const smtp = nodemailer.createTransport({
+                //     host: 'smtp.live.com', // hostname
+                //     secureConnection: false,  // TLS requires secureConnection to be false
+                //     port: 587, // port for secure SMTP
+                //     auth: {
+                //         user: '' + process.env.HOTMAIL_USER + '',
+                //         pass: '' + process.env.HOTMAIL_PASSWORD + ''
+                //     },
+                //     tls: {
+                //         ciphers: 'SSLv3'
+                //     }
+                // });
+                const smtp = nodemailer.createTransport('smtp://' + process.env.HOTMAIL_USER + ':' + process.env.HOTMAIL_PASSWORD + '@smtp-mail.outlook.com');
                 const mailOptions = {
                     to: process.env.EMAIL,
                     from: process.env.HOTMAIL_USER,
