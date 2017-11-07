@@ -28,9 +28,13 @@ export default class FacturaCtrl extends BaseCtrl {
                 console.log(process.env.HOTMAIL_USER);
                 console.log(process.env.HOTMAIL_PASSWORD);
                 const smtp = nodemailer.createTransport({
-                    host: 'smtp.gmail.com',
-                    port: 465,
-                    secure: true, // use SSL
+                    // host: 'smtp-mail.outlook.com', // hostname
+                    // secureConnection: false, // TLS requires secureConnection to be false
+                    // port: 587, // port for secure SMTP
+                    // tls: {
+                    //     ciphers: 'SSLv3'
+                    // },
+                    service: 'Hotmail',
                     auth: {
                         user: process.env.HOTMAIL_USER,
                         pass: process.env.HOTMAIL_PASSWORD
