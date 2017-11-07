@@ -8,7 +8,6 @@ import {ClientService} from '../utils/services/client.service';
 import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
 import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-dialog.component';
 import {Router} from '@angular/router';
-import {PushNotificationsService} from 'angular4-notifications/src/push-notifications.service';
 
 @Component({
     selector: 'app-facturas',
@@ -49,10 +48,7 @@ export class FacturasComponent implements OnInit {
                 private notify: NotifyService,
                 private facturaService: FacturaService,
                 private clientService: ClientService,
-                private router: Router,
-                private pushNotifications: PushNotificationsService) {
-        this.pushNotifications.requestPermission();
-    }
+                private router: Router) {}
 
     ngOnInit() {
         this.tableFacturas = {

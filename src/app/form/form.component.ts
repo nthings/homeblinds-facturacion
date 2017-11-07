@@ -8,8 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import {FacturaService} from '../utils/services/factura.service';
-import {Router, ActivatedRoute} from '@angular/router';
-import {PushNotificationsService} from 'angular4-notifications/lib/push-notifications.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-form',
@@ -72,9 +71,7 @@ export class FormComponent implements OnInit {
                 private notify: NotifyService,
                 private clientService: ClientService,
                 private facturaService: FacturaService,
-                private route: ActivatedRoute,
-                private pushNotifications: PushNotificationsService) {
-        this.pushNotifications.requestPermission();
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {

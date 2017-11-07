@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from './authentication.service';
-import {PushNotificationsService} from 'angular4-notifications/lib/push-notifications.service';
+import {PushNotificationsService} from 'angular4-notifications/src/push-notifications.service';
 
 @Injectable()
 export class FacturaService {
     constructor(private http: Http,
                 private auth: AuthenticationService,
                 private pushNotifications: PushNotificationsService) {
+        this.pushNotifications.requestPermission();
     }
 
     public getAll() {
