@@ -106,7 +106,7 @@ export class FacturasComponent implements OnInit {
                 this.notify.success('pe-7s-check', 'Factura enviada correctamente');
             },
             error => {
-                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.' + error);
             }
         );
     }
