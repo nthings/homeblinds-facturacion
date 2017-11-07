@@ -48,7 +48,8 @@ export class FacturasComponent implements OnInit {
                 private notify: NotifyService,
                 private facturaService: FacturaService,
                 private clientService: ClientService,
-                private router: Router) {}
+                private router: Router) {
+    }
 
     ngOnInit() {
         this.tableFacturas = {
@@ -57,6 +58,13 @@ export class FacturasComponent implements OnInit {
         };
         this.state = 'inactive';
         this.getFacturas();
+    }
+
+    onResize(event) {
+        if (event.target.innerWidth < 992) {
+            this.states = new Array(this.tableFacturas.rows.length).fill('active');
+            this.state = 'active';
+        }
     }
 
     getFacturas() {

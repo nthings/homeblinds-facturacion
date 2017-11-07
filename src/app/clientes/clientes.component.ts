@@ -61,6 +61,13 @@ export class ClientesComponent implements OnInit {
 
     }
 
+    onResize(event) {
+        if (event.target.innerWidth < 992) {
+            this.states = new Array(this.tableClients.rows.length).fill('active');
+            this.state = 'active';
+        }
+    }
+
     getClients() {
         this.clientService.getAll().subscribe(data => {
             this.tableClients.rows = data;
