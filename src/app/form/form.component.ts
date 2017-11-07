@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import {FacturaService} from '../utils/services/factura.service';
 import {Router, ActivatedRoute} from '@angular/router';
+import {PushNotificationsService} from 'angular4-notifications/lib/push-notifications.service';
 
 @Component({
     selector: 'app-form',
@@ -71,8 +72,9 @@ export class FormComponent implements OnInit {
                 private notify: NotifyService,
                 private clientService: ClientService,
                 private facturaService: FacturaService,
-                private router: Router,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private pushNotifications: PushNotificationsService) {
+        this.pushNotifications.requestPermission();
     }
 
     ngOnInit() {
@@ -237,7 +239,7 @@ export class FormComponent implements OnInit {
     }
 
     sendFactura() {
-        this.facturaService.send(this.id).subscribe(
+        this.facturaService.notify().subscribe(
             data => {
                 this.notify.success('pe-7s-check', 'Factura enviada correctamente');
             },

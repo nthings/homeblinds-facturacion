@@ -2,11 +2,13 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from './authentication.service';
+import {PushNotificationsService} from 'angular4-notifications/lib/push-notifications.service';
 
 @Injectable()
 export class FacturaService {
     constructor(private http: Http,
-                private auth: AuthenticationService) {
+                private auth: AuthenticationService,
+                private pushNotifications: PushNotificationsService) {
     }
 
     public getAll() {
@@ -29,8 +31,8 @@ export class FacturaService {
         return this.http.get('/facturas/get/' + id, this.auth.options).map(res => res.json());
     }
 
-    public send(id) {
-        return this.http.get('/facturas/send/' + id, this.auth.options).map(res => res.json());
+    public notify() {
+        return this.pushNotifications.create('Homeblinds Facturación', { body: 'Nueva Factura!', icon: 'assets/img/background.png'} );
     }
 
     public replaceClient(client) {

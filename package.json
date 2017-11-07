@@ -14,7 +14,6 @@
     },
     "private": true,
     "dependencies": {
-        "@types/node": "^6.0.89",
         "@angular/animations": "^4.4.5",
         "@angular/cdk": "^2.0.0-beta.12",
         "@angular/cli": "1.4.2",
@@ -29,6 +28,8 @@
         "@angular/platform-browser": "^4.4.5",
         "@angular/platform-browser-dynamic": "^4.4.5",
         "@angular/router": "^4.4.5",
+        "@types/node": "^6.0.89",
+        "angular4-notifications": "0.0.2",
         "arrive": "^2.4.1",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.2",

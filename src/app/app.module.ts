@@ -20,7 +20,7 @@ import {
 import {AppRoutingModule} from './app.routing';
 import {NavbarModule} from './shared/navbar/navbar.module';
 import {SidebarModule} from './sidebar/sidebar.module';
-
+import { PushNotificationsModule } from 'angular4-notifications';
 // Components
 import {AppComponent} from './app.component';
 import {ModPasswordComponent} from './mod-password/mod-password.component';
@@ -78,7 +78,8 @@ import { ClientesComponent } from './clientes/clientes.component';
         MatNativeDateModule,
         MatSelectModule,
         MatTooltipModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        PushNotificationsModule
     ],
     providers: [
         AuthGuard,

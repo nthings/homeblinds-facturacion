@@ -8,6 +8,7 @@ import {ClientService} from '../utils/services/client.service';
 import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
 import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-dialog.component';
 import {Router} from '@angular/router';
+import {PushNotificationsService} from 'angular4-notifications/src/push-notifications.service';
 
 @Component({
     selector: 'app-facturas',
@@ -48,7 +49,9 @@ export class FacturasComponent implements OnInit {
                 private notify: NotifyService,
                 private facturaService: FacturaService,
                 private clientService: ClientService,
-                private router: Router) {
+                private router: Router,
+                private pushNotifications: PushNotificationsService) {
+        this.pushNotifications.requestPermission();
     }
 
     ngOnInit() {
@@ -78,7 +81,7 @@ export class FacturasComponent implements OnInit {
                                 });
                             }
                         });
-                }else {
+                } else {
                     this.clientes.push(factura.cliente);
                 }
             });
@@ -93,8 +96,8 @@ export class FacturasComponent implements OnInit {
         } as MatDialogConfig);
     }
 
-    sendFactura(id) {
-        this.facturaService.send(id).subscribe(
+    sendFactura() {
+        this.facturaService.notify().subscribe(
             data => {
                 this.notify.success('pe-7s-check', 'Factura enviada correctamente');
             },
