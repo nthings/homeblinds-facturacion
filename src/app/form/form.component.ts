@@ -77,12 +77,12 @@ export class FormComponent implements OnInit {
 
         this.filteredClients = this.facturaForm.get('customer').valueChanges
             .startWith(null)
-            .map(val => val ? this.filter(val) : this.clients.slice());
+            .map(val => val ? this.filterClientes(val) : this.clients.slice());
 
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         this.filteredProducts = [conceptos.at(0).get('product').valueChanges
             .startWith(null)
-            .map(val => val ? this.filter(val) : this.products.slice())];
+            .map(val => val ? this.filterProductos(val) : this.products.slice())];
 
         this.facturaForm.get('customer').valueChanges.subscribe(
             id => {
@@ -122,12 +122,18 @@ export class FormComponent implements OnInit {
         });
     }
 
-    filter(val: string): string[] {
+    filterClientes(val: string): string[] {
         return this.clients.filter(option =>
             option.legal_name.toLowerCase().includes(val.toLowerCase())
             || option.legal_name.toLowerCase().indexOf(val.toLowerCase()) === 0
             || option.tax_id.toLowerCase().includes(val.toLowerCase())
             || option.tax_id.toLowerCase().indexOf(val.toLowerCase()) === 0);
+    }
+
+    filterProductos(val: string): string[] {
+        return this.products.filter(option =>
+            option.description.toLowerCase().includes(val.toLowerCase())
+            || option.description.toLowerCase().indexOf(val.toLowerCase()) === 0);
     }
 
     getClients() {
@@ -204,7 +210,7 @@ export class FormComponent implements OnInit {
 
         this.filteredProducts.push(conceptos.at(conceptos.length - 1).get('product').valueChanges
             .startWith(null)
-            .map(val => val ? this.filter(val) : this.products.slice()));
+            .map(val => val ? this.filterProductos(val) : this.products.slice()));
     }
 
     removeConcepto(index): void {
