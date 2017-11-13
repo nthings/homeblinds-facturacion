@@ -14,13 +14,6 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width">
-                        <input type="text" matInput placeholder="Razón Social" formControlName="legal_name"
-                               required>
-                        <mat-error *ngIf="productForm.controls['legal_name'].hasError('required')">
-                            La Razón Social es <strong>requerida</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="full-width">
                         <mat-option *ngFor="let product_key of product_keys" [value]="product_key.key" formControlName="product_key" >
                             <span>{{ product_key.description }}</span>
                         </mat-option>
