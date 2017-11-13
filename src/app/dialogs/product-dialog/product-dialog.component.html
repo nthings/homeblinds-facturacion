@@ -14,8 +14,8 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width">
-                        <mat-option *ngFor="let product_key of product_keys" [value]="product_key.key" formControlName="product_key" >
-                            <span>{{ product_key.description }}</span>
+                        <mat-option *ngFor="let product of product_keys" [value]="product.key" formControlName="product_key" >
+                            <span>{{ product.description }}</span>
                         </mat-option>
                         <mat-error *ngIf="productForm.controls['product_key'].hasError('required')">
                             La Clave Del Producto es <strong>requerida</strong>
