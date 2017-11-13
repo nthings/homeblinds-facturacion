@@ -1,19 +1,64 @@
-import { Router } from 'express';
-import FacturaCtrl from '../controllers/factura';
+import {Router} from 'express';
 
-const router: Router = Router();
-const facturaCtrl = new FacturaCtrl();
+const facturapi = require('facturapi')('sk_test_M51BgK4WnV8mYvW5o63P0X2DdJ93LvOQ');
+const router = Router();
 
-router.get('/all', facturaCtrl.getAll);
+router.get('/all', (req, res) => {
+    facturapi.invoices.list()
+        .then(list => {
+            if (list) {
+                res.send(list.data);
+            }
+            res.send([]);
+        })
+        .catch(err => { /* handle the error */
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
 
-router.get('/get/:id', facturaCtrl.get);
+router.post('/add', (req, res) => {
+    facturapi.invoices.create(req.body)
+        .then(customer => {
+            res.send(customer);
+        })
+        .catch(err => { /* handle the error */
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
 
-router.post('/add', facturaCtrl.insert);
+router.get('/get/:id', (req, res) => {
+    facturapi.invoices.retrieve(req.params.id)
+        .then(customer => {
+            res.send(customer);
+        })
+        .catch(err => { /* handle the error */
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
 
-router.post('/edit/:id', facturaCtrl.update);
+router.post('/edit/:id', (req, res) => {
+    facturapi.invoices.update(req.params.id)
+        .then(customer => {
+            res.send(customer);
+        })
+        .catch(err => { /* handle the error */
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
 
-router.delete('/delete/:id', facturaCtrl.delete);
-
-router.post('/replaceClient', facturaCtrl.replaceReferenceClient);
+router.delete('/delete/:id', (req, res) => {
+    facturapi.invoices.del(req.params.id)
+        .then(customer => {
+            res.send(customer);
+        })
+        .catch(err => { /* handle the error */
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
 
 export const FacturaRoutes: Router = router;

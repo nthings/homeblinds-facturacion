@@ -70,25 +70,6 @@ export class FacturasComponent implements OnInit {
     getFacturas() {
         this.facturaService.getAll().subscribe(data => {
             this.tableFacturas.rows = data;
-            this.tableFacturas.rows.forEach((factura) => {
-                if (typeof(factura.cliente) === 'string') {
-                    this.clientService.get(factura.cliente).subscribe(
-                        cliente => {
-                            this.clientes.push(cliente);
-                        },
-                        error2 => {
-                            if (error2.status === 404) {
-                                this.clientes.push({
-                                    rfc: 'NO EXISTE EL CLIENTE',
-                                    razonsocial: 'NO EXISTE EL CLIENTE',
-                                    email: 'NO EXISTE EL CLIENTE'
-                                });
-                            }
-                        });
-                } else {
-                    this.clientes.push(factura.cliente);
-                }
-            });
             this.states = new Array(this.tableFacturas.rows.length).fill('inactive');
         });
     }

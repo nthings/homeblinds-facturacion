@@ -15,9 +15,12 @@ export class ClientDialogComponent implements OnInit {
     icon: String = 'pe-7s-share icon';
     edit: Boolean = false;
     clientForm = new FormGroup({
-        rfc: new FormControl(),
-        razonsocial: new FormControl(),
-        email: new FormControl()
+        tax_id: new FormControl(),
+        legal_name: new FormControl(),
+        email: new FormControl(),
+        address: new FormGroup({
+            zip: new FormControl()
+        })
     });
 
     constructor(public dialogRef: MatDialogRef<ClientDialogComponent>,
@@ -32,9 +35,10 @@ export class ClientDialogComponent implements OnInit {
             this.icon = 'pe-7s-note icon';
             this.edit = true;
             // Fill client data
-            this.clientForm.controls['rfc'].setValue(this.data.rfc, {onlySelf: true});
-            this.clientForm.controls['razonsocial'].setValue(this.data.razonsocial, {onlySelf: true});
+            this.clientForm.controls['tax_id'].setValue(this.data.tax_id, {onlySelf: true});
+            this.clientForm.controls['legal_name'].setValue(this.data.legal_name, {onlySelf: true});
             this.clientForm.controls['email'].setValue(this.data.email, {onlySelf: true});
+            this.clientForm.controls['address'].get('zip').setValue(this.data.email, {onlySelf: true});
         }
     }
 

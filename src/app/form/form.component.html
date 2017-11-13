@@ -15,18 +15,18 @@
 
                 <mat-form-field class="col-xs-12 full-width">
                     <input matInput placeholder="Selecciona un Cliente" aria-label="State" [matAutocomplete]="auto"
-                           formControlName="cliente" required>
+                           formControlName="customer" required>
                     <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let client of filteredClients | async" [value]="client.rfc">
-                            <span>{{ client.rfc }}</span> |
-                            <span>{{ client.razonsocial }}</span> |
+                        <mat-option *ngFor="let client of filteredClients | async" [value]="client.tax_id">
+                            <span>{{ client.tax_id }}</span> |
+                            <span>{{ client.legal_name }}</span> |
                             <small>Email: {{client.email}}</small>
                         </mat-option>
                     </mat-autocomplete>
-                    <mat-error *ngIf="facturaForm.controls['cliente'].hasError('required')">
+                    <mat-error *ngIf="facturaForm.controls['customer'].hasError('required')">
                         El Cliente es <strong>requerido</strong>
                     </mat-error>
-                    <mat-error *ngIf="facturaForm.controls['cliente'].hasError('clientDontExists')">
+                    <mat-error *ngIf="facturaForm.controls['customer'].hasError('clientDontExists')">
                         Ese Cliente <strong>NO EXISTE</strong>
                     </mat-error>
                 </mat-form-field>
@@ -35,12 +35,12 @@
             <div class="col-xs-12">
                 <h2 class="dialog-subtitle">Forma de Pago</h2>
                 <mat-form-field class="col-xs-12 col-sm-6 full-width">
-                    <mat-select placeholder="Forma de Pago" formControlName="formadepago" required>
-                        <mat-option *ngFor="let formadepago of formasdepago" [value]="formadepago">
-                            {{formadepago}}
+                    <mat-select placeholder="Forma de Pago" formControlName="payment_form" required>
+                        <mat-option *ngFor="let formadepago of formasdepago" [value]="formadepago.code">
+                            {{formadepago.description}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="facturaForm.controls['formadepago'].hasError('required')">
+                    <mat-error *ngIf="facturaForm.controls['payment_form'].hasError('required')">
                         La Forma de Pago es <strong>requerida</strong>
                     </mat-error>
                 </mat-form-field>
@@ -48,57 +48,52 @@
 
             <div class="col-xs-12">
                 <h2 class="dialog-subtitle">Conceptos</h2>
-                <div formArrayName="conceptos">
+                <div formArrayName="items">
                     <div class="col-xs-12 margin-bottom-25 concepto"
-                         *ngFor="let concepto of facturaForm.get('conceptos').controls; let i=index">
+                         *ngFor="let concepto of facturaForm.get('items').controls; let i=index">
                         <div [formGroupName]="i">
-                            <div class="col-xs-12 col-sm-1">
+                            <div class="col-xs-12 col-sm-3">
                                 <mat-form-field class="full-width">
                                     <input type="number" step="any" min="0" matInput placeholder="Cantidad"
-                                           formControlName="cantidad" (change)="calcularImporte(i)" required>
-                                    <mat-error *ngIf="concepto.get('cantidad').hasError('required')">
+                                           formControlName="quantity" (change)="calcularImporte(i)" required>
+                                    <mat-error *ngIf="concepto.get('quantity').hasError('required')">
                                         La Cantidad es <strong>requerida</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
-                            <div class="col-xs-12 col-sm-2">
+                            <div class="col-xs-12 col-sm-5">
                                 <mat-form-field class="full-width">
-                                    <mat-select placeholder="Unidad" formControlName="unidad" required>
-                                        <mat-option *ngFor="let unidad of unidades" [value]="unidad">
-                                            {{unidad}}
+                                    <input matInput placeholder="Selecciona un Producto" aria-label="State" [matAutocomplete]="auto"
+                                           formControlName="product" required>
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let product of filteredProducts[i] | async" [value]="product.id">
+                                            <span>{{product.description}}</span> |
+                                            <small>${{product.price}}</small>
                                         </mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="concepto.get('unidad').hasError('required')">
-                                        La Unidad es <strong>requerida</strong>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="concepto.get('product').hasError('required')">
+                                        El Producto es <strong>requerido</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="concepto.get('product').hasError('productDontExists')">
+                                        Ese Producto <strong>NO EXISTE</strong>
                                     </mat-error>
                                 </mat-form-field>
+                                <div class="col-xs-12">
+                                    <button type="button" class="btn btn-primary btn-fill btn-block"
+                                            (click)="openAddProductDialog()">
+                                        <i class="pe-7s-plus icon"></i>
+                                        <span>Producto Nuevo</span>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <mat-form-field class="full-width">
-                                    <input type="text" matInput placeholder="Descripción" formControlName="descripcion"
-                                           required>
-                                    <mat-error *ngIf="concepto.get('descripcion').hasError('required')">
-                                        La Descripción es <strong>requerida</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-xs-12 col-sm-1">
-                                <mat-form-field class="full-width">
-                                    <input type="number" step="any" min="0" matInput placeholder="Valor Unitario"
-                                           formControlName="valorunitario" (change)="calcularImporte(i)" required>
-                                    <mat-error *ngIf="concepto.get('valorunitario').hasError('required')">
-                                        El Valor Unitario es <strong>requerido</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-xs-12 col-sm-1">
+                            <div class="col-xs-12 col-sm-3">
                                 <mat-form-field class="full-width">
                                     <input type="number" step="any" min="0" matInput placeholder="Importe"
                                            formControlName="importe" readonly>
                                 </mat-form-field>
                             </div>
                             <div class="col-xs-12 col-sm-1">
-                                <button *ngIf="i != 0 || (facturaForm.get('conceptos').controls.length) > 1"
+                                <button *ngIf="i != 0 || (facturaForm.get('items').controls.length) > 1"
                                         type="button" class="btn btn-danger btn-fill btn-block"
                                         (click)="removeConcepto(i)">
                                     <i class="pe-7s-close-circle icon"></i>

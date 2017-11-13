@@ -25,8 +25,8 @@ export class ClientService {
         return this.http.delete('/clients/delete/' + id, this.auth.options);
     }
 
-    public get(rfc) {
-        return this.http.get('/clients/get/' + rfc, this.auth.options).map(res => res.json());
+    public get(id) {
+        return this.http.get('/clients/get/' + id, this.auth.options).map(res => res.json());
     }
 
 }

@@ -44,6 +44,7 @@ import {AuthGuard} from './utils/guards/auth.guard';
 import {AuthenticationService} from './utils/services/authentication.service';
 import {FacturaService} from './utils/services/factura.service';
 import { ClientesComponent } from './clientes/clientes.component';
+import {ProductService} from './utils/services/product.service';
 
 @NgModule({
     declarations: [
@@ -87,6 +88,7 @@ import { ClientesComponent } from './clientes/clientes.component';
         AuthenticationService,
         UserService,
         FacturaService,
+        ProductService,
         NotifyService
     ],
     bootstrap: [AppComponent],

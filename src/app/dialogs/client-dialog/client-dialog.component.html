@@ -8,15 +8,15 @@
             <div class="row">
                 <div class="col-xs-12">
                     <mat-form-field class="full-width">
-                        <input type="text" matInput placeholder="RFC" formControlName="rfc" required>
-                        <mat-error *ngIf="clientForm.controls['rfc'].hasError('required')">
+                        <input type="text" matInput placeholder="RFC" formControlName="tax_id" required>
+                        <mat-error *ngIf="clientForm.controls['tax_id'].hasError('required')">
                             El RFC es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width">
-                        <input type="text" matInput placeholder="Razón Social" formControlName="razonsocial"
+                        <input type="text" matInput placeholder="Razón Social" formControlName="legal_name"
                                required>
-                        <mat-error *ngIf="clientForm.controls['razonsocial'].hasError('required')">
+                        <mat-error *ngIf="clientForm.controls['legal_name'].hasError('required')">
                             La Razón Social es <strong>requerida</strong>
                         </mat-error>
                     </mat-form-field>
@@ -27,6 +27,15 @@
                             El Correo Electrónico es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
+                    <div formGroupName="address">
+                        <mat-form-field class="full-width">
+                            <input type="email" matInput placeholder="Código Postal" formControlName="zip"
+                                   required>
+                            <mat-error *ngIf="clientForm.controls['address'].get('zip').hasError('required')">
+                                El Código Postal es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
             <div class="row">

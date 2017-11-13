@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import {FacturaService} from '../utils/services/factura.service';
 import {ActivatedRoute} from '@angular/router';
+import {ProductService} from '../utils/services/product.service';
 
 @Component({
     selector: 'app-form',
@@ -20,15 +21,13 @@ export class FormComponent implements OnInit {
     isExtraSmall: Boolean = false;
     id: String = null;
     facturaForm: FormGroup = new FormGroup({
-        cliente: new FormControl(),
-        formadepago: new FormControl(),
-        conceptos: new FormArray([
+        customer: new FormControl(),
+        payment_form: new FormControl(),
+        items: new FormArray([
             new FormGroup({
-                cantidad: new FormControl(),
-                unidad: new FormControl(),
-                descripcion: new FormControl(),
-                valorunitario: new FormControl(),
-                importe: new FormControl(),
+                quantity: new FormControl(),
+                product: new FormControl(),
+                importe: new FormControl()
             })
         ]),
         subtotal: new FormControl(),
@@ -37,57 +36,60 @@ export class FormComponent implements OnInit {
     });
 
     clients: any = [];
+    products: any = [];
     filteredClients: Observable<string[]>;
+    filteredProducts: Observable<string[]>[];
     formasdepago = [
-        'Efectivo',
-        'Cheque nominativo',
-        'Transferencia electrónica de fondos',
-        'Tarjeta de crédito',
-        'Monedero electrónico',
-        'Dinero electrónico',
-        'Vales de despensa',
-        'Dación en pago',
-        'Pago por subrogación',
-        'Pago por consignación',
-        'Condonación',
-        'Compensación',
-        'Novación',
-        'Confusión',
-        'Remisión de deuda',
-        'Prescripción o caducidad',
-        'A satisfacción del acreedor',
-        'Tarjeta de débito',
-        'Tarjeta de servicios',
-        'Por definir'
-    ];
-
-    unidades = [
-        'PIEZAS',
-        'METROS CUADRADOS',
-        'METROS LINEALES'
+        {code: '01', description: 'Efectivo' },
+        {code: '02', description: 'Cheque nominativo' },
+        {code: '03', description: 'Transferencia electrónica de fondos' },
+        {code: '04', description: 'Tarjeta de crédito' },
+        {code: '05', description: 'Monedero electrónico' },
+        {code: '06', description: 'Dinero electrónico' },
+        {code: '08', description: 'Vales de despensa' },
+        {code: '12', description: 'Dación en pago' },
+        {code: '13', description: 'Pago por subrogación' },
+        {code: '14', description: 'Pago por consignación' },
+        {code: '15', description: 'Condonación' },
+        {code: '17', description: 'Compensación' },
+        {code: '23', description: 'Novación' },
+        {code: '24', description: 'Confusión' },
+        {code: '25', description: 'Remisión de deuda' },
+        {code: '26', description: 'Prescripción o caducidad' },
+        {code: '27', description: 'A satisfacción del acreedor' },
+        {code: '28', description: 'Tarjeta de débito' },
+        {code: '29', description: 'Tarjeta de servicios' },
+        {code: '99', description: 'Por definir' },
     ];
 
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,
                 private clientService: ClientService,
+                private productService: ProductService,
                 private facturaService: FacturaService,
                 private route: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.getClients();
+        this.getProducts();
 
-        this.filteredClients = this.facturaForm.get('cliente').valueChanges
+        this.filteredClients = this.facturaForm.get('customer').valueChanges
             .startWith(null)
             .map(val => val ? this.filter(val) : this.clients.slice());
 
-        this.facturaForm.get('cliente').valueChanges.subscribe(
-            rfc => {
+        const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
+        this.filteredProducts = [conceptos.at(0).get('product').valueChanges
+            .startWith(null)
+            .map(val => val ? this.filter(val) : this.products.slice())];
+
+        this.facturaForm.get('customer').valueChanges.subscribe(
+            tax_id => {
                 this.clients.forEach((client) => {
-                    if (client.rfc !== rfc) {
-                        this.facturaForm.get('cliente').setErrors({clientDontExists: true});
+                    if (client.tax_id !== tax_id) {
+                        this.facturaForm.get('customer').setErrors({clientDontExists: true});
                     } else {
-                        this.facturaForm.get('cliente').setErrors(null);
+                        this.facturaForm.get('customer').setErrors(null);
                     }
                 });
             }
@@ -99,26 +101,19 @@ export class FormComponent implements OnInit {
                 this.id = param.id;
                 this.facturaService.get(param.id).subscribe(
                     factura => {
-                        if (typeof(factura.cliente) === 'string') {
-                            this.facturaForm.get('cliente').setValue(factura.cliente);
-                        } else {
-                            this.facturaForm.get('cliente').setValue(factura.cliente.rfc);
-                        }
-                        this.facturaForm.get('formadepago').setValue(factura.formadepago);
-                        this.facturaForm.get('subtotal').setValue(factura.subtotal);
-                        this.facturaForm.get('iva').setValue(factura.iva);
-                        this.facturaForm.get('totalneto').setValue(factura.totalneto);
+                        this.facturaForm.get('customer').setValue(factura.customer);
+                        this.facturaForm.get('payment_form').setValue(factura.payment_form);
+                        // this.facturaForm.get('subtotal').setValue(factura.subtotal);
+                        // this.facturaForm.get('iva').setValue(factura.iva);
+                        // this.facturaForm.get('totalneto').setValue(factura.totalneto);
 
-                        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
-                        for (let a = 0; a < factura.conceptos.length; a++) {
+                        for (let a = 0; a < factura.items.length; a++) {
                             if (a !== 0) {
                                 this.addConcepto();
                             }
-                            conceptos.at(a).get('cantidad').setValue(factura.conceptos[a].cantidad);
-                            conceptos.at(a).get('unidad').setValue(factura.conceptos[a].unidad);
-                            conceptos.at(a).get('descripcion').setValue(factura.conceptos[a].descripcion);
-                            conceptos.at(a).get('valorunitario').setValue(factura.conceptos[a].valorunitario);
-                            conceptos.at(a).get('importe').setValue(factura.conceptos[a].importe);
+                            conceptos.at(a).get('quantity').setValue(factura.conceptos[a].quantity);
+                            conceptos.at(a).get('product').setValue(factura.conceptos[a].product);
+                            // conceptos.at(a).get('importe').setValue(factura.conceptos[a].importe);
                         }
                     }
                 );
@@ -128,15 +123,21 @@ export class FormComponent implements OnInit {
 
     filter(val: string): string[] {
         return this.clients.filter(option =>
-            option.razonsocial.toLowerCase().includes(val.toLowerCase())
-            || option.razonsocial.toLowerCase().indexOf(val.toLowerCase()) === 0
-            || option.rfc.toLowerCase().includes(val.toLowerCase())
-            || option.rfc.toLowerCase().indexOf(val.toLowerCase()) === 0);
+            option.legal_name.toLowerCase().includes(val.toLowerCase())
+            || option.legal_name.toLowerCase().indexOf(val.toLowerCase()) === 0
+            || option.tax_id.toLowerCase().includes(val.toLowerCase())
+            || option.tax_id.toLowerCase().indexOf(val.toLowerCase()) === 0);
     }
 
     getClients() {
         this.clientService.getAll().subscribe(data => {
             this.clients = data;
+        });
+    }
+
+    getProducts() {
+        this.productService.getAll().subscribe(data => {
+            this.products = data;
         });
     }
 
@@ -179,19 +180,22 @@ export class FormComponent implements OnInit {
     }
 
     addConcepto(): void {
-        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
+        const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         conceptos.push(new FormGroup({
-            cantidad: new FormControl(),
-            unidad: new FormControl(),
-            descripcion: new FormControl(),
-            valorunitario: new FormControl(),
-            importe: new FormControl(),
+            quantity: new FormControl(),
+            product: new FormControl(),
+            importe: new FormControl()
         }));
+
+        this.filteredProducts.push(conceptos.at(conceptos.length - 1).get('product').valueChanges
+            .startWith(null)
+            .map(val => val ? this.filter(val) : this.products.slice()));
     }
 
     removeConcepto(index): void {
-        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
+        const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         conceptos.removeAt(index);
+        this.filteredProducts.splice(index, 1);
     }
 
     calcularTotales(): void {

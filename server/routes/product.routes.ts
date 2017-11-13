@@ -1,25 +1,23 @@
 import {Router} from 'express';
 const facturapi = require('facturapi')('sk_test_M51BgK4WnV8mYvW5o63P0X2DdJ93LvOQ');
-
 const router = Router();
 
 router.get('/all', (req, res) => {
-    facturapi.customers.list()
+    facturapi.products.list()
         .then(list => {
-            console.log(list);
             if (list) {
                 res.send(list.data);
             }
             res.send([]);
         })
-        .catch(err => {
+        .catch(err => { /* handle the error */
             console.log(err);
             res.sendStatus(500);
         });
 });
 
 router.post('/add', (req, res) => {
-    facturapi.customers.create(req.body)
+    facturapi.products.create(req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -30,7 +28,7 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-    facturapi.customers.retrieve(req.params.id)
+    facturapi.products.retrieve(req.params.id)
         .then(customer => {
             res.send(customer);
         })
@@ -41,7 +39,7 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/edit/:id', (req, res) => {
-    facturapi.customers.update(req.params.id)
+    facturapi.products.update(req.params.id)
         .then(customer => {
             res.send(customer);
         })
@@ -52,7 +50,7 @@ router.post('/edit/:id', (req, res) => {
 });
 
 router.delete('/delete/:id', (req, res) => {
-    facturapi.customers.del(req.params.id)
+    facturapi.products.del(req.params.id)
         .then(customer => {
             res.send(customer);
         })
@@ -62,4 +60,4 @@ router.delete('/delete/:id', (req, res) => {
         });
 });
 
-export const ClientRoutes: Router = router;
+export const ProductRoutes: Router = router;

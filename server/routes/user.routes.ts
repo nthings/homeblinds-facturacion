@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import UserCtrl from '../controllers/user';
 
-const router: Router = Router();
+const router = Router();
 const userCtrl = new UserCtrl();
 
 router.get('/logged', (req, res) => {
