@@ -6,7 +6,7 @@ const router = Router();
 router.get('/all', (req, res) => {
     facturapi.invoices.list()
         .then(list => {
-            if (list) {
+            if (list.data) {
                 res.send(list.data);
             }
             res.send([]);

@@ -7,7 +7,7 @@ router.get('/all', (req, res) => {
     facturapi.customers.list()
         .then(list => {
             console.log(list);
-            if (list) {
+            if (list.data) {
                 res.send(list.data);
             }
             res.send([]);

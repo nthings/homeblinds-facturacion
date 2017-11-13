@@ -47,8 +47,8 @@ export class ClientDialogComponent implements OnInit {
     }
 
     onSubmit({value, valid}) {
-        value.rfc = value.rfc.toUpperCase();
-        value.razonsocial = value.razonsocial.toUpperCase();
+        value.rfc = value.tax_id.toUpperCase();
+        value.razonsocial = value.legal_name.toUpperCase();
         if (this.edit) {
             this.clientService.editClient(value, this.data._id).subscribe(
                 data => {
