@@ -14,17 +14,21 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width">
-                        <mat-option *ngFor="let product of product_keys" [value]="product.key" formControlName="product_key" >
-                            <span>{{ product.description }}</span>
-                        </mat-option>
+                        <mat-select placeholder="Tipo de Producto" formControlName="product_key" required>
+                            <mat-option *ngFor="let product_k of product_keys" [value]="product_k.key">
+                                {{ product_k.description }}
+                            </mat-option>
+                        </mat-select>
                         <mat-error *ngIf="productForm.controls['product_key'].hasError('required')">
                             La Clave Del Producto es <strong>requerida</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width">
-                        <mat-option *ngFor="let unit of units" [value]="unit.key" formControlName="unit_key" >
-                            <span>{{ unit.description }}</span>
-                        </mat-option>
+                        <mat-select placeholder="Unidad" formControlName="unit_key" required>
+                            <mat-option *ngFor="let unit of units" [value]="unit.key">
+                                {{ unit.description }}
+                            </mat-option>
+                        </mat-select>
                         <mat-error *ngIf="productForm.controls['unit_key'].hasError('required')">
                             La Unidad de Medida es <strong>requerida</strong>
                         </mat-error>

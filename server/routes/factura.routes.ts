@@ -6,10 +6,7 @@ const router = Router();
 router.get('/all', (req, res) => {
     facturapi.invoices.list()
         .then(list => {
-            if (list.data) {
-                res.send(list.data);
-            }
-            res.send([]);
+            res.send(list.data);
         })
         .catch(err => { /* handle the error */
             console.log(err);

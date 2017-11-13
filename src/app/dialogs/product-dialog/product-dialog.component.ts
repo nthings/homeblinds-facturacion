@@ -35,7 +35,7 @@ export class ProductDialogComponent implements OnInit {
         {key: 'MTR', description: 'METRO'},
         {key: 'LM', description: 'METRO LINEAL'},
         {key: 'MTK', description: 'METRO CUADRADO'}
-    ]
+    ];
 
     constructor(public dialogRef: MatDialogRef<ProductDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
@@ -49,9 +49,9 @@ export class ProductDialogComponent implements OnInit {
             this.icon = 'pe-7s-note icon';
             this.edit = true;
             // Fill client data
-            this.productForm.controls['description'].setValue(this.data.tax_id, {onlySelf: true});
-            this.productForm.controls['product_key'].setValue(this.data.legal_name, {onlySelf: true});
-            this.productForm.controls['price'].setValue(this.data.email, {onlySelf: true});
+            this.productForm.controls['description'].setValue(this.data.description, {onlySelf: true});
+            this.productForm.controls['product_key'].setValue(this.data.product_key, {onlySelf: true});
+            this.productForm.controls['unit_key'].setValue(this.data.unit_key, {onlySelf: true});
         }
     }
 
