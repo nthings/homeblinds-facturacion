@@ -84,9 +84,9 @@ export class FormComponent implements OnInit {
             .map(val => val ? this.filter(val) : this.products.slice())];
 
         this.facturaForm.get('customer').valueChanges.subscribe(
-            tax_id => {
+            id => {
                 this.clients.forEach((client) => {
-                    if (client.tax_id !== tax_id) {
+                    if (client.id !== id) {
                         this.facturaForm.get('customer').setErrors({clientDontExists: true});
                     } else {
                         this.facturaForm.get('customer').setErrors(null);

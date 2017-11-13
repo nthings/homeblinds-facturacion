@@ -17,7 +17,7 @@
                     <input matInput placeholder="Selecciona un Cliente" aria-label="State" [matAutocomplete]="auto"
                            formControlName="customer" required>
                     <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let client of filteredClients | async" [value]="client.tax_id">
+                        <mat-option *ngFor="let client of filteredClients | async" [value]="client.id">
                             <span>{{ client.tax_id }}</span> |
                             <span>{{ client.legal_name }}</span> |
                             <small>Email: {{client.email}}</small>

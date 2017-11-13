@@ -35,6 +35,7 @@ import {SearchPipe} from './utils/pipes/search.pipe';
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
 import {ClientDialogComponent} from './dialogs/client-dialog/client-dialog.component';
 import {ConceptosDialogComponent} from './dialogs/conceptos-dialog/conceptos-dialog.component';
+import {ProductDialogComponent} from './dialogs/product-dialog/product-dialog.component';
 
 // Services
 import {ClientService} from './utils/services/client.service';
@@ -55,6 +56,7 @@ import {ProductService} from './utils/services/product.service';
         DeleteDialogComponent,
         ClientDialogComponent,
         ConceptosDialogComponent,
+        ProductDialogComponent,
         LoginComponent,
         FormComponent,
         FacturasComponent,
@@ -95,7 +97,8 @@ import {ProductService} from './utils/services/product.service';
     entryComponents: [
         DeleteDialogComponent,
         ClientDialogComponent,
-        ConceptosDialogComponent
+        ConceptosDialogComponent,
+        ProductDialogComponent
     ]
 })
 export class AppModule {
