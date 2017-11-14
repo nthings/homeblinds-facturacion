@@ -146,11 +146,11 @@ export class FormComponent implements OnInit {
     }
 
     displayProduct(product): string {
-        return product.description;
+        return product ? product.description : '';
     }
 
     displayClient(client): string {
-        return client.legal_name;
+        return client ? client.legal_name : '';
     }
 
     // Filter funcions
