@@ -1,4 +1,6 @@
 import {Router} from 'express';
+import * as fs from 'fs';
+
 const facturapi = require('facturapi')('sk_test_7ybLJDB9dvRXnDmrKz5YdAMw5aNkmrVP');
 const router = Router();
 
@@ -60,13 +62,14 @@ router.get('/send/:id', (req, res) => {
 router.get('/download/:id', (req, res) => {
     facturapi.invoices.downloadZip(req.params.id)
         .then(invoice => {
-            res.send(invoice);
+            const file = fs.createWriteStream('./factura.zip');
+            invoice.pipe(file);
+            res.sendFile('./factura.zip');
         })
         .catch(err => { /* handle the error */
             console.log(err);
             res.sendStatus(500);
         });
 });
-
 
 export const FacturaRoutes: Router = router;
