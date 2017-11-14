@@ -10,7 +10,7 @@ import 'rxjs/add/operator/startWith';
 import {FacturaService} from '../utils/services/factura.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../utils/services/product.service';
-import {ProductDialogComponent} from "../dialogs/product-dialog/product-dialog.component";
+import {ProductDialogComponent} from '../dialogs/product-dialog/product-dialog.component';
 
 @Component({
     selector: 'app-form',
@@ -82,10 +82,11 @@ export class FormComponent implements OnInit {
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         this.filteredProducts = [
             conceptos.at(0).get('product').valueChanges
-            .startWith(null)
-            .map(val => val ? this.filterProductos(val) : this.products.slice())
+                .startWith(null)
+                .map(val => val ? this.filterProductos(val) : this.products.slice())
         ];
 
+        // Client dont exist in autocomplete error handling
         this.facturaForm.get('customer').valueChanges.subscribe(
             id => {
                 this.clients.forEach((client) => {
@@ -98,12 +99,22 @@ export class FormComponent implements OnInit {
             }
         );
 
-        this.facturaForm.get('items').valueChanges.subscribe(
-            item => {
-                console.log(item);
+        // Product dont exist in autocomplete error handling
+        conceptos.valueChanges.subscribe(
+            items => {
+                items.forEach((item, index) => {
+                    let productExist = false;
+                    this.products.forEach((product) => {
+                        if (product.id === item.product) {
+                            productExist = true;
+                        }
+                    });
+                    conceptos.at(index).get('product').setErrors({productDontExists: !productExist});
+                });
             }
         );
 
+        // Fill form from id of invoice
         this.route.params.subscribe(params => {
             const param: any = params;
             if (param.id) {
@@ -130,6 +141,7 @@ export class FormComponent implements OnInit {
         });
     }
 
+    // Filter funcions
     filterClientes(val: string): string[] {
         return this.clients.filter(option =>
             option.legal_name.toLowerCase().includes(val.toLowerCase())
@@ -144,6 +156,7 @@ export class FormComponent implements OnInit {
             || option.description.toLowerCase().indexOf(val.toLowerCase()) === 0);
     }
 
+    // Getters from services
     getClients() {
         this.clientService.getAll().subscribe(data => {
             this.clients = data;
@@ -156,6 +169,7 @@ export class FormComponent implements OnInit {
         });
     }
 
+    // Watcher for device size
     onResize(event) {
         if (event.target.innerWidth < 992) {
             this.isMobile = true;
@@ -170,6 +184,7 @@ export class FormComponent implements OnInit {
         }
     }
 
+    // Dialog Openers
     openAddClientDialog(): void {
         const dialogRef = this.dialog.open(ClientDialogComponent, {
             width: '500px',
@@ -198,16 +213,7 @@ export class FormComponent implements OnInit {
         });
     }
 
-    calcularImporte(i): void {
-        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
-        const cantidad = conceptos.controls[i].get('cantidad').value || 1;
-        const preciounitario = conceptos.controls[i].get('valorunitario').value || 1;
-        const importe = conceptos.controls[i].get('importe');
-        importe.setValue(cantidad * preciounitario);
-
-        this.calcularTotales();
-    }
-
+    // Create item
     addConcepto(): void {
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         conceptos.push(new FormGroup({
@@ -221,12 +227,25 @@ export class FormComponent implements OnInit {
             .map(val => val ? this.filterProductos(val) : this.products.slice()));
     }
 
+    // remove item
     removeConcepto(index): void {
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         conceptos.removeAt(index);
         this.filteredProducts.splice(index, 1);
     }
 
+    // Set total (quantity * price)
+    calcularImporte(i): void {
+        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
+        const cantidad = conceptos.controls[i].get('cantidad').value || 1;
+        const preciounitario = conceptos.controls[i].get('valorunitario').value || 1;
+        const importe = conceptos.controls[i].get('importe');
+        importe.setValue(cantidad * preciounitario);
+
+        this.calcularTotales();
+    }
+
+    // Set total, iva and total neto
     calcularTotales(): void {
         const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
         let subtotal = 0;
@@ -242,6 +261,7 @@ export class FormComponent implements OnInit {
         this.facturaForm.get('totalneto').setValue(totalneto);
     }
 
+    // submit invoice
     onSubmit(facturaForm) {
         if (this.id) {
             this.facturaService.editFactura(facturaForm.value, this.id).subscribe(
@@ -268,6 +288,7 @@ export class FormComponent implements OnInit {
 
     }
 
+    // send to client email
     sendFactura() {
         this.facturaService.notify().subscribe(
             data => {
