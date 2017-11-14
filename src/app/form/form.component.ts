@@ -77,12 +77,14 @@ export class FormComponent implements OnInit {
 
         this.filteredClients = this.facturaForm.get('customer').valueChanges
             .startWith(null)
+            .map(client => client && typeof client === 'object' ? client.legal_name : client)
             .map(val => val ? this.filterClientes(val) : this.clients.slice());
 
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         this.filteredProducts = [
             conceptos.at(0).get('product').valueChanges
                 .startWith(null)
+                .map(product => product && typeof product === 'object' ? product.description : product)
                 .map(val => val ? this.filterProductos(val) : this.products.slice())
         ];
 
@@ -233,8 +235,9 @@ export class FormComponent implements OnInit {
             importe: new FormControl()
         }));
 
-        this.filteredProducts.push(conceptos.at(conceptos.length - 1).get('product').valueChanges
+        this.filteredProducts.push(conceptos.at(0).get('product').valueChanges
             .startWith(null)
+            .map(product => product && typeof product === 'object' ? product.description : product)
             .map(val => val ? this.filterProductos(val) : this.products.slice()));
     }
 
