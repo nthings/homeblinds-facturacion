@@ -108,7 +108,7 @@ export class ClientesComponent implements OnInit {
     openDeleteClientDialog(client): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent, {
             width: '500px',
-            data: {_id: client._id, message: client.razonsocial, service: this.clientService}
+            data: {_id: client.id, message: client.legal_name, service: this.clientService, title: 'Eliminar'}
         } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {

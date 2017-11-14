@@ -30,9 +30,9 @@
                                 <tr *ngFor="let client of tableClients.rows; let index = index;"
                                     (mouseover)="states[index] = 'active'; state = 'active'"
                                     (mouseout)="states[index] = 'inactive'; state = 'inactive'">
-                                    <td>{{client.rfc}}</td>
-                                    <td>{{client.razonsocial}}</td>
-                                    <td>{{client.createdAt | date: 'shortDate'}}</td>
+                                    <td>{{client.tax_id}}</td>
+                                    <td>{{client.legal_name}}</td>
+                                    <td>{{client.created_at | date: 'shortDate'}}</td>
                                     <td>{{client.email}}</td>
                                     <td [@buttons]="states[index]">
                                         <div class="col-xs-12 col-md-6">
