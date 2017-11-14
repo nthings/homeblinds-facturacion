@@ -257,7 +257,7 @@ export class FormComponent implements OnInit {
     }
 
     calcularTotales(): void {
-        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
+        const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         let subtotal = 0;
         let iva = 0;
         let totalneto = 0;
