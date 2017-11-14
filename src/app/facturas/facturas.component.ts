@@ -102,7 +102,7 @@ export class FacturasComponent implements OnInit {
     }
 
     download(id): void {
-        this.router.navigate(['/factura/' + id]);
+        this.facturaService.download(id);
     }
 
     openDeleteDialog(factura): void {
