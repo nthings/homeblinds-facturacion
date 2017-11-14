@@ -4,7 +4,6 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {NotifyService} from '../utils/services/notify.service';
 import {FacturaService} from '../utils/services/factura.service';
 import {trigger, state, style, animate, transition} from '@angular/animations';
-import {ClientService} from '../utils/services/client.service';
 import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
 import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-dialog.component';
 import {Router} from '@angular/router';
@@ -102,7 +101,11 @@ export class FacturasComponent implements OnInit {
     }
 
     download(id): void {
-        this.facturaService.download(id);
+        this.facturaService.download(id).subscribe(
+            data => {
+                console.log(data);
+            }
+        );
     }
 
     openDeleteDialog(factura): void {
@@ -113,7 +116,7 @@ export class FacturasComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.notify.success('pe-7s-check', 'Factura Eliminada correctamente');
+                this.notify.success('pe-7s-check', 'Factura cancelada correctamente');
                 this.getFacturas();
             }
         });
