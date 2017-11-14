@@ -30,23 +30,22 @@
                                             <tr>
                                                 <th>RFC</th>
                                                 <th>Razón Social</th>
-                                                <th>Email</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td>{{clientes[index]?.rfc}}</td>
-                                                <td>{{clientes[index]?.razonsocial}}</td>
-                                                <td>{{clientes[index]?.email}}</td>
+                                                <td>{{factura.customer.tax_id}}</td>
+                                                <td>{{factura.customer.legal_name}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </td>
-                                    <td>{{factura.formadepago}}</td>
-                                    <td>{{factura.subtotal}}</td>
-                                    <td>{{factura.iva}}</td>
-                                    <td>{{factura.totalneto}}</td>
-                                    <td>{{factura.createdAt | date: 'shortDate'}}</td>
+                                    <td>{{factura.payment_form | paymentForm}}</td>
+                                    <td>{{((factura.total) - (factura.total * 0.16))}}</td>
+                                    <td>{{(factura.total * 0.16)}}</td>
+                                    <td>{{factura.total}}</td>
+                                    <td>{{factura.created_at | date: 'shortDate'}}</td>
+                                    <td>{{(factura.status === 'valid' ? 'VÁLIDA': 'CANCELADA')}}</td>
                                     <td><button mat-button (click)="openConceptosDialog(factura)">Ver</button></td>
                                     <td [@buttons]="states[index]">
                                         <div class="col-xs-12 col-md-4">
@@ -57,14 +56,14 @@
                                         </div>
                                         <div class="col-xs-12 col-md-4">
                                             <button mat-mini-fab color="primary"
-                                                    (click)="openEditFacturaDialog(factura.id)">
-                                                <i class="pe-7s-note icon"></i>
+                                                    (click)="download(factura.id)">
+                                                <i class="pe-7s-cloud-download icon"></i>
                                             </button>
                                         </div>
                                         <div class="col-xs-12 col-md-4">
                                             <button mat-mini-fab color="warn"
                                                     (click)="openDeleteDialog(factura)">
-                                                <i class="pe-7s-trash icon"></i>
+                                                <i class="pe-7s-close-circle icon"></i>
                                             </button>
                                         </div>
                                     </td>

@@ -1,5 +1,4 @@
 import {Router} from 'express';
-
 const facturapi = require('facturapi')('sk_test_7ybLJDB9dvRXnDmrKz5YdAMw5aNkmrVP');
 const router = Router();
 
@@ -57,5 +56,17 @@ router.get('/send/:id', (req, res) => {
             res.sendStatus(500);
         });
 });
+
+router.get('/download/:id', (req, res) => {
+    facturapi.invoices.downloadZip(req.params.id)
+        .then(invoice => {
+            res.send(invoice);
+        })
+        .catch(err => { /* handle the error */
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
 
 export const FacturaRoutes: Router = router;

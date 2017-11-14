@@ -30,6 +30,10 @@ export class FacturaService {
         return this.http.get('/facturas/send/' + id, this.auth.options).map(res => res.json());
     }
 
+    public download(id) {
+        return this.http.get('/facturas/send/' + id, this.auth.options).map(res => console.log(res));
+    }
+
     public replaceClient(client) {
         return this.http.post('/facturas/replaceClient/', client, this.auth.options);
     }

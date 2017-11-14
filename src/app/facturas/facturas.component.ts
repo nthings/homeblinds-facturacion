@@ -41,13 +41,11 @@ import {Router} from '@angular/router';
 export class FacturasComponent implements OnInit {
     states;
     state;
-    clientes = [];
     public tableFacturas: TableData;
 
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,
                 private facturaService: FacturaService,
-                private clientService: ClientService,
                 private router: Router) {
     }
 
@@ -78,7 +76,7 @@ export class FacturasComponent implements OnInit {
     openConceptosDialog(factura): void {
         const dialogRef = this.dialog.open(ConceptosDialogComponent, {
             width: '500px',
-            data: factura.conceptos
+            data: factura.items
         } as MatDialogConfig);
     }
 
@@ -93,7 +91,7 @@ export class FacturasComponent implements OnInit {
         );
     }
 
-    openEditFacturaDialog(id): void {
+    download(id): void {
         this.router.navigate(['/factura/' + id]);
     }
 

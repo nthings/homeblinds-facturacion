@@ -30,6 +30,7 @@ import { FacturasComponent } from './facturas/facturas.component';
 
 // Pipes
 import {SearchPipe} from './utils/pipes/search.pipe';
+import {PaymentFormPipe} from './utils/pipes/formadepago.pipe';
 
 // Dialogs
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
@@ -52,6 +53,7 @@ import {ProductService} from './utils/services/product.service';
         AppComponent,
         ModPasswordComponent,
         SearchPipe,
+        PaymentFormPipe,
         ModPasswordComponent,
         DeleteDialogComponent,
         ClientDialogComponent,

@@ -18,9 +18,9 @@
                 </thead>
                 <tbody *ngIf="tableConceptos.rows.length">
                 <tr *ngFor="let concepto of tableConceptos.rows; let index = index;">
-                    <td>{{concepto.cantidad}}</td>
+                    <td>{{concepto.quantity}}</td>
                     <td>{{concepto.unidad}}</td>
-                    <td class="small">{{concepto.descripcion}}</td>
+                    <td class="small">{{concepto.description}}</td>
                     <td>{{concepto.valorunitario}}</td>
                     <td>{{concepto.importe}}</td>
                 </tr>
