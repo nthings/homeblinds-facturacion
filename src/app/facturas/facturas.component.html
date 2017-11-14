@@ -51,13 +51,13 @@
                                     <td [@buttons]="states[index]">
                                         <div class="col-xs-12 col-md-4">
                                             <button mat-mini-fab color="basic"
-                                                    (click)="sendFactura(factura)">
+                                                    (click)="sendFactura(factura.id)">
                                                 <i class="pe-7s-cloud-upload icon"></i>
                                             </button>
                                         </div>
                                         <div class="col-xs-12 col-md-4">
                                             <button mat-mini-fab color="primary"
-                                                    (click)="openEditFacturaDialog(factura._id)">
+                                                    (click)="openEditFacturaDialog(factura.id)">
                                                 <i class="pe-7s-note icon"></i>
                                             </button>
                                         </div>

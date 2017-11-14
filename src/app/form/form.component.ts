@@ -105,46 +105,22 @@ export class FormComponent implements OnInit {
         conceptos.valueChanges.subscribe(
             items => {
                 items.forEach((item, index) => {
-                    let productExist = false;
-                    this.products.forEach((product) => {
-                        if (product.id === item.product.id) {
-                            productExist = true;
+                    if (item.product !== null) {
+                        let productExist = false;
+                        this.products.forEach((product) => {
+                            if (product.id === item.product.id) {
+                                productExist = true;
+                            }
+                        });
+                        if (!productExist) {
+                            conceptos.at(index).get('product').setErrors({productDontExists: true});
+                        } else {
+                            conceptos.at(index).get('product').setErrors(null);
                         }
-                    });
-                    if (!productExist) {
-                        conceptos.at(index).get('product').setErrors({productDontExists: true});
-                    } else {
-                        conceptos.at(index).get('product').setErrors(null);
                     }
                 });
             }
         );
-
-        // Fill form from id of invoice
-        this.route.params.subscribe(params => {
-            const param: any = params;
-            if (param.id) {
-                this.id = param.id;
-                this.facturaService.get(param.id).subscribe(
-                    factura => {
-                        this.facturaForm.get('customer').setValue(factura.customer);
-                        this.facturaForm.get('payment_form').setValue(factura.payment_form);
-                        // this.facturaForm.get('subtotal').setValue(factura.subtotal);
-                        // this.facturaForm.get('iva').setValue(factura.iva);
-                        // this.facturaForm.get('totalneto').setValue(factura.totalneto);
-
-                        for (let a = 0; a < factura.items.length; a++) {
-                            if (a !== 0) {
-                                this.addConcepto();
-                            }
-                            conceptos.at(a).get('quantity').setValue(factura.conceptos[a].quantity);
-                            conceptos.at(a).get('product').setValue(factura.conceptos[a].product);
-                            // conceptos.at(a).get('importe').setValue(factura.conceptos[a].importe);
-                        }
-                    }
-                );
-            }
-        });
     }
 
     displayProduct(product): string {
@@ -292,36 +268,23 @@ export class FormComponent implements OnInit {
         delete factura.subtotal;
         delete factura.totalneto;
 
-        if (this.id) {
-            this.facturaService.editFactura(factura, this.id).subscribe(
-                data => {
-                    this.notify.success('pe-7s-check', 'Factura editada correctamente');
-                },
-                err => {
-                    console.log(err);
-                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-                }
-            );
-        } else {
-            this.facturaService.addFactura(factura).subscribe(
-                data => {
-                    this.id = data.id;
-                    this.notify.success('pe-7s-check', 'Factura agregada correctamente');
-                },
-                err => {
-                    console.log(err);
-                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-                }
-            );
-        }
-
+        this.facturaService.addFactura(factura).subscribe(
+            data => {
+                this.id = data.id;
+                this.notify.success('pe-7s-check', 'Factura agregada correctamente');
+            },
+            err => {
+                console.log(err);
+                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+            }
+        );
     }
 
     // send to client email
     sendFactura() {
-        this.facturaService.notify().subscribe(
+        this.facturaService.send(this.id).subscribe(
             data => {
-                this.notify.success('pe-7s-check', 'Factura enviada correctamente');
+                this.notify.success('pe-7s-check', 'Factura enviada al cliente correctamente');
             },
             error => {
                 this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');

@@ -7,9 +7,7 @@ import {PushNotificationsService} from 'angular4-notifications/src/push-notifica
 @Injectable()
 export class FacturaService {
     constructor(private http: Http,
-                private auth: AuthenticationService,
-                private pushNotifications: PushNotificationsService) {
-        this.pushNotifications.requestPermission();
+                private auth: AuthenticationService) {
     }
 
     public getAll() {
@@ -20,20 +18,16 @@ export class FacturaService {
         return this.http.post('/facturas/add', factura, this.auth.options).map(res => res.json());
     }
 
-    public editFactura(factura, id) {
-        return this.http.post('/facturas/edit/' + id, factura, this.auth.options);
-    }
-
     public delete(id) {
-        return this.http.delete('/facturas/delete/' + id, this.auth.options);
+        return this.http.delete('/facturas/cancel/' + id, this.auth.options);
     }
 
     public get(id) {
         return this.http.get('/facturas/get/' + id, this.auth.options).map(res => res.json());
     }
 
-    public notify() {
-        return this.pushNotifications.create('Homeblinds Facturación', { body: 'Nueva Factura!', icon: 'assets/img/background.png'} );
+    public send(id) {
+        return this.http.get('/facturas/send/' + id, this.auth.options).map(res => res.json());
     }
 
     public replaceClient(client) {

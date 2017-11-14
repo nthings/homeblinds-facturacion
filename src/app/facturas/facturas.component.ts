@@ -70,6 +70,7 @@ export class FacturasComponent implements OnInit {
     getFacturas() {
         this.facturaService.getAll().subscribe(data => {
             this.tableFacturas.rows = data;
+            console.log(data);
             this.states = new Array(this.tableFacturas.rows.length).fill('inactive');
         });
     }
@@ -81,8 +82,8 @@ export class FacturasComponent implements OnInit {
         } as MatDialogConfig);
     }
 
-    sendFactura() {
-        this.facturaService.notify().subscribe(
+    sendFactura(id) {
+        this.facturaService.send(id).subscribe(
             data => {
                 this.notify.success('pe-7s-check', 'Factura enviada correctamente');
             },
@@ -99,7 +100,7 @@ export class FacturasComponent implements OnInit {
     openDeleteDialog(factura): void {
         const dialogRef = this.dialog.open(DeleteDialogComponent, {
             width: '500px',
-            data: {_id: factura._id, message: 'Factura ' + factura._id, service: this.facturaService}
+            data: {_id: factura._id, message: 'Factura ' + factura.id, service: this.facturaService}
         } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
