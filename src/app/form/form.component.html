@@ -63,7 +63,7 @@
                             <div class="col-xs-12 col-sm-3">
                                 <mat-form-field class="full-width">
                                     <input type="number" step="any" min="0" matInput placeholder="Cantidad"
-                                           formControlName="quantity" required>
+                                           formControlName="quantity" (change)="calcularImporte(i)" required>
                                     <mat-error *ngIf="concepto.get('quantity').hasError('required')">
                                         La Cantidad es <strong>requerida</strong>
                                     </mat-error>
@@ -73,7 +73,7 @@
                                 <mat-form-field class="full-width">
                                     <input matInput placeholder="Selecciona un Producto" aria-label="State" [matAutocomplete]="auto"
                                            formControlName="product" required>
-                                    <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="calcularImporte(i)">
                                         <mat-option *ngFor="let product of filteredProducts[i] | async" [value]="product.id">
                                             <span>{{product.description}}</span> |
                                             <small>${{product.price}}</small>

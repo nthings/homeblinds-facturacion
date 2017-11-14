@@ -107,12 +107,6 @@ export class FormComponent implements OnInit {
                     this.products.forEach((product) => {
                         if (product.id === item.product) {
                             productExist = true;
-                            // Calcular importe
-                            const cantidad = item.value;
-                            const preciounitario = product.price;
-                            console.log(cantidad);
-                            console.log(preciounitario);
-                            conceptos.at(index).get('importe').setValue((cantidad * preciounitario));
                         }
                     });
                     if (!productExist) {
@@ -245,6 +239,23 @@ export class FormComponent implements OnInit {
     }
 
     // Set total, iva and total neto
+    calcularImporte(index) {
+        // Calcular importe
+        const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
+        const cantidad = conceptos.at(index).get('quantity').value;
+        let preciounitario = 0;
+        for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].id === conceptos.at(index).get('product').value) {
+                preciounitario = this.products[i].price;
+            }
+        }
+        console.log(cantidad);
+        console.log(preciounitario);
+        conceptos.at(index).get('importe').setValue((cantidad * preciounitario));
+
+        this.calcularTotales();
+    }
+
     calcularTotales(): void {
         const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
         let subtotal = 0;
