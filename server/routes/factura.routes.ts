@@ -27,8 +27,8 @@ router.post('/add', (req, res) => {
 
 router.get('/get/:id', (req, res) => {
     facturapi.invoices.retrieve(req.params.id)
-        .then(customer => {
-            res.send(customer);
+        .then(invoice => {
+            res.send(invoice);
         })
         .catch(err => { /* handle the error */
             console.log(err);
@@ -38,8 +38,19 @@ router.get('/get/:id', (req, res) => {
 
 router.delete('/cancel/:id', (req, res) => {
     facturapi.invoices.cancel(req.params.id)
-        .then(customer => {
-            res.send(customer);
+        .then(invoice => {
+            res.send(invoice);
+        })
+        .catch(err => { /* handle the error */
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/send/:id', (req, res) => {
+    facturapi.invoices.sendByEmail(req.params.id)
+        .then(invoice => {
+            res.send(invoice);
         })
         .catch(err => { /* handle the error */
             console.log(err);
