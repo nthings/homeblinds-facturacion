@@ -107,9 +107,8 @@ export class FormComponent implements OnInit {
                     this.products.forEach((product) => {
                         if (product.id === item.product) {
                             productExist = true;
-
                             // Calcular importe
-                            const cantidad = conceptos.at(index).get('quantity').value;
+                            const cantidad = item.value;
                             const preciounitario = product.price;
                             console.log(cantidad);
                             console.log(preciounitario);
