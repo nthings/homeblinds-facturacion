@@ -244,17 +244,6 @@ export class FormComponent implements OnInit {
         this.filteredProducts.splice(index, 1);
     }
 
-    // Set total (quantity * price)
-    calcularImporte(i): void {
-        const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;
-        const cantidad = conceptos.controls[i].get('cantidad').value || 1;
-        const preciounitario = conceptos.controls[i].get('valorunitario').value || 1;
-        const importe = conceptos.controls[i].get('importe');
-        importe.setValue(cantidad * preciounitario);
-
-        this.calcularTotales();
-    }
-
     // Set total, iva and total neto
     calcularTotales(): void {
         const conceptos: FormArray = this.facturaForm.get('conceptos') as FormArray;

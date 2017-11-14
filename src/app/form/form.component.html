@@ -63,7 +63,7 @@
                             <div class="col-xs-12 col-sm-3">
                                 <mat-form-field class="full-width">
                                     <input type="number" step="any" min="0" matInput placeholder="Cantidad"
-                                           formControlName="quantity" (change)="calcularImporte(i)" required>
+                                           formControlName="quantity" required>
                                     <mat-error *ngIf="concepto.get('quantity').hasError('required')">
                                         La Cantidad es <strong>requerida</strong>
                                     </mat-error>
