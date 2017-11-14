@@ -107,9 +107,20 @@ export class FormComponent implements OnInit {
                     this.products.forEach((product) => {
                         if (product.id === item.product) {
                             productExist = true;
+
+                            // Calcular importe
+                            const cantidad = conceptos.at(index).get('quantity').value;
+                            const preciounitario = product.price;
+                            console.log(cantidad);
+                            console.log(preciounitario);
+                            conceptos.at(index).get('importe').setValue((cantidad * preciounitario));
                         }
                     });
-                    conceptos.at(index).get('product').setErrors({productDontExists: !productExist});
+                    if (!productExist) {
+                        conceptos.at(index).get('product').setErrors({productDontExists: true});
+                    } else {
+                        conceptos.at(index).get('product').setErrors(null);
+                    }
                 });
             }
         );
