@@ -90,10 +90,9 @@ export class FormComponent implements OnInit {
 
         // Client dont exist in autocomplete error handling
         this.facturaForm.get('customer').valueChanges.subscribe(
-            id => {
-                console.log(id);
+            customer => {
                 this.clients.forEach((client) => {
-                    if (client.id !== id.id) {
+                    if (client.id !== customer.id) {
                         this.facturaForm.get('customer').setErrors({clientDontExists: true});
                     } else {
                         this.facturaForm.get('customer').setErrors(null);
@@ -105,7 +104,6 @@ export class FormComponent implements OnInit {
         // Product dont exist in autocomplete error handling
         conceptos.valueChanges.subscribe(
             items => {
-                console.log(items);
                 items.forEach((item, index) => {
                     let productExist = false;
                     this.products.forEach((product) => {
@@ -284,28 +282,38 @@ export class FormComponent implements OnInit {
     // submit invoice
     onSubmit(facturaForm) {
         console.log(facturaForm.value);
-        // if (this.id) {
-        //     this.facturaService.editFactura(facturaForm.value, this.id).subscribe(
-        //         data => {
-        //             this.notify.success('pe-7s-check', 'Factura editada correctamente');
-        //         },
-        //         err => {
-        //             console.log(err);
-        //             this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-        //         }
-        //     );
-        // } else {
-        //     this.facturaService.addFactura(facturaForm.value).subscribe(
-        //         data => {
-        //             this.id = data._id;
-        //             this.notify.success('pe-7s-check', 'Factura agregada correctamente');
-        //         },
-        //         err => {
-        //             console.log(err);
-        //             this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-        //         }
-        //     );
-        // }
+        const factura = facturaForm.value;
+        factura.customer = factura.customer.id;
+        factura.items.forEach((item) => {
+            delete item.importe;
+            item.product = item.product.id;
+        })
+        delete factura.iva;
+        delete factura.subtotal;
+        delete factura.totalneto;
+
+        if (this.id) {
+            this.facturaService.editFactura(factura, this.id).subscribe(
+                data => {
+                    this.notify.success('pe-7s-check', 'Factura editada correctamente');
+                },
+                err => {
+                    console.log(err);
+                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                }
+            );
+        } else {
+            this.facturaService.addFactura(factura).subscribe(
+                data => {
+                    this.id = data.id;
+                    this.notify.success('pe-7s-check', 'Factura agregada correctamente');
+                },
+                err => {
+                    console.log(err);
+                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                }
+            );
+        }
 
     }
 
