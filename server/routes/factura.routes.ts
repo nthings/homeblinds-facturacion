@@ -62,9 +62,7 @@ router.get('/send/:id', (req, res) => {
 router.get('/download/:id', (req, res) => {
     facturapi.invoices.downloadZip(req.params.id)
         .then(invoice => {
-            const file = fs.createWriteStream('./factura.zip');
-            invoice.pipe(file);
-            res.sendFile('/dist/server/routes/factura.zip');
+            invoice.pipe(res);
         })
         .catch(err => { /* handle the error */
             console.log(err);
