@@ -51,7 +51,17 @@ export class FacturasComponent implements OnInit {
 
     ngOnInit() {
         this.tableFacturas = {
-            columns: ['Cliente', 'Forma de Pago', 'Sub-Total', 'I.V.A.', 'Total Neto', 'Fecha de Creación', 'Conceptos', 'Acciones'],
+            columns: [
+                'Cliente',
+                'Forma de Pago',
+                'Sub-Total',
+                'I.V.A.',
+                'Total Neto',
+                'Fecha de Creación',
+                'Estatus',
+                'Conceptos',
+                'Acciones'
+            ],
             rows: []
         };
         this.state = 'inactive';

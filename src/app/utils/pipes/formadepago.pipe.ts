@@ -32,15 +32,12 @@ export class PaymentFormPipe implements PipeTransform {
         if (!code) {
             return '';
         }
-        let finded = false;
+        let description = '';
         this.paymentforms.forEach((form) => {
             if (form.code === code) {
-                finded = true;
-                return form.description;
+                description = form.description;
             }
         });
-        if (!finded) {
-            return '';
-        }
+        return description;
     }
 }
