@@ -287,7 +287,7 @@ export class FormComponent implements OnInit {
         factura.items.forEach((item) => {
             delete item.importe;
             item.product = item.product.id;
-        })
+        });
         delete factura.iva;
         delete factura.subtotal;
         delete factura.totalneto;

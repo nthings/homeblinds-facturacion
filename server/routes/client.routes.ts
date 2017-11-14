@@ -1,5 +1,5 @@
 import {Router} from 'express';
-const facturapi = require('facturapi')('sk_test_M51BgK4WnV8mYvW5o63P0X2DdJ93LvOQ');
+const facturapi = require('facturapi')('sk_test_7ybLJDB9dvRXnDmrKz5YdAMw5aNkmrVP');
 
 const router = Router();
 
