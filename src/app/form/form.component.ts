@@ -145,6 +145,14 @@ export class FormComponent implements OnInit {
         });
     }
 
+    displayProduct(product): string {
+        return product ? product.description: product;
+    }
+
+    displayClient(client): string {
+        return client ? client.legal_name: client;
+    }
+
     // Filter funcions
     filterClientes(val: string): string[] {
         return this.clients.filter(option =>
@@ -273,28 +281,29 @@ export class FormComponent implements OnInit {
 
     // submit invoice
     onSubmit(facturaForm) {
-        if (this.id) {
-            this.facturaService.editFactura(facturaForm.value, this.id).subscribe(
-                data => {
-                    this.notify.success('pe-7s-check', 'Factura editada correctamente');
-                },
-                err => {
-                    console.log(err);
-                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-                }
-            );
-        } else {
-            this.facturaService.addFactura(facturaForm.value).subscribe(
-                data => {
-                    this.id = data._id;
-                    this.notify.success('pe-7s-check', 'Factura agregada correctamente');
-                },
-                err => {
-                    console.log(err);
-                    this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-                }
-            );
-        }
+        console.log(facturaForm.value);
+        // if (this.id) {
+        //     this.facturaService.editFactura(facturaForm.value, this.id).subscribe(
+        //         data => {
+        //             this.notify.success('pe-7s-check', 'Factura editada correctamente');
+        //         },
+        //         err => {
+        //             console.log(err);
+        //             this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+        //         }
+        //     );
+        // } else {
+        //     this.facturaService.addFactura(facturaForm.value).subscribe(
+        //         data => {
+        //             this.id = data._id;
+        //             this.notify.success('pe-7s-check', 'Factura agregada correctamente');
+        //         },
+        //         err => {
+        //             console.log(err);
+        //             this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+        //         }
+        //     );
+        // }
 
     }
 
