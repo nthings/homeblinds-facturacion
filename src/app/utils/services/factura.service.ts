@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, ResponseContentType} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from './authentication.service';
 import {PushNotificationsService} from 'angular4-notifications/src/push-notifications.service';
@@ -31,8 +31,11 @@ export class FacturaService {
     }
 
     public download(id) {
-        return this.http.get('/facturas/download/' + id, this.auth.options).map(res => {
-            return new Blob([res._body], {type: 'application/zip'});
+        const options = this.auth.options;
+        options.responseType = ResponseContentType.ArrayBuffer;
+        return this.http.get('/facturas/download/' + id, options).map(res => {
+            const response: any = res;
+            return new Blob([response._body], {type: 'application/zip'});
         });
     }
 
