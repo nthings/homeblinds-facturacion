@@ -80,9 +80,11 @@ export class FormComponent implements OnInit {
             .map(val => val ? this.filterClientes(val) : this.clients.slice());
 
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
-        this.filteredProducts = [conceptos.at(0).get('product').valueChanges
+        this.filteredProducts = [
+            conceptos.at(0).get('product').valueChanges
             .startWith(null)
-            .map(val => val ? this.filterProductos(val) : this.products.slice())];
+            .map(val => val ? this.filterProductos(val) : this.products.slice())
+        ];
 
         this.facturaForm.get('customer').valueChanges.subscribe(
             id => {
@@ -93,6 +95,12 @@ export class FormComponent implements OnInit {
                         this.facturaForm.get('customer').setErrors(null);
                     }
                 });
+            }
+        );
+
+        this.facturaForm.get('items').valueChanges.subscribe(
+            item => {
+                console.log(item);
             }
         );
 
