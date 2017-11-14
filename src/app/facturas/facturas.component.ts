@@ -7,6 +7,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
 import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
 import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-dialog.component';
 import {Router} from '@angular/router';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
     selector: 'app-facturas',
@@ -102,8 +103,8 @@ export class FacturasComponent implements OnInit {
 
     download(id): void {
         this.facturaService.download(id).subscribe(
-            data => {
-                console.log(data);
+            zip => {
+                saveAs(zip, 'factura.zip');
             }
         );
     }
