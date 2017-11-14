@@ -31,7 +31,9 @@ export class FacturaService {
     }
 
     public download(id) {
-        return this.http.get('/facturas/download/' + id, this.auth.options).map(res => res.blob());
+        return this.http.get('/facturas/download/' + id, this.auth.options).map(res => {
+            return new Blob([res._body], {type: 'application/zip'});
+        });
     }
 
     public replaceClient(client) {
