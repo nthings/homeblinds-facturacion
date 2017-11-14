@@ -64,7 +64,7 @@ router.get('/download/:id', (req, res) => {
         .then(invoice => {
             const file = fs.createWriteStream('./factura.zip');
             invoice.pipe(file);
-            res.sendFile(__dirname + '/factura.zip');
+            res.sendFile('/dist/server/routes/factura.zip');
         })
         .catch(err => { /* handle the error */
             console.log(err);
