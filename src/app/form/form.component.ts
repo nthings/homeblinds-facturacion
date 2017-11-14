@@ -91,8 +91,9 @@ export class FormComponent implements OnInit {
         // Client dont exist in autocomplete error handling
         this.facturaForm.get('customer').valueChanges.subscribe(
             id => {
+                console.log(id);
                 this.clients.forEach((client) => {
-                    if (client.id !== id) {
+                    if (client.id !== id.id) {
                         this.facturaForm.get('customer').setErrors({clientDontExists: true});
                     } else {
                         this.facturaForm.get('customer').setErrors(null);
@@ -104,6 +105,7 @@ export class FormComponent implements OnInit {
         // Product dont exist in autocomplete error handling
         conceptos.valueChanges.subscribe(
             items => {
+                console.log(items);
                 items.forEach((item, index) => {
                     let productExist = false;
                     this.products.forEach((product) => {
