@@ -156,16 +156,16 @@ export class FormComponent implements OnInit {
     // Filter funcions
     filterClientes(val: string): string[] {
         return this.clients.filter(option =>
-            option.legal_name.toLowerCase().includes(val.legal_name.toLowerCase())
-            || option.legal_name.toLowerCase().indexOf(val.legal_name.toLowerCase()) === 0
-            || option.tax_id.toLowerCase().includes(val.legal_name.toLowerCase())
-            || option.tax_id.toLowerCase().indexOf(val.legal_name.toLowerCase()) === 0);
+            option.legal_name.toLowerCase().includes((val as any).legal_name.toLowerCase())
+            || option.legal_name.toLowerCase().indexOf((val as any).legal_name.toLowerCase()) === 0
+            || option.tax_id.toLowerCase().includes((val as any).legal_name.toLowerCase())
+            || option.tax_id.toLowerCase().indexOf((val as any).legal_name.toLowerCase()) === 0);
     }
 
     filterProductos(val: string): string[] {
         return this.products.filter(option =>
-            option.description.toLowerCase().includes(val.description.toLowerCase())
-            || option.description.toLowerCase().indexOf(val.description.toLowerCase()) === 0);
+            option.description.toLowerCase().includes((val as any).description.toLowerCase())
+            || option.description.toLowerCase().indexOf((val as any).description.toLowerCase()) === 0);
     }
 
     // Getters from services
