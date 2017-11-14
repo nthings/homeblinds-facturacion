@@ -157,6 +157,8 @@ export class FormComponent implements OnInit {
     filterClientes(val: string): string[] {
         return this.clients.filter(option => {
             console.log(val);
+
+            console.log(option);
             return option.legal_name.toLowerCase().includes((val as any).legal_name.toLowerCase())
             || option.legal_name.toLowerCase().indexOf((val as any).legal_name.toLowerCase()) === 0
             || option.tax_id.toLowerCase().includes((val as any).legal_name.toLowerCase())
