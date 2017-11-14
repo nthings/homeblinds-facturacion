@@ -105,7 +105,7 @@ export class FormComponent implements OnInit {
                 items.forEach((item, index) => {
                     let productExist = false;
                     this.products.forEach((product) => {
-                        if (product.id === item.product) {
+                        if (product.id === item.product.id) {
                             productExist = true;
                         }
                     });
@@ -253,12 +253,10 @@ export class FormComponent implements OnInit {
         const cantidad = conceptos.at(index).get('quantity').value;
         let preciounitario = 0;
         for (let i = 0; i < this.products.length; i++) {
-            if (this.products[i].id === conceptos.at(index).get('product').value) {
+            if (this.products[i].id === conceptos.at(index).get('product').value.id) {
                 preciounitario = this.products[i].price;
             }
         }
-        console.log(cantidad);
-        console.log(preciounitario);
         conceptos.at(index).get('importe').setValue((cantidad * preciounitario));
 
         this.calcularTotales();

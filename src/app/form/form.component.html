@@ -17,7 +17,7 @@
                     <input matInput placeholder="Selecciona un Cliente" aria-label="State" [matAutocomplete]="auto"
                            formControlName="customer" required>
                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayClient">
-                        <mat-option *ngFor="let client of filteredClients | async" [value]="client.id">
+                        <mat-option *ngFor="let client of filteredClients | async" [value]="client">
                             <span>{{ client.tax_id }}</span> |
                             <span>{{ client.legal_name }}</span> |
                             <small>Email: {{client.email}}</small>
@@ -74,7 +74,7 @@
                                     <input matInput placeholder="Selecciona un Producto" aria-label="State" [matAutocomplete]="auto"
                                            formControlName="product" required>
                                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct" (optionSelected)="calcularImporte(i)">
-                                        <mat-option *ngFor="let product of filteredProducts[i] | async" [value]="product.id">
+                                        <mat-option *ngFor="let product of filteredProducts[i] | async" [value]="product">
                                             <span>{{product.description}}</span> |
                                             <small>${{product.price}}</small>
                                         </mat-option>
