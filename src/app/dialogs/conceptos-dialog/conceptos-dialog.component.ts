@@ -19,7 +19,7 @@ export class ConceptosDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.data.items.forEach((item) => {
+        this.data.forEach((item) => {
             this.productService.get(item.product.id).subscribe(
                 product => {
                     this.tableConceptos = {
