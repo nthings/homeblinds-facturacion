@@ -40,9 +40,7 @@ export class NavbarComponent implements OnInit {
 
     @Input()
     user;
-
-    usingAs = 1;
-
+    
     constructor(location: Location,
                 private element: ElementRef,
                 private notify: NotifyService,
