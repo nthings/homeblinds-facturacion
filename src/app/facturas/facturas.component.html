@@ -33,9 +33,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
+                                            <tr *ngIf="factura.customer">
                                                 <td>{{factura.customer.tax_id}}</td>
                                                 <td>{{factura.customer.legal_name}}</td>
+                                            </tr>
+                                            <tr *ngIf="!factura.customer">
+                                                <td>CLIENTE ELIMINADO</td>
+                                                <td>{{factura.customer_name}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
