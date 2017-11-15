@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../utils/services/authentication.service';
+import {NotifyService} from '../utils/services/notify.service';
+import {Router} from '@angular/router';
 
 declare const $: any;
 
@@ -15,19 +17,12 @@ export const ROUTES: RouteInfo[] = [
     {path: 'facturas-existentes', title: 'Facturas', icon: 'pe-7s-box1', class: ''},
     {path: 'clientes', title: 'Clientes', icon: 'pe-7s-users', class: ''},
     {path: 'productos', title: 'Productos', icon: 'pe-7s-box2', class: ''}
-    // { path: 'clientes', title: 'Clientes',  icon: 'pe-7s-users', class: '' }
 ];
 
 export const ROUTES_NAV_BAR: RouteInfo[] = [
     {path: 'mod-pass', title: 'Cambiar Password', icon: 'pe-7s-key', class: 'icon'},
     {path: '', title: '', icon: '', class: 'divider'},
     {path: 'logout', title: 'Cerrar Sesion', icon: 'pe-7s-door-lock', class: 'icon'}
-    // { path: 'table', title: 'Table List',  icon:'pe-7s-note2', class: '' },
-    // { path: 'typography', title: 'Typography',  icon:'pe-7s-news-paper', class: '' },
-    // { path: 'icons', title: 'Icons',  icon:'pe-7s-science', class: '' },
-    // { path: 'maps', title: 'Maps',  icon:'pe-7s-map-marker', class: '' },
-    // { path: 'notifications', title: 'Notifications',  icon:'pe-7s-bell', class: '' },
-    // { path: 'upgrade', title: 'Upgrade to PRO',  icon:'pe-7s-rocket', class: 'active-pro' },
 ];
 
 @Component({
@@ -38,7 +33,10 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     menuItemsDrop: any[];
     user;
-    constructor(private auth: AuthenticationService) {
+
+    constructor(private notify: NotifyService,
+                private auth: AuthenticationService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -52,5 +50,18 @@ export class SidebarComponent implements OnInit {
             return false;
         }
         return true;
+    }
+
+    useBy(select) {
+        this.auth.useBy(select.value).subscribe(
+            changed => {
+                this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
+                this.router.navigate(['/']);
+            },
+            error => {
+                console.log(error);
+                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+            }
+        );
     }
 }
