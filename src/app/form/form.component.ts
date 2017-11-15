@@ -208,9 +208,11 @@ export class FormComponent implements OnInit {
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         const cantidad = conceptos.at(index).get('quantity').value;
         let preciounitario = 0;
-        for (let i = 0; i < this.products.length; i++) {
-            if (this.products[i].id === conceptos.at(index).get('product').value.id) {
-                preciounitario = this.products[i].price;
+        if (conceptos.at(index).get('product').value) {
+            for (let i = 0; i < this.products.length; i++) {
+                if (this.products[i].id === conceptos.at(index).get('product').value.id) {
+                    preciounitario = this.products[i].price;
+                }
             }
         }
         conceptos.at(index).get('importe').setValue((cantidad * preciounitario));
