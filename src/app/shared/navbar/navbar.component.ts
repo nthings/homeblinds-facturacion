@@ -53,6 +53,9 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.listTitles = ROUTES_NAV_BAR.filter(listTitle => listTitle);
+        this.listTitles.push({path: 'usuarios', title: ''});
+        this.listTitles.push({path: 'usuarios', title: 'Usuarios'});
+        this.listTitles.push({path: 'usuarios', title: 'Usuarios'});
         this.listTitles.push({path: 'usuarios', title: 'Usuarios'});
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
