@@ -8,22 +8,18 @@ import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './utils/guards/auth.guard';
 import {FormComponent} from './form/form.component';
 import {FacturasComponent} from './facturas/facturas.component';
-import {ClientesComponent} from "./clientes/clientes.component";
+import {ClientesComponent} from './clientes/clientes.component';
+import {ProductosComponent} from './productos/productos.component';
 
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'factura', canActivate: [AuthGuard], component: FormComponent},
-    {path: 'factura/:id', canActivate: [AuthGuard], component: FormComponent},
     {path: 'facturas-existentes', canActivate: [AuthGuard], component: FacturasComponent},
     {path: 'clientes', canActivate: [AuthGuard], component: ClientesComponent},
+    {path: 'productos', canActivate: [AuthGuard], component: ProductosComponent},
     // {path: 'usuarios', canActivate: [AuthGuard, NewUserGuard], component: UsersComponent},
     // {path: 'usuario', canActivate: [AuthGuard, NewUserGuard], component: UserComponent},
     {path: 'mod-pass', canActivate: [AuthGuard], component: ModPasswordComponent},
-    // {path: 'roles', canActivate: [AuthGuard, NewUserGuard], component: RolesComponent},
-    // {path: 'department', canActivate: [AuthGuard, NewUserGuard], component: DepartmentComponent},
-    // { path: 'maps',           component: MapsComponent },
-    // { path: 'notifications',  component: NotificationsComponent },
-    // { path: 'upgrade',        component: UpgradeComponent },
     {path: '', redirectTo: 'factura', pathMatch: 'full'}
 ];
 

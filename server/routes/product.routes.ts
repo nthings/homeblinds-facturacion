@@ -36,7 +36,7 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/edit/:id', (req, res) => {
-    facturapi.products.update(req.params.id)
+    facturapi.products.update(req.params.id, req.body)
         .then(customer => {
             res.send(customer);
         })

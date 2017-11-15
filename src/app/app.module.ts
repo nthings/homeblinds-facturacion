@@ -27,6 +27,7 @@ import {ModPasswordComponent} from './mod-password/mod-password.component';
 import {LoginComponent} from './login/login.component';
 import {FormComponent} from './form/form.component';
 import { FacturasComponent } from './facturas/facturas.component';
+import { ProductosComponent } from './productos/productos.component';
 
 // Pipes
 import {SearchPipe} from './utils/pipes/search.pipe';
@@ -62,7 +63,8 @@ import {ProductService} from './utils/services/product.service';
         LoginComponent,
         FormComponent,
         FacturasComponent,
-        ClientesComponent
+        ClientesComponent,
+        ProductosComponent
     ],
     imports: [
         BrowserAnimationsModule,
