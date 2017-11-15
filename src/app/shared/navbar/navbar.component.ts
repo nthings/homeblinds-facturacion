@@ -41,6 +41,8 @@ export class NavbarComponent implements OnInit {
     @Input()
     user;
 
+    usingAs = 1;
+
     constructor(location: Location,
                 private element: ElementRef,
                 private notify: NotifyService,
@@ -57,9 +59,8 @@ export class NavbarComponent implements OnInit {
         this.menuItems = ROUTES_NAV_BAR.filter(menuItem => menuItem);
     }
 
-    useBy(value) {
-        console.log(value);
-        this.auth.useBy(value).subscribe(
+    useBy(select) {
+        this.auth.useBy(select.value).subscribe(
             changed => {
                 this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
             },
