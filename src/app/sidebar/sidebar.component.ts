@@ -64,9 +64,9 @@ export class SidebarComponent implements OnInit {
     }
 
     useBy(select) {
-        this.auth.useBy(select.value).subscribe(
+        this.auth.useBy(select).subscribe(
             changed => {
-                this.selected = (select.value - 1);
+                this.selected = (select - 1);
                 this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
                 this.router.navigate(['/']);
             },
