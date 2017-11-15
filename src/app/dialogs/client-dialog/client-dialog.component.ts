@@ -43,6 +43,10 @@ export class ClientDialogComponent implements OnInit {
             this.clientForm.controls['tax_id'].setValue(this.data.tax_id, {onlySelf: true});
             this.clientForm.controls['legal_name'].setValue(this.data.legal_name, {onlySelf: true});
             this.clientForm.controls['email'].setValue(this.data.email, {onlySelf: true});
+            this.clientForm.controls['address'].get('street').setValue(this.data.address.street, {onlySelf: true});
+            this.clientForm.controls['address'].get('exterior').setValue(this.data.address.exterior, {onlySelf: true});
+            this.clientForm.controls['address'].get('interior').setValue(this.data.address.interior, {onlySelf: true});
+            this.clientForm.controls['address'].get('neighborhood').setValue(this.data.address.neighborhood, {onlySelf: true});
             this.clientForm.controls['address'].get('zip').setValue(this.data.address.zip, {onlySelf: true});
         }
     }
@@ -54,6 +58,7 @@ export class ClientDialogComponent implements OnInit {
     onSubmit({value, valid}) {
         value.tax_id = value.tax_id.toUpperCase();
         value.legal_name = value.legal_name.toUpperCase();
+        console.log(value);
         if (this.edit) {
             this.clientService.editClient(value, this.data.id).subscribe(
                 data => {
