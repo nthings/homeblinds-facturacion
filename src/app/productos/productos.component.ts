@@ -8,7 +8,6 @@ import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.comp
 import {NotifyService} from '../utils/services/notify.service';
 import {ProductService} from '../utils/services/product.service';
 import {ProductDialogComponent} from '../dialogs/product-dialog/product-dialog.component';
-import {FacturaService} from '../utils/services/factura.service';
 
 @Component({
     selector: 'app-productos',
@@ -39,7 +38,7 @@ import {FacturaService} from '../utils/services/factura.service';
         ])
     ]
 })
-export class ProductesComponent implements OnInit {
+export class ProductosComponent implements OnInit {
     states;
     state;
     public tableProducts: TableData;
