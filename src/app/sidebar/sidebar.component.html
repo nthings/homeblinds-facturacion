@@ -6,6 +6,42 @@
         </a>
     </div>
     <ul class="nav responsive-nav">
+        <li class="dropdown" *ngIf="isMobileMenu()">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <div class="login-color">{{user.nombre}}
+                    <p>
+                        <i class="pe-7s-user icon session-icon"></i>
+                        <b class="caret"></b>
+                    </p>
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+                <li routerLinkActive="active" *ngFor="let menuItem of menuItemsDrop" class="{{menuItem.class}}">
+                    <a [routerLink]="[menuItem.path]" *ngIf="menuItem.path != 'logout'">
+                        <i class="{{menuItem.icon}}"></i>
+                        <p>{{menuItem.title}}</p>
+                    </a>
+                    <a (click)="logout()" *ngIf="menuItem.path == 'logout'">
+                        <i class="{{menuItem.icon}}"></i>
+                        <p>{{menuItem.title}}</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li *ngIf="isMobileMenu()">
+            <mat-form-field class="dropdown-toggle">
+                <mat-select placeholder="Usar Como" value="1" (change)="useBy($event)">
+                    <mat-option value="1">
+                        MAURICIO ALEJANDRO MARTINEZ PACHECO
+                    </mat-option>
+                    <mat-option value="2">
+                        BEATRIZ MARGARITA PACHECO RODRIGUEZ
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </li>
+
+        <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
             <a  [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>
