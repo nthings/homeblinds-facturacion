@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable()
 export class ClientService {
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
                 private auth: AuthenticationService) {
     }
 
     public getAll() {
-        return this.http.get('/clients/all', this.auth.options).map(res => res.json());
+        return this.http.get('/clients/all', this.auth.options);
     }
 
     public addClient(client) {
@@ -26,7 +26,7 @@ export class ClientService {
     }
 
     public get(id) {
-        return this.http.get('/clients/get/' + id, this.auth.options).map(res => res.json());
+        return this.http.get('/clients/get/' + id, this.auth.options);
     }
 
 }

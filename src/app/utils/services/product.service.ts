@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable()
 export class ProductService {
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
                 private auth: AuthenticationService) {
     }
 
     public getAll() {
-        return this.http.get('/products/all', this.auth.options).map(res => res.json());
+        return this.http.get('/products/all', this.auth.options);
     }
 
     public addProduct(product) {
@@ -26,7 +26,7 @@ export class ProductService {
     }
 
     public get(id) {
-        return this.http.get('/products/get/' + id, this.auth.options).map(res => res.json());
+        return this.http.get('/products/get/' + id, this.auth.options);
     }
 
 }

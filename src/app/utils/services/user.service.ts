@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable()
 export class UserService {
 
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
                 private auth: AuthenticationService) {
     }
 
     public getAll() {
-        return this.http.get('/users/all', this.auth.options).map(res => res.json());
+        return this.http.get('/users/all', this.auth.options);
     }
 
     public addUser(user) {
