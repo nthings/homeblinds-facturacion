@@ -113,12 +113,8 @@ export class ClientesComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.facturaService.replaceClient(client).subscribe(
-                    data => {
-                        this.notify.success('pe-7s-check', 'Cliente Eliminado correctamente.');
-                        this.getClients();
-                    }
-                );
+                this.notify.success('pe-7s-check', 'Cliente Eliminado correctamente.');
+                this.getClients();
             }
         });
     }
