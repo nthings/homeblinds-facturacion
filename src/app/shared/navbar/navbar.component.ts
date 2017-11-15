@@ -2,6 +2,7 @@ import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {AuthenticationService} from '../../utils/services/authentication.service';
 import {NotifyService} from '../../utils/services/notify.service';
+import { Router } from '@angular/router';
 
 declare const $: any;
 
@@ -44,7 +45,8 @@ export class NavbarComponent implements OnInit {
     constructor(location: Location,
                 private element: ElementRef,
                 private notify: NotifyService,
-                private auth: AuthenticationService) {
+                private auth: AuthenticationService,
+                private router: Router) {
         this.location = location;
         this.sidebarVisible = false;
     }
@@ -61,6 +63,7 @@ export class NavbarComponent implements OnInit {
         this.auth.useBy(select.value).subscribe(
             changed => {
                 this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
+                this.router.navigate(['/']);
             },
             error => {
                 console.log(error);
