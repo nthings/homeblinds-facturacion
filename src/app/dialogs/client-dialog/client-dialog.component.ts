@@ -55,7 +55,7 @@ export class ClientDialogComponent implements OnInit {
         value.tax_id = value.tax_id.toUpperCase();
         value.legal_name = value.legal_name.toUpperCase();
         if (this.edit) {
-            this.clientService.editClient(value, this.data._id).subscribe(
+            this.clientService.editClient(value, this.data.id).subscribe(
                 data => {
                     this.dialogRef.close(true);
                 },
