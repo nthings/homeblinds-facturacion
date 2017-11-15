@@ -29,14 +29,7 @@
                     </mat-form-field>
                     <div formGroupName="address">
                         <hr>
-                        <h3>Dirección</h3>
-                        <mat-form-field class="full-width">
-                            <input type="email" matInput placeholder="Código Postal" formControlName="zip"
-                                   required>
-                            <mat-error *ngIf="clientForm.controls['address'].get('zip').hasError('required')">
-                                El Código Postal es <strong>requerido</strong>
-                            </mat-error>
-                        </mat-form-field>
+                        <p>Dirección</p>
                         <mat-form-field class="full-width">
                             <input type="text" matInput placeholder="Calle" formControlName="street"
                                    required>
