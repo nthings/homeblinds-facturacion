@@ -26,12 +26,13 @@ export class ConceptosDialogComponent implements OnInit {
         this.data.forEach((item) => {
             this.productService.get(item.product.id).subscribe(
                 product => {
+                    const prod: any = product;
                     this.tableConceptos.rows.push({
                         quantity: item.quantity,
-                        unidad: product.unit_name,
+                        unidad: prod.unit_name,
                         description: item.description,
-                        valorunitario: product.price,
-                        importe: (item.quantity * product.price)
+                        valorunitario: prod.price,
+                        importe: (item.quantity * prod.price)
                     });
                 }
             );

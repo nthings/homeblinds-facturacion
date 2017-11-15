@@ -247,7 +247,8 @@ export class FormComponent implements OnInit {
 
         this.facturaService.addFactura(factura).subscribe(
             data => {
-                this.id = data.id;
+                const dat: any = data;
+                this.id = dat.id;
                 this.notify.success('pe-7s-check', 'Factura agregada correctamente');
             },
             err => {
