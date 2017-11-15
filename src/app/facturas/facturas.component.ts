@@ -6,7 +6,6 @@ import {FacturaService} from '../utils/services/factura.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
 import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-dialog.component';
-import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-facturas',
@@ -44,8 +43,7 @@ export class FacturasComponent implements OnInit {
 
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,
-                private facturaService: FacturaService,
-                private router: Router) {
+                private facturaService: FacturaService) {
     }
 
     ngOnInit() {

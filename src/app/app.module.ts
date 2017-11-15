@@ -32,6 +32,8 @@ import { ProductosComponent } from './productos/productos.component';
 // Pipes
 import {SearchPipe} from './utils/pipes/search.pipe';
 import {PaymentFormPipe} from './utils/pipes/formadepago.pipe';
+import {ProductTypePipe} from './utils/pipes/product-type.pipe';
+import {UnityPipe} from './utils/pipes/unity.pipe';
 
 // Dialogs
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
@@ -55,6 +57,8 @@ import {ProductService} from './utils/services/product.service';
         ModPasswordComponent,
         SearchPipe,
         PaymentFormPipe,
+        ProductTypePipe,
+        UnityPipe,
         ModPasswordComponent,
         DeleteDialogComponent,
         ClientDialogComponent,

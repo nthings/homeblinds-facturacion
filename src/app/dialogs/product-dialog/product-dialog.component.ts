@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 
 import {NotifyService} from '../../utils/services/notify.service';
 import {ProductService} from '../../utils/services/product.service';
+import {conf} from '../../utils/conf';
 
 @Component({
     selector: 'app-client-dialog',
@@ -21,21 +22,9 @@ export class ProductDialogComponent implements OnInit {
         price: new FormControl()
     });
 
-    product_keys = [
-        {key: '52131600', description: 'Persianas'},
-        {key: '52131601', description: 'Persianas venecianas'},
-        {key: '52131602', description: 'Persianas enrollables'},
-        {key: '52131604', description: 'Persianas verticales'},
-        {key: '72153608', description: 'Servicio de instalación de cortinas o persianas'},
-        {key: '76111504', description: 'Servicios de limpieza de ventanas o persianas'}
-    ];
+    product_keys = conf.product_keys;
 
-    units = [
-        {key: 'EA', description: 'PIEZA'},
-        {key: 'MTR', description: 'METRO'},
-        {key: 'LM', description: 'METRO LINEAL'},
-        {key: 'MTK', description: 'METRO CUADRADO'}
-    ];
+    units = conf.units;
 
     constructor(public dialogRef: MatDialogRef<ProductDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
@@ -52,6 +41,7 @@ export class ProductDialogComponent implements OnInit {
             this.productForm.controls['description'].setValue(this.data.description, {onlySelf: true});
             this.productForm.controls['product_key'].setValue(this.data.product_key, {onlySelf: true});
             this.productForm.controls['unit_key'].setValue(this.data.unit_key, {onlySelf: true});
+            this.productForm.controls['price'].setValue(this.data.price, {onlySelf: true});
         }
     }
 
@@ -66,7 +56,7 @@ export class ProductDialogComponent implements OnInit {
             }
         });
         if (this.edit) {
-            this.productService.editProduct(value, this.data._id).subscribe(
+            this.productService.editProduct(value, this.data.id).subscribe(
                 data => {
                     this.dialogRef.close(true);
                 },
