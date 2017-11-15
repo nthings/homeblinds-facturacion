@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     menuItemsDrop: any[];
     user;
-    used = [
+    users = [
         {
             id: 1,
             name: 'MAURICIO ALEJANDRO MARTINEZ PACHECO'
