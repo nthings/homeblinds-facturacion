@@ -33,6 +33,17 @@ export class SidebarComponent implements OnInit {
     menuItems: any[];
     menuItemsDrop: any[];
     user;
+    used = [
+        {
+            id: 1,
+            name: 'MAURICIO ALEJANDRO MARTINEZ PACHECO'
+        },
+        {
+            id: 2,
+            name: 'BEATRIZ MARGARITA PACHECO RODRIGUEZ'
+        }
+    ];
+    selected = 0;
 
     constructor(private notify: NotifyService,
                 private auth: AuthenticationService,
@@ -55,6 +66,7 @@ export class SidebarComponent implements OnInit {
     useBy(select) {
         this.auth.useBy(select.value).subscribe(
             changed => {
+                this.selected = (select.value - 1);
                 this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
                 this.router.navigate(['/']);
             },

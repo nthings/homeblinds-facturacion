@@ -8,11 +8,12 @@
     <ul class="nav responsive-nav">
         <li class="dropdown" *ngIf="isMobileMenu()">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <div class="login-color">{{user.nombre}}
-                    <p>
+                <div class="login-color">
+                    <span>{{user.nombre}}</span>
+                    <span>
                         <i class="pe-7s-user icon session-icon"></i>
                         <b class="caret"></b>
-                    </p>
+                    </span>
                 </div>
             </a>
             <ul class="dropdown-menu">
@@ -28,17 +29,23 @@
                 </li>
             </ul>
         </li>
-        <li *ngIf="isMobileMenu()">
-            <mat-form-field class="dropdown-toggle">
-                <mat-select placeholder="Usar Como" value="1" (change)="useBy($event)">
-                    <mat-option value="1">
-                        MAURICIO ALEJANDRO MARTINEZ PACHECO
-                    </mat-option>
-                    <mat-option value="2">
-                        BEATRIZ MARGARITA PACHECO RODRIGUEZ
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <li class="dropdown" *ngIf="isMobileMenu()">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <div class="login-color">
+                    <span>Usar como: {{users[selected].name}}</span>
+                    <span>
+                        <i class="pe-7s-user icon session-icon"></i>
+                        <b class="caret"></b>
+                    </span>
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+                <li *ngFor="let user of users">
+                    <a (click)="useBy(user.id)">
+                        <p>{{user.name}}</p>
+                    </a>
+                </li>
+            </ul>
         </li>
 
         <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
