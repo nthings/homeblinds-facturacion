@@ -31,6 +31,7 @@ export class ClientDialogComponent implements OnInit {
 
     ngOnInit() {
         if (this.data) {
+            console.log(this.data);
             this.title = 'Editar Cliente';
             this.icon = 'pe-7s-note icon';
             this.edit = true;

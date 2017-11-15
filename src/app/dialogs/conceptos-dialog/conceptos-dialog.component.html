@@ -13,24 +13,26 @@
             <table class="table table-hover table-striped text-center">
                 <thead>
                 <tr>
-                    <th class="text-center" *ngFor="let cell of tableConceptos.columns; let index=index;">{{ cell }}</th>
+                    <th class="text-center" *ngFor="let cell of tableConceptos.columns; let index=index;">
+                        {{ cell }}
+                    </th>
                 </tr>
                 </thead>
                 <tbody *ngIf="tableConceptos.rows.length">
-                <tr *ngFor="let concepto of tableConceptos.rows; let index = index;">
-                    <td>{{concepto.quantity}}</td>
-                    <td>{{concepto.unidad}}</td>
-                    <td class="small">{{concepto.description}}</td>
-                    <td>{{concepto.valorunitario}}</td>
-                    <td>{{concepto.importe}}</td>
-                </tr>
+                    <tr *ngFor="let concepto of tableConceptos.rows; let index = index;">
+                        <td>{{concepto.quantity}}</td>
+                        <td>{{concepto.unidad}}</td>
+                        <td class="small">{{concepto.description}}</td>
+                        <td>{{concepto.valorunitario}}</td>
+                        <td>{{concepto.importe}}</td>
+                    </tr>
                 </tbody>
                 <tbody *ngIf="!tableConceptos.rows.length">
-                <tr>
-                    <td class="text-center" [attr.colspan]="tableConceptos.columns.length">
-                        <h2>NO HAY CONCEPTOS DADOS DE ALTA PARA LA FACTURA</h2>
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="text-center" [attr.colspan]="tableConceptos.columns.length">
+                            <h2>NO HAY CONCEPTOS DADOS DE ALTA PARA LA FACTURA</h2>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
