@@ -28,8 +28,45 @@
                         </mat-error>
                     </mat-form-field>
                     <div formGroupName="address">
+                        <hr>
+                        <h3>Dirección</h3>
                         <mat-form-field class="full-width">
                             <input type="email" matInput placeholder="Código Postal" formControlName="zip"
+                                   required>
+                            <mat-error *ngIf="clientForm.controls['address'].get('zip').hasError('required')">
+                                El Código Postal es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Calle" formControlName="street"
+                                   required>
+                            <mat-error *ngIf="clientForm.controls['address'].get('street').hasError('required')">
+                                La Calle es <strong>requerida</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Número Exterior" formControlName="exterior"
+                                   required>
+                            <mat-error *ngIf="clientForm.controls['address'].get('exterior').hasError('required')">
+                                El Número Exterior es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Número Interior" formControlName="interior"
+                                   required>
+                            <mat-error *ngIf="clientForm.controls['address'].get('interior').hasError('required')">
+                                El Número Interior es <strong>requerido</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input type="text" matInput placeholder="Colonia" formControlName="neighborhood"
+                                   required>
+                            <mat-error *ngIf="clientForm.controls['address'].get('neighborhood').hasError('required')">
+                                La Colonia es <strong>requerida</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input type="number" matInput placeholder="Código Postal" formControlName="zip"
                                    required>
                             <mat-error *ngIf="clientForm.controls['address'].get('zip').hasError('required')">
                                 El Código Postal es <strong>requerido</strong>

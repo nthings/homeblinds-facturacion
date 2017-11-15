@@ -19,6 +19,10 @@ export class ClientDialogComponent implements OnInit {
         legal_name: new FormControl(),
         email: new FormControl(),
         address: new FormGroup({
+            street: new FormControl(),
+            exterior: new FormControl(),
+            interior: new FormControl(),
+            neighborhood: new FormControl(),
             zip: new FormControl()
         })
     });
@@ -39,7 +43,7 @@ export class ClientDialogComponent implements OnInit {
             this.clientForm.controls['tax_id'].setValue(this.data.tax_id, {onlySelf: true});
             this.clientForm.controls['legal_name'].setValue(this.data.legal_name, {onlySelf: true});
             this.clientForm.controls['email'].setValue(this.data.email, {onlySelf: true});
-            this.clientForm.controls['address'].get('zip').setValue(this.data.email, {onlySelf: true});
+            this.clientForm.controls['address'].get('zip').setValue(this.data.address.zip, {onlySelf: true});
         }
     }
 
@@ -48,7 +52,7 @@ export class ClientDialogComponent implements OnInit {
     }
 
     onSubmit({value, valid}) {
-        value.rfc = value.tax_id.toUpperCase();
+        value.tax_id = value.tax_id.toUpperCase();
         value.legal_name = value.legal_name.toUpperCase();
         if (this.edit) {
             this.clientService.editClient(value, this.data._id).subscribe(
