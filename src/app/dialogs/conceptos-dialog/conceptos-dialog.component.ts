@@ -19,19 +19,20 @@ export class ConceptosDialogComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.tableConceptos = {
+            columns: ['Cantidad', 'Unidad', 'Descripción', 'Valor Unitario', 'Importe'],
+            rows: []
+        };
         this.data.forEach((item) => {
             this.productService.get(item.product.id).subscribe(
                 product => {
-                    this.tableConceptos = {
-                        columns: ['Cantidad', 'Unidad', 'Descripción', 'Valor Unitario', 'Importe'],
-                        rows: {
-                            quantity: item.quantity,
-                            unidad: product.unit_name,
-                            description: item.description,
-                            valorunitario: product.price,
-                            importe: (item.quantity * product.price)
-                        }
-                    };
+                    this.tableConceptos.rows.push({
+                        quantity: item.quantity,
+                        unidad: product.unit_name,
+                        description: item.description,
+                        valorunitario: product.price,
+                        importe: (item.quantity * product.price)
+                    });
                 }
             );
         });
