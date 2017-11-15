@@ -30,7 +30,7 @@ mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true})
 
             app.set('apiKey', process.env.API_KEY_1);
             app.post('/change', (req, res) => {
-                req.app.set('apiKey', process.env['API_KEY_' + res.body.key]);
+                req.app.set('apiKey', process.env['API_KEY_' + req.body.key]);
                 res.sendStatus(200);
             });
             // API location
