@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router';
-import {AuthenticationService} from "../../utils/services/authentication.service";
+import {AuthenticationService} from '../../utils/services/authentication.service';
+import {NotifyService} from '../../utils/services/notify.service';
 
 declare const $: any;
 
@@ -26,7 +26,7 @@ export const ROUTES_NAV_BAR: RouteInfo[] = [
 
 @Component({
     // moduleId: module.id,
-    selector: 'navbar-cmp',
+    selector: 'app-navbar-cmp',
     templateUrl: 'navbar.component.html'
 })
 
@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
 
     constructor(location: Location,
                 private element: ElementRef,
-                private router: Router,
+                private notify: NotifyService,
                 private auth: AuthenticationService) {
         this.location = location;
         this.sidebarVisible = false;
@@ -55,6 +55,19 @@ export class NavbarComponent implements OnInit {
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
         this.menuItems = ROUTES_NAV_BAR.filter(menuItem => menuItem);
+    }
+
+    useBy(value) {
+        console.log(value);
+        this.auth.useBy(value).subscribe(
+            changed => {
+                this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
+            },
+            error => {
+                console.log(error);
+                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+            }
+        );
     }
 
     sidebarOpen() {

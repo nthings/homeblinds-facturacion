@@ -235,7 +235,6 @@ export class FormComponent implements OnInit {
 
     // submit invoice
     onSubmit(facturaForm) {
-        console.log(facturaForm.value);
         const factura = facturaForm.value;
         factura.customer = factura.customer.id;
         factura.items.forEach((item) => {

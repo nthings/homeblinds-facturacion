@@ -28,6 +28,11 @@ mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true})
             // Login User
             app.post('/login', userCtrl.login);
 
+            app.set('apiKey', process.env.API_KEY_1);
+            app.post('/change', (req, res) => {
+                req.app.set('apiKey', process.env['API_KEY_' + res.body.key]);
+                res.sendStatus(200);
+            });
             // API location
             app.use('/users', expressJwt({secret: process.env.SESSION_SECRET}), UserRoutes);
             app.use('/clients', expressJwt({secret: process.env.SESSION_SECRET}), ClientRoutes);

@@ -1,10 +1,9 @@
 import {Router} from 'express';
-const facturapi = require('facturapi')('sk_test_7ybLJDB9dvRXnDmrKz5YdAMw5aNkmrVP');
 
 const router = Router();
 
 router.get('/all', (req, res) => {
-    facturapi.customers.list()
+    require('facturapi')(req.app.get('apiKey')).customers.list()
         .then(list => {
             res.send(list.data);
         })
@@ -15,7 +14,7 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    facturapi.customers.create(req.body)
+    require('facturapi')(req.app.get('apiKey')).customers.create(req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -26,7 +25,7 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-    facturapi.customers.retrieve(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).customers.retrieve(req.params.id)
         .then(customer => {
             res.send(customer);
         })
@@ -37,7 +36,7 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/edit/:id', (req, res) => {
-    facturapi.customers.update(req.params.id, req.body)
+    require('facturapi')(req.app.get('apiKey')).customers.update(req.params.id, req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -48,7 +47,7 @@ router.post('/edit/:id', (req, res) => {
 });
 
 router.delete('/delete/:id', (req, res) => {
-    facturapi.customers.del(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).customers.del(req.params.id)
         .then(customer => {
             res.send(customer);
         })

@@ -11,38 +11,21 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left" *ngIf="user.logged">
-                <!--<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-globe"></i>
-                        <b class="caret"></b>
-                        <span class="notification hidden-sm hidden-xs">5</span>
-                        <p class="hidden-lg hidden-md">
-                            5 Notifications
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Notification 1</a></li>
-                        <li><a href="#">Notification 2</a></li>
-                        <li><a href="#">Notification 3</a></li>
-                        <li><a href="#">Notification 4</a></li>
-                        <li><a href="#">Another notification</a></li>
-                    </ul>
-                </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-search"></i>
-                        <p class="hidden-lg hidden-md">Search</p>
-                    </a>
-                </li>-->
+                    <mat-form-field>
+                        <mat-select placeholder="Usar Como" (change)="useBy($event)">
+                            <mat-option value="1">
+                                MAURICIO ALEJANDRO MARTINEZ PACHECO
+                            </mat-option>
+                            <mat-option value="2">
+                                BEATRIZ MARGARITA PACHECO RODRIGUEZ
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <!--<li>
-                    <a href="#">
-                        <p>Account</p>
-                    </a>
-                </li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <div class="login-color">{{user.nombre}}
@@ -63,16 +46,8 @@
                                 <p>{{menuItem.title}}</p>
                             </a>
                         </li>
-                        <!--<li><a href="#">Cambiar Password</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Cerrar Sesion</a></li>-->
                     </ul>
                 </li>
-                <!--<li>
-                    <a href="#">
-                        <p>Log out</p>
-                    </a>
-                </li>-->
                 <li class="separator hidden-lg hidden-md"></li>
             </ul>
         </div>

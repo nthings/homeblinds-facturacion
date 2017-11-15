@@ -1,11 +1,10 @@
 import {Router} from 'express';
 import * as fs from 'fs';
 
-const facturapi = require('facturapi')('sk_test_7ybLJDB9dvRXnDmrKz5YdAMw5aNkmrVP');
 const router = Router();
 
 router.get('/all', (req, res) => {
-    facturapi.invoices.list()
+    require('facturapi')(req.app.get('apiKey')).invoices.list()
         .then(list => {
             res.send(list.data);
         })
@@ -16,7 +15,7 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    facturapi.invoices.create(req.body)
+    require('facturapi')(req.app.get('apiKey')).invoices.create(req.body)
         .then(invoice => {
             res.send(invoice);
         })
@@ -27,7 +26,7 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-    facturapi.invoices.retrieve(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).invoices.retrieve(req.params.id)
         .then(invoice => {
             res.send(invoice);
         })
@@ -38,7 +37,7 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.delete('/cancel/:id', (req, res) => {
-    facturapi.invoices.cancel(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).invoices.cancel(req.params.id)
         .then(invoice => {
             res.send(invoice);
         })
@@ -49,7 +48,7 @@ router.delete('/cancel/:id', (req, res) => {
 });
 
 router.get('/send/:id', (req, res) => {
-    facturapi.invoices.sendByEmail(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).invoices.sendByEmail(req.params.id)
         .then(invoice => {
             res.send(invoice);
         })
@@ -60,7 +59,7 @@ router.get('/send/:id', (req, res) => {
 });
 
 router.get('/download/:id', (req, res) => {
-    facturapi.invoices.downloadZip(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).invoices.downloadZip(req.params.id)
         .then(invoice => {
             invoice.pipe(res);
         })

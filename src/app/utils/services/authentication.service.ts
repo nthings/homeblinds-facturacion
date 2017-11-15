@@ -64,4 +64,8 @@ export class AuthenticationService {
         this.user = {nombre: 'No haz iniciado sesión', logged: false, username: null};
         this.emitUserLoggedOut.next(this.user);
     }
+
+    useBy(key) {
+        return this.http.post('/change', {key: key}, this.options);
+    }
 }
