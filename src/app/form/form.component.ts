@@ -222,14 +222,14 @@ export class FormComponent implements OnInit {
 
     calcularTotales(): void {
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
-        let subtotal = 0;
-        let iva = 0;
+        let subtotal;
+        let iva;
         let totalneto = 0;
         conceptos.controls.forEach((concepto) => {
-            subtotal += concepto.get('importe').value;
+            totalneto += concepto.get('importe').value;
         });
-        iva = subtotal * 0.16;
-        totalneto = subtotal + iva;
+        iva = totalneto * 0.16;
+        subtotal = totalneto - iva;
         this.facturaForm.get('subtotal').setValue(subtotal);
         this.facturaForm.get('iva').setValue(iva);
         this.facturaForm.get('totalneto').setValue(totalneto);
