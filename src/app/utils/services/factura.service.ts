@@ -33,10 +33,6 @@ export class FacturaService {
         const options = this.auth.options;
         options.responseType = 'arraybuffer';
         console.log(options);
-        return this.http.get('/facturas/download/' + id, options).map(res => {
-            const response: any = res;
-            console.log(response);
-            return new Blob([response._body], {type: 'application/zip'});
-        });
+        return this.http.get('/facturas/download/' + id, options).map(res => new Blob([res], {type: 'application/zip'}));
     }
 }
