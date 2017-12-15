@@ -45,8 +45,8 @@
                                         </table>
                                     </td>
                                     <td>{{factura.payment_form | paymentForm}}</td>
-                                    <td>{{((factura.total) - (factura.total * 0.16))}}</td>
-                                    <td>{{(factura.total * 0.16)}}</td>
+                                    <td>{{(factura.total / 1.16)}}</td>
+                                    <td>{{((factura.total / 1.16) * 0.16)}}</td>
                                     <td>{{factura.total}}</td>
                                     <td>{{factura.created_at | date: 'shortDate'}}</td>
                                     <td>{{(factura.status === 'valid' ? 'VÁLIDA': 'CANCELADA')}}</td>

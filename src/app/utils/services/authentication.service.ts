@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -17,6 +17,7 @@ export class AuthenticationService {
 
     // add authorization header with jwt token
     options;
+
     constructor(private http: HttpClient) {
         // set token if saved in local storage
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -38,7 +39,8 @@ export class AuthenticationService {
                     this.user = userResponse;
                     this.user.logged = true;
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ user: userResponse, token: token }));
+                    localStorage.setItem('currentUser', JSON.stringify({user: userResponse, token: token}));
+                    this.options = {headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)};
 
                     // return true to indicate successful login
                     this.emitLoggedIn();
@@ -56,6 +58,7 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         this.emitLoggedOut();
     }
+
     // Service message commands
     emitLoggedIn() {
         this.emitUserLoggedIn.next(this.user);

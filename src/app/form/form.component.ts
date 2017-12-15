@@ -228,8 +228,8 @@ export class FormComponent implements OnInit {
         conceptos.controls.forEach((concepto) => {
             totalneto += concepto.get('importe').value;
         });
-        iva = totalneto * 0.16;
-        subtotal = totalneto - iva;
+        subtotal = totalneto / 1.16;
+        iva = subtotal * 0.16;
         this.facturaForm.get('subtotal').setValue(subtotal);
         this.facturaForm.get('iva').setValue(iva);
         this.facturaForm.get('totalneto').setValue(totalneto);
