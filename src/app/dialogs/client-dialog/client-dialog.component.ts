@@ -49,16 +49,16 @@ export class ClientDialogComponent implements OnInit {
             this.clientForm.controls['address'].get('zip').setValue(this.data.address.zip, {onlySelf: true});
         }
         // Validar RFC
-        this.clientForm.controls['tax_id'].valueChanges.subscribe(
-            rfc => {
-                if (!this.rfcValido(rfc)) {
-                    this.clientForm.controls['tax_id'].setErrors({rfcInvalid: true});
-                } else {
-                    // RFC Valido
-                    this.clientForm.controls['tax_id'].setErrors(null);
-                }
-            }
-        );
+        // this.clientForm.controls['tax_id'].valueChanges.subscribe(
+        //     rfc => {
+        //         if (!this.rfcValido(rfc)) {
+        //             this.clientForm.controls['tax_id'].setErrors({rfcInvalid: true});
+        //         } else {
+        //             // RFC Valido
+        //             this.clientForm.controls['tax_id'].setErrors(null);
+        //         }
+        //     }
+        // );
     }
 
     onNoClick(): void {
