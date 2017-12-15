@@ -19,7 +19,8 @@ export class ProductDialogComponent implements OnInit {
         description: new FormControl(),
         product_key: new FormControl(),
         unit_key: new FormControl(),
-        price: new FormControl()
+        price: new FormControl(),
+        tax_included: new FormControl()
     });
 
     product_keys = conf.product_keys;
