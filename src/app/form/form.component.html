@@ -23,10 +23,10 @@
                             <small>Email: {{client.email}}</small>
                         </mat-option>
                     </mat-autocomplete>
-                    <mat-error *ngIf="facturaForm.controls['customer'].hasError('required')">
+                    <mat-error *ngIf="facturaForm['controls']['customer'].hasError('required')">
                         El Cliente es <strong>requerido</strong>
                     </mat-error>
-                    <mat-error *ngIf="facturaForm.controls['customer'].hasError('clientDontExists')">
+                    <mat-error *ngIf="facturaForm['controls']['customer'].hasError('clientDontExists')">
                         Ese Cliente <strong>NO EXISTE</strong>
                     </mat-error>
                 </mat-form-field>
@@ -40,7 +40,7 @@
                             {{formadepago.description}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="facturaForm.controls['payment_form'].hasError('required')">
+                    <mat-error *ngIf="facturaForm['controls']['payment_form'].hasError('required')">
                         La Forma de Pago es <strong>requerida</strong>
                     </mat-error>
                 </mat-form-field>
@@ -58,7 +58,7 @@
                 </div>
                 <div formArrayName="items">
                     <div class="col-xs-12 margin-bottom-25 concepto"
-                         *ngFor="let concepto of facturaForm.get('items').controls; let i=index">
+                         *ngFor="let concepto of facturaForm.get('items')['controls']; let i=index">
                         <div [formGroupName]="i">
                             <div class="col-xs-12 col-sm-3">
                                 <mat-form-field class="full-width">
@@ -94,7 +94,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-xs-12 col-sm-1">
-                                <button *ngIf="i != 0 || (facturaForm.get('items').controls.length) > 1"
+                                <button *ngIf="i != 0 || (facturaForm.get('items')['controls'].length) > 1"
                                         type="button" class="btn btn-danger btn-fill btn-block"
                                         (click)="removeConcepto(i)">
                                     <i class="pe-7s-close-circle icon"></i>

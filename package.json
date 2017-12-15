@@ -13,7 +13,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "postinstall": "tsc -p server && ng build --prod --environment=prod",
+        "postinstall": "tsc -p server && ng build --environment=prod",
         "dev": "concurrently \"mongod\" \"tsc -w -p server\" \"ng build --watch\" \"nodemon dist/server/server\""
     },
     "private": true,
