@@ -12,6 +12,9 @@
                         <mat-error *ngIf="clientForm.controls['tax_id'].hasError('required')">
                             El RFC es <strong>requerido</strong>
                         </mat-error>
+                        <mat-error *ngIf="clientForm.controls['tax_id'].hasError('rfcInvalid')">
+                            El RFC no tiene formato <strong>válido</strong>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width">
                         <input type="text" matInput placeholder="Razón Social" formControlName="legal_name"
