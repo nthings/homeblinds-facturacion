@@ -212,6 +212,10 @@ export class FormComponent implements OnInit {
             for (let i = 0; i < this.products.length; i++) {
                 if (this.products[i].id === conceptos.at(index).get('product').value.id) {
                     preciounitario = this.products[i].price;
+                    if (!this.products[i].tax_included) {
+                        // El producto no contiene IVA y hay que calcularlo
+                        preciounitario = this.products[i].price + (this.products[i].price * 0.16);
+                    }
                 }
             }
         }

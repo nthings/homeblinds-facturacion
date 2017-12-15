@@ -37,9 +37,10 @@
                         <input type="number" step="any" min="0" matInput placeholder="Precio"
                                formControlName="price" required>
                         <mat-error *ngIf="productForm.controls['price'].hasError('required')">
-                            El Precio es <strong>requeridp</strong>
+                            El Precio es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
+                    <mat-checkbox class="full-width" formControlName="tax_included">I.V.A. Incluido</mat-checkbox>
                 </div>
             </div>
             <div class="row">

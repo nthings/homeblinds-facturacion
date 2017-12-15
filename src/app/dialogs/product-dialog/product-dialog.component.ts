@@ -50,6 +50,7 @@ export class ProductDialogComponent implements OnInit {
     }
 
     onSubmit({value, valid}) {
+        value.tax_included = value.tax_included || false;
         this.units.forEach((unit) => {
             if (unit.key === value.unit_key) {
                 value.unit_name = unit.description;
