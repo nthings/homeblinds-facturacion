@@ -104,7 +104,7 @@ export class ClientDialogComponent implements OnInit {
 
     rfcValido(rfc) {
         const re = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
-        const validado = rfc.match(re);
+        const validado = rfc.toUpperCase().match(re);
 
         if (!validado) {  // Coincide con el formato general del regex?
             return false;
@@ -128,6 +128,7 @@ export class ClientDialogComponent implements OnInit {
             suma += diccionario.indexOf(rfcSinDigito.charAt(i)) * (indice - i);
         }
 
+        console.log(suma);
         digitoEsperado = 11 - suma % 11;
         if (digitoEsperado === 11) {
             digitoEsperado = 0;
@@ -142,6 +143,9 @@ export class ClientDialogComponent implements OnInit {
         } else if (rfcSinDigito + digitoVerificador === 'XEXX010101000') {
             return false;
         }
+        console.log(digitoEsperado);
+        console.log(digitoVerificador);
+        console.log(digitoVerificador === digitoEsperado);
         return digitoVerificador === digitoEsperado;
     }
 
