@@ -51,8 +51,7 @@ export class ClientDialogComponent implements OnInit {
         // Validar RFC
         this.clientForm.controls['tax_id'].valueChanges.subscribe(
             rfc => {
-                const valido = this.rfcValido(rfc);
-                if (!valido) {
+                if (!this.rfcValido(rfc)) {
                     this.clientForm.controls['tax_id'].setErrors({rfcInvalid: true});
                 } else {
                     // RFC Valido
