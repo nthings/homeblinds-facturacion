@@ -102,11 +102,12 @@ export class ClientDialogComponent implements OnInit {
     }
 
     rfcValido(rfc) {
+        let valido = true;
         const re = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
         const validado = rfc.match(re);
 
         if (!validado) {  // Coincide con el formato general del regex?
-            return false;
+            valido = false;
         }
 
         // Separar el dígito verificador del resto del RFC
@@ -137,11 +138,11 @@ export class ClientDialogComponent implements OnInit {
         // o es un RFC Genérico (ventas a público general)?
         if ((digitoVerificador !== digitoEsperado)
             && (rfcSinDigito + digitoVerificador !== 'XAXX010101000')) {
-            return false;
+            valido = false;
         } else if (rfcSinDigito + digitoVerificador === 'XEXX010101000') {
-            return false;
+            valido = false;
         }
-        return true;
+        return valido;
     }
 
 }
