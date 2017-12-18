@@ -51,9 +51,7 @@ export class ClientDialogComponent implements OnInit {
         // Validar RFC
         this.clientForm.controls['tax_id'].valueChanges.subscribe(
             rfc => {
-                console.log(rfc);
                 const valido = this.rfcValido(rfc);
-                console.log(valido);
                 if (!valido) {
                     this.clientForm.controls['tax_id'].setErrors({rfcInvalid: true});
                 } else {
@@ -128,7 +126,6 @@ export class ClientDialogComponent implements OnInit {
             suma += diccionario.indexOf(rfcSinDigito.charAt(i)) * (indice - i);
         }
 
-        console.log(suma);
         digitoEsperado = 11 - suma % 11;
         if (digitoEsperado === 11) {
             digitoEsperado = 0;
@@ -137,18 +134,12 @@ export class ClientDialogComponent implements OnInit {
         }
         // El dígito verificador coincide con el esperado?
         // o es un RFC Genérico (ventas a público general)?
-        if ((digitoVerificador !== digitoEsperado)
-            && (rfcSinDigito + digitoVerificador !== 'XAXX010101000')) {
-            console.log('im here');
+        if ((digitoVerificador !== digitoEsperado.toString()) && (rfcSinDigito + digitoVerificador !== 'XAXX010101000')) {
             return false;
         } else if (rfcSinDigito + digitoVerificador === 'XEXX010101000') {
-            console.log('im over here');
             return false;
         }
-        console.log(digitoEsperado);
-        console.log(digitoVerificador);
-        console.log(digitoVerificador === digitoEsperado);
-        return digitoVerificador === digitoEsperado;
+        return digitoVerificador === digitoEsperado.toString();
     }
 
 }
