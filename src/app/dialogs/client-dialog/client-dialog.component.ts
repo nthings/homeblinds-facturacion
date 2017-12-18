@@ -139,8 +139,10 @@ export class ClientDialogComponent implements OnInit {
         // o es un RFC Genérico (ventas a público general)?
         if ((digitoVerificador !== digitoEsperado)
             && (rfcSinDigito + digitoVerificador !== 'XAXX010101000')) {
+            console.log('im here');
             return false;
         } else if (rfcSinDigito + digitoVerificador === 'XEXX010101000') {
+            console.log('im over here');
             return false;
         }
         console.log(digitoEsperado);
