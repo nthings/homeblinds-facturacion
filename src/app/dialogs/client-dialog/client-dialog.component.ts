@@ -51,8 +51,9 @@ export class ClientDialogComponent implements OnInit {
         // Validar RFC
         this.clientForm.controls['tax_id'].valueChanges.subscribe(
             rfc => {
-                console.log(rfc);
-                if (!this.rfcValido(rfc)) {
+                const valido = this.rfcValido(rfc);
+                console.log(valido);
+                if (!valido) {
                     this.clientForm.controls['tax_id'].setErrors({rfcInvalid: true});
                 } else {
                     // RFC Valido
@@ -104,8 +105,6 @@ export class ClientDialogComponent implements OnInit {
         const re = /^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/;
         const validado = rfc.match(re);
 
-        console.log(validado);
-
         if (!validado) {  // Coincide con el formato general del regex?
             return false;
         }
@@ -119,25 +118,16 @@ export class ClientDialogComponent implements OnInit {
         let suma;
         let digitoEsperado;
 
-        console.log(digitoVerificador);
-        console.log(rfcSinDigito);
-        console.log(len);
-
         if (len === 12) {
             suma = 0;
         } else {
             suma = 481; // Ajuste para persona moral
         }
-
-        console.log(suma);
-
         for (let i = 0; i < len; i++) {
             suma += diccionario.indexOf(rfcSinDigito.charAt(i)) * (indice - i);
         }
-        console.log(suma);
 
         digitoEsperado = 11 - suma % 11;
-        console.log(suma);
         if (digitoEsperado === 11) {
             digitoEsperado = 0;
         } else if (digitoEsperado === 10) {
