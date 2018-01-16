@@ -69,15 +69,16 @@ export class FormComponent implements OnInit {
         // Client dont exist in autocomplete error handling
         this.facturaForm.get('customer').valueChanges.subscribe(
             customer => {
-                this.clients.forEach((client) => {
+                for (const client of this.clients) {
                     console.log(client.id);
                     console.log(customer.id);
                     if (client.id !== customer.id) {
                         this.facturaForm.get('customer').setErrors({clientDontExists: true});
                     } else {
                         this.facturaForm.get('customer').setErrors(null);
+                        break;
                     }
-                });
+                }
             }
         );
 
