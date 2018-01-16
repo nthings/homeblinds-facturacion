@@ -70,6 +70,8 @@ export class FormComponent implements OnInit {
         this.facturaForm.get('customer').valueChanges.subscribe(
             customer => {
                 this.clients.forEach((client) => {
+                    console.log(client.id);
+                    console.log(customer.id);
                     if (client.id !== customer.id) {
                         this.facturaForm.get('customer').setErrors({clientDontExists: true});
                     } else {
