@@ -68,6 +68,9 @@ export class ClientDialogComponent implements OnInit {
     onSubmit({value, valid}) {
         value.tax_id = value.tax_id.toUpperCase();
         value.legal_name = value.legal_name.toUpperCase();
+        value.address.zip = value.address.zip + '';
+        value.address.interior = value.address.interior + '';
+        value.address.exterior = value.address.exterior + '';
         if (this.edit) {
             this.clientService.editClient(value, this.data.id).subscribe(
                 data => {
