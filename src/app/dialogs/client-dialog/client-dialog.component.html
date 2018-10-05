@@ -48,7 +48,10 @@
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field class="full-width">
-                            <input type="text" matInput placeholder="Número Interior" formControlName="interior">
+                            <input type="text" matInput placeholder="Número Interior" formControlName="interior" required>
+                            <mat-error *ngIf="clientForm.controls['address'].get('interior').hasError('required')">
+                                El Número Interior es <strong>requerido</strong>. En caso de no tener agregar SN.
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field class="full-width">
                             <input type="text" matInput placeholder="Colonia" formControlName="neighborhood"
