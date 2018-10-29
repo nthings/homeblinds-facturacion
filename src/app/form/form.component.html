@@ -47,6 +47,20 @@
             </div>
 
             <div class="col-xs-12">
+                <h2 class="dialog-subtitle">Uso de La Factura</h2>
+                <mat-form-field class="col-xs-12 col-sm-6 full-width">
+                    <mat-select placeholder="Uso de La Factura" formControlName="use" required>
+                        <mat-option *ngFor="let uso of usos" [value]="uso.code">
+                            {{uso.description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="facturaForm['controls']['use'].hasError('required')">
+                        El Uso de La Factura es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-xs-12">
                 <h2 class="dialog-subtitle">Conceptos</h2>
                 <div class="col-xs-12" [ngClass]="{'text-center': !isMobile}">
                     <button type="button" class="btn btn-primary btn-fill"

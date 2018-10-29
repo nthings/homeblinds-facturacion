@@ -24,6 +24,7 @@ export class FormComponent implements OnInit {
     facturaForm: FormGroup = new FormGroup({
         customer: new FormControl(),
         payment_form: new FormControl(),
+        use: new FormControl(),
         items: new FormArray([
             new FormGroup({
                 quantity: new FormControl(),
@@ -41,6 +42,7 @@ export class FormComponent implements OnInit {
     filteredClients: Observable<string[]>;
     filteredProducts: Observable<string[]>[];
     formasdepago = conf.formasdepago;
+    usos = conf.usos;
 
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,
