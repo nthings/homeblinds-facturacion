@@ -45,7 +45,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
                 res.sendFile(path.join(__dirname, '../client/index.html'));
             });
             // Set server, In heroku we listen to a unix sock
-            const port: number = process.env.PORT || 3000;
+            const port: any = process.env.PORT || 3000;
             app.listen(port, () => console.log(`Running on localhost:${port}`));
 
         },
