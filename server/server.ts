@@ -19,9 +19,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
 
 // Mongoose
-mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true})
-// mongoose.connect('mongodb://localhost:27017/users', { useMongoClient: true })
-
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
     .then(
         // Connection successfull
         () => {
