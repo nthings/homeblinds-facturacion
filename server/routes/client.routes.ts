@@ -2,13 +2,14 @@ import { Router } from 'express';
 
 const router = Router();
 
-const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number) => {
+const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): boolean => {
     try {
         const response = await facturapi.customers.list({page});
         customers = customers.concat(response.data);
         if (response.total_pages > page) {
             await getCustomersByPage(facturapi, customers, page+1);
         }
+        return true;
     } catch (err) {
         console.log(err);
         throw err;
