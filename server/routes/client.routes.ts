@@ -2,15 +2,28 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/all', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).customers.list()
-        .then(list => {
-            res.send(list.data);
-        })
-        .catch(err => {
-            console.log(err);
-            res.sendStatus(500);
-        });
+const getCustomersByPage = async (customers: Array<any>, page: number) => {
+    try {
+        const response = await require('facturapi')(req.app.get('apiKey')).customers.list({page});
+        customers.concat(response.data);
+        if (response.total_pages > page) {
+            getCustomersByPage(customers, page+1);
+        }
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+router.get('/all', async (req, res) => {
+    try {
+        let customers = [];
+        getCustomersByPage(customers, 1)
+        res.send(customers);
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 });
 
 router.post('/add', (req, res) => {
