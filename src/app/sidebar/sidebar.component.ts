@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
             name: 'BEATRIZ MARGARITA PACHECO RODRIGUEZ'
         }
     ];
-    selected = 0;
+    selected = 1;
 
     constructor(private notify: NotifyService,
                 private auth: AuthenticationService,
