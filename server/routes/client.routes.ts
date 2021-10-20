@@ -2,14 +2,14 @@ import { Router } from 'express';
 
 const router = Router();
 
-const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): Promise<boolean> => {
+const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): Promise<any> => {
     try {
         const response = await facturapi.customers.list({page});
         customers = customers.concat(response.data);
         if (response.total_pages > page) {
-            await getCustomersByPage(facturapi, customers, page+1);
+            customers = await getCustomersByPage(facturapi, customers, page+1);
         }
-        return true;
+        return customers;
     } catch (err) {
         console.log(err);
         throw err;
@@ -18,8 +18,7 @@ const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: n
 
 router.get('/all', async (req, res) => {
     try {
-        let customers = [];
-        await getCustomersByPage(require('facturapi')(req.app.get('apiKey')), customers, 1)
+        const customers = await getCustomersByPage(require('facturapi')(req.app.get('apiKey')), [], 1)
         res.send(customers);
     } catch (err) {
         console.log(err);
