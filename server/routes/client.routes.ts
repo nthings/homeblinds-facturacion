@@ -7,7 +7,7 @@ const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: n
         const response = await facturapi.customers.list({page});
         customers.concat(response.data);
         if (response.total_pages > page) {
-            getCustomersByPage(facturapi, customers, page+1);
+            await getCustomersByPage(facturapi, customers, page+1);
         }
     } catch (err) {
         console.log(err);
@@ -18,7 +18,7 @@ const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: n
 router.get('/all', async (req, res) => {
     try {
         let customers = [];
-        getCustomersByPage(require('facturapi')(req.app.get('apiKey')), customers, 1)
+        await getCustomersByPage(require('facturapi')(req.app.get('apiKey')), customers, 1)
         res.send(customers);
     } catch (err) {
         console.log(err);
