@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): boolean => {
+const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): Promise<boolean> => {
     try {
         const response = await facturapi.customers.list({page});
         customers = customers.concat(response.data);
