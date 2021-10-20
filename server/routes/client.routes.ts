@@ -5,8 +5,7 @@ const router = Router();
 const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number) => {
     try {
         const response = await facturapi.customers.list({page});
-        console.log(response);
-        customers.concat(response.data);
+        customers = customers.concat(response.data);
         if (response.total_pages > page) {
             await getCustomersByPage(facturapi, customers, page+1);
         }
