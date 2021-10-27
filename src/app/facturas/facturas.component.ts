@@ -100,7 +100,7 @@ export class FacturasComponent implements OnInit {
     download(id): void {
         this.facturaService.download(id).subscribe(
             zip => {
-                const url = window.URL.createObjectURL(zip);
+                const url = (URL || window.URL || window.webkitURL || window || {}).createObjectURL(zip);
                 window.open(url);
             }
         );
