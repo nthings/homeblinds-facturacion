@@ -60,10 +60,10 @@ router.get('/send/:id', (req, res) => {
 });
 
 router.get('/download/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.downloadPdf(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).invoices.downloadZip(req.params.id)
         .then(invoice => {
-            res.set('Content-Type', 'application/pdf');
-            res.set('Content-Disposition', `attachment; filename=${req.params.id}.pdf`);
+            res.set('Content-Type', 'application/zip');
+            res.set('Content-Disposition', `attachment; filename=${req.params.id}.zip`);
             invoice.pipe(res);
         })
         .catch(err => { /* handle the error */
