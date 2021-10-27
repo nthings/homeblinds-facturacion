@@ -48,7 +48,8 @@ router.delete('/cancel/:id', (req, res) => {
 });
 
 router.get('/send/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.sendByEmail(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).invoices.sendByEmail(req.params.id,
+        { email: 'homeblinds@hotmail.com' })
         .then(invoice => {
             res.send(invoice);
         })
@@ -59,11 +60,10 @@ router.get('/send/:id', (req, res) => {
 });
 
 router.get('/download/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.downloadZip(req.params.id)
+    require('facturapi')(req.app.get('apiKey')).invoices.downloadPdf(req.params.id)
         .then(invoice => {
-            console.log(invoice);
-            res.set('Content-Type', 'application/zip');
-            res.set('Content-Disposition', `attachment; filename=${req.params.id}.zip`);
+            res.set('Content-Type', 'application/pdf');
+            res.set('Content-Disposition', `attachment; filename=${req.params.id}.pdf`);
             invoice.pipe(res);
         })
         .catch(err => { /* handle the error */
