@@ -1,13 +1,12 @@
 import { Router } from 'express';
-
 const router = Router();
 
 const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): Promise<any> => {
     try {
-        const response = await facturapi.customers.list({page});
+        const response = await facturapi.customers.list({ page });
         customers = customers.concat(response.data);
         if (response.total_pages > page) {
-            customers = await getCustomersByPage(facturapi, customers, page+1);
+            customers = await getCustomersByPage(facturapi, customers, page + 1);
         }
         return customers;
     } catch (err) {
@@ -18,7 +17,9 @@ const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: n
 
 router.get('/all', async (req, res) => {
     try {
-        const customers = await getCustomersByPage(require('facturapi')(req.app.get('apiKey')), [], 1)
+        const customers = await getCustomersByPage(require('facturapi')(req.app.get('apiKey'), {
+            apiVersion: 'v1'
+        }), [], 1)
         res.send(customers);
     } catch (err) {
         console.log(err);
@@ -27,7 +28,9 @@ router.get('/all', async (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).customers.create(req.body)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).customers.create(req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -38,7 +41,9 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).customers.retrieve(req.params.id)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).customers.retrieve(req.params.id)
         .then(customer => {
             res.send(customer);
         })
@@ -49,7 +54,9 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/edit/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).customers.update(req.params.id, req.body)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).customers.update(req.params.id, req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -60,7 +67,9 @@ router.post('/edit/:id', (req, res) => {
 });
 
 router.delete('/delete/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).customers.del(req.params.id)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).customers.del(req.params.id)
         .then(customer => {
             res.send(customer);
         })

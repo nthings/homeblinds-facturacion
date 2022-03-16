@@ -4,7 +4,9 @@ import * as fs from 'fs';
 const router = Router();
 
 router.get('/all', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.list()
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).invoices.list()
         .then(list => {
             res.send(list.data);
         })
@@ -15,7 +17,9 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.create(req.body)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).invoices.create(req.body)
         .then(invoice => {
             res.send(invoice);
         })
@@ -26,7 +30,9 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.retrieve(req.params.id)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).invoices.retrieve(req.params.id)
         .then(invoice => {
             res.send(invoice);
         })
@@ -37,7 +43,9 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.delete('/cancel/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.cancel(req.params.id)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).invoices.cancel(req.params.id, { motive: "03" })
         .then(invoice => {
             res.send(invoice);
         })
@@ -48,7 +56,9 @@ router.delete('/cancel/:id', (req, res) => {
 });
 
 router.get('/send/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.sendByEmail(req.params.id,
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).invoices.sendByEmail(req.params.id,
         { email: 'homeblinds@hotmail.com' })
         .then(invoice => {
             res.send(invoice);
@@ -60,7 +70,9 @@ router.get('/send/:id', (req, res) => {
 });
 
 router.get('/download/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey')).invoices.downloadZip(req.params.id)
+    require('facturapi')(req.app.get('apiKey'), {
+        apiVersion: 'v1'
+    }).invoices.downloadZip(req.params.id)
         .then(invoice => {
             res.set('Content-Type', 'application/zip');
             res.set('Content-Disposition', `attachment; filename=${req.params.id}.zip`);
