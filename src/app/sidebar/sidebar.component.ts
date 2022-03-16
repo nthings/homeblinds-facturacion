@@ -64,17 +64,17 @@ export class SidebarComponent implements OnInit {
         return true;
     }
 
-    useBy(select) {
-        this.auth.useBy(select).subscribe(
-            changed => {
-                this.selected = (select - 1);
-                this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
-                this.router.navigate(['/']);
-            },
-            error => {
-                console.log(error);
-                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-            }
-        );
-    }
+    // useBy(select) {
+    //     this.auth.useBy(select).subscribe(
+    //         changed => {
+    //             this.selected = (select - 1);
+    //             this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
+    //             this.router.navigate(['/']);
+    //         },
+    //         error => {
+    //             console.log(error);
+    //             this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+    //         }
+    //     );
+    // }
 }
