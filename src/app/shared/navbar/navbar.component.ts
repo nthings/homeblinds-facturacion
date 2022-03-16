@@ -44,9 +44,7 @@ export class NavbarComponent implements OnInit {
 
     constructor(location: Location,
                 private element: ElementRef,
-                private notify: NotifyService,
-                private auth: AuthenticationService,
-                private router: Router) {
+                private auth: AuthenticationService) {
         this.location = location;
         this.sidebarVisible = false;
     }
@@ -62,18 +60,18 @@ export class NavbarComponent implements OnInit {
         this.menuItems = ROUTES_NAV_BAR.filter(menuItem => menuItem);
     }
 
-    useBy(select) {
-        this.auth.useBy(select.value).subscribe(
-            changed => {
-                this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
-                this.router.navigate(['/']);
-            },
-            error => {
-                console.log(error);
-                this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
-            }
-        );
-    }
+    // useBy(select) {
+    //     this.auth.useBy(select.value).subscribe(
+    //         changed => {
+    //             this.notify.success('pe-7s-check', 'EMISOR CAMBIADO');
+    //             this.router.navigate(['/']);
+    //         },
+    //         error => {
+    //             console.log(error);
+    //             this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+    //         }
+    //     );
+    // }
 
     sidebarOpen() {
         const toggleButton = this.toggleButton;

@@ -1,10 +1,12 @@
 import { Router } from 'express';
+const Facturapi = require('facturapi');
+const facturapi = new Facturapi(process.env.API_KEY, {
+    apiVersion: 'v1'
+});
 const router = Router();
 
 router.get('/all', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).products.list()
+    facturapi.products.list()
         .then(list => {
             res.send(list.data);
         })
@@ -15,9 +17,7 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).products.create(req.body)
+    facturapi.products.create(req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -28,9 +28,7 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).products.retrieve(req.params.id)
+    facturapi.products.retrieve(req.params.id)
         .then(customer => {
             res.send(customer);
         })
@@ -41,9 +39,7 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/edit/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).products.update(req.params.id, req.body)
+    facturapi.products.update(req.params.id, req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -54,9 +50,7 @@ router.post('/edit/:id', (req, res) => {
 });
 
 router.delete('/delete/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).products.del(req.params.id)
+    facturapi.products.del(req.params.id)
         .then(customer => {
             res.send(customer);
         })

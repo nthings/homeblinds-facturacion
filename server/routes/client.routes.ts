@@ -1,5 +1,11 @@
 import { Router } from 'express';
+const Facturapi = require('facturapi');
+const facturapi = new Facturapi(process.env.API_KEY, {
+    apiVersion: 'v1'
+});
+
 const router = Router();
+
 
 const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): Promise<any> => {
     try {
@@ -17,9 +23,7 @@ const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: n
 
 router.get('/all', async (req, res) => {
     try {
-        const customers = await getCustomersByPage(require('facturapi')(req.app.get('apiKey'), {
-            apiVersion: 'v1'
-        }), [], 1)
+        const customers = await getCustomersByPage(facturapi, [], 1)
         res.send(customers);
     } catch (err) {
         console.log(err);
@@ -28,9 +32,7 @@ router.get('/all', async (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).customers.create(req.body)
+    facturapi.customers.create(req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -41,9 +43,7 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).customers.retrieve(req.params.id)
+    facturapi.customers.retrieve(req.params.id)
         .then(customer => {
             res.send(customer);
         })
@@ -54,9 +54,7 @@ router.get('/get/:id', (req, res) => {
 });
 
 router.post('/edit/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).customers.update(req.params.id, req.body)
+    facturapi.customers.update(req.params.id, req.body)
         .then(customer => {
             res.send(customer);
         })
@@ -67,9 +65,7 @@ router.post('/edit/:id', (req, res) => {
 });
 
 router.delete('/delete/:id', (req, res) => {
-    require('facturapi')(req.app.get('apiKey'), {
-        apiVersion: 'v1'
-    }).customers.del(req.params.id)
+    facturapi.customers.del(req.params.id)
         .then(customer => {
             res.send(customer);
         })

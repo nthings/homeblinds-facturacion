@@ -69,7 +69,7 @@ export class AuthenticationService {
         this.emitUserLoggedOut.next(this.user);
     }
 
-    useBy(key) {
-        return this.http.post('/change', {key: key}, this.options);
-    }
+    // useBy(key) {
+    //     return this.http.post('/change', {key: key}, this.options);
+    // }
 }
