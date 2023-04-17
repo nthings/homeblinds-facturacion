@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const Facturapi = require('facturapi');
 const facturapi = new Facturapi(process.env.API_KEY, {
-    apiVersion: 'v1'
+    apiVersion: 'v2'
 });
 
 const router = Router();
