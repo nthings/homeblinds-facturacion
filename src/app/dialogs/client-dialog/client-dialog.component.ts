@@ -18,6 +18,7 @@ export class ClientDialogComponent implements OnInit {
     clientForm = new FormGroup({
         tax_id: new FormControl(),
         legal_name: new FormControl(),
+        tax_system: new FormControl(),
         email: new FormControl(),
         address: new FormGroup({
             street: new FormControl(),
@@ -27,7 +28,7 @@ export class ClientDialogComponent implements OnInit {
             zip: new FormControl()
         })
     });
-    
+
     tax_systems = conf.tax_systems;
 
     constructor(public dialogRef: MatDialogRef<ClientDialogComponent>,
@@ -44,6 +45,7 @@ export class ClientDialogComponent implements OnInit {
             // Fill client data
             this.clientForm.controls['tax_id'].setValue(this.data.tax_id, {onlySelf: true});
             this.clientForm.controls['legal_name'].setValue(this.data.legal_name, {onlySelf: true});
+            this.clientForm.controls['tax_system'].setValue(this.data.tax_system, {onlySelf: true});
             this.clientForm.controls['email'].setValue(this.data.email, {onlySelf: true});
             this.clientForm.controls['address'].get('street').setValue(this.data.address.street, {onlySelf: true});
             this.clientForm.controls['address'].get('exterior').setValue(this.data.address.exterior, {onlySelf: true});
