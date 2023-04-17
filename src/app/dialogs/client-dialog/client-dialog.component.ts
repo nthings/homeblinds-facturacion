@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 
 import {NotifyService} from '../../utils/services/notify.service';
 import {ClientService} from '../../utils/services/client.service';
+import {conf} from '../../utils/conf';
 
 @Component({
     selector: 'app-client-dialog',
@@ -26,6 +27,8 @@ export class ClientDialogComponent implements OnInit {
             zip: new FormControl()
         })
     });
+    
+    tax_systems = conf.tax_systems;
 
     constructor(public dialogRef: MatDialogRef<ClientDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,

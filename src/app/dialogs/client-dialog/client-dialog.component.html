@@ -24,6 +24,16 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="full-width">
+                        <mat-select placeholder="Régimen Fiscal" formControlName="tax_system" required>
+                            <mat-option *ngFor="let tax_system of tax_systems" [value]="tax_system.code">
+                                {{ tax_system.description }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="clientForm.controls['tax_system'].hasError('required')">
+                            El Régimen Fiscal es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
                         <input type="email" matInput placeholder="Correo Electrónico" formControlName="email"
                                required>
                         <mat-error *ngIf="clientForm.controls['email'].hasError('required')">
