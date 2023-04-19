@@ -46,7 +46,7 @@
         "facturapi": "^3.3.0",
         "jquery": "^3.5.1",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.10.15",
+        "mongoose": "^5.13.15",
         "morgan": "^1.10.0",
         "ng-http-loader": "^0.3.4",
         "rxjs": "^5.5.12",
