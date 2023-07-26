@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 import * as expressJwt from 'express-jwt';
 import * as path from 'path';
 import UserCtrl from './controllers/user';
-import {UserRoutes, ClientRoutes, FacturaRoutes, ProductRoutes} from './routes';
+import {UserRoutes, ClientRoutes, InvoiceRoutes, ProductRoutes} from './routes';
 
 const app = express();
 const userCtrl = new UserCtrl();
@@ -34,7 +34,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
             // API location
             app.use('/users', expressJwt({secret: process.env.SESSION_SECRET}), UserRoutes);
             app.use('/clients', expressJwt({secret: process.env.SESSION_SECRET}), ClientRoutes);
-            app.use('/facturas', expressJwt({secret: process.env.SESSION_SECRET}), FacturaRoutes);
+            app.use('/invoices', expressJwt({secret: process.env.SESSION_SECRET}), InvoiceRoutes);
             app.use('/products', expressJwt({secret: process.env.SESSION_SECRET}), ProductRoutes);
 
             // Angular DIST output folder

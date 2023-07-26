@@ -6,24 +6,18 @@ const facturapi = new Facturapi(process.env.API_KEY, {
 
 const router = Router();
 
-
-const getCustomersByPage = async (facturapi: any, customers: Array<any>, page: number): Promise<any> => {
-    try {
-        const response = await facturapi.customers.list({ page });
-        customers = customers.concat(response.data);
-        if (response.total_pages > page) {
-            customers = await getCustomersByPage(facturapi, customers, page + 1);
-        }
-        return customers;
-    } catch (err) {
-        console.log(err);
-        throw err;
+const getCustomersByPage = async (customers: Array<any>, page: number): Promise<any> => {
+    const response = await facturapi.customers.list({ page });
+    customers = customers.concat(response.data);
+    if (response.total_pages > page) {
+        customers = await getCustomersByPage(customers, page + 1);
     }
+    return customers;
 }
 
 router.get('/all', async (req, res) => {
     try {
-        const customers = await getCustomersByPage(facturapi, [], 1)
+        const customers = await getCustomersByPage([], 1)
         res.send(customers);
     } catch (err) {
         console.log(err);
@@ -31,48 +25,44 @@ router.get('/all', async (req, res) => {
     }
 });
 
-router.post('/add', (req, res) => {
-    facturapi.customers.create(req.body)
-        .then(customer => {
-            res.send(customer);
-        })
-        .catch(err => { /* handle the error */
-            console.log(err);
-            res.status(500).send(err);
-        });
+router.post('/add', async (req, res) => {
+    try {
+        customer = await facturapi.customers.create(req.body);
+        res.send(customer);
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 });
 
-router.get('/get/:id', (req, res) => {
-    facturapi.customers.retrieve(req.params.id)
-        .then(customer => {
-            res.send(customer);
-        })
-        .catch(err => { /* handle the error */
-            console.log(err);
-            res.status(500).send(err);
-        });
+router.get('/get/:id', async (req, res) => {
+    try {
+        customer = await facturapi.customers.retrieve(req.params.id);
+        res.send(customer);
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 });
 
-router.post('/edit/:id', (req, res) => {
-    facturapi.customers.update(req.params.id, req.body)
-        .then(customer => {
-            res.send(customer);
-        })
-        .catch(err => { /* handle the error */
-            console.log(err);
-            res.status(500).send(err);
-        });
+router.post('/edit/:id', async (req, res) => {
+    try {
+        customer = await facturapi.customers.update(req.params.id, req.body);
+        res.send(customer);
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 });
 
-router.delete('/delete/:id', (req, res) => {
-    facturapi.customers.del(req.params.id)
-        .then(customer => {
-            res.send(customer);
-        })
-        .catch(err => { /* handle the error */
-            console.log(err);
-            res.status(500).send(err);
-        });
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        customer = await facturapi.customers.del(req.params.id);
+        res.send(customer);
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 });
 
 export const ClientRoutes: Router = router;

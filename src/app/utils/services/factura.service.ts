@@ -10,29 +10,29 @@ export class FacturaService {
     }
 
     public getAll() {
-        return this.http.get('/facturas/all', this.auth.options);
+        return this.http.get('/invoices/all', this.auth.options);
     }
 
     public addFactura(factura) {
-        return this.http.post('/facturas/add', factura, this.auth.options);
+        return this.http.post('/invoices/add', factura, this.auth.options);
     }
 
     public delete(id) {
-        return this.http.delete('/facturas/cancel/' + id, this.auth.options);
+        return this.http.delete('/invoices/cancel/' + id, this.auth.options);
     }
 
     public get(id) {
-        return this.http.get('/facturas/get/' + id, this.auth.options);
+        return this.http.get('/invoices/get/' + id, this.auth.options);
     }
 
     public send(id) {
-        return this.http.get('/facturas/send/' + id, this.auth.options);
+        return this.http.get('/invoices/send/' + id, this.auth.options);
     }
 
     public download(id) {
         const options = this.auth.options;
         options.responseType = 'blob';
         options['Content-Type'] = 'application/zip';
-        return this.http.get('/facturas/download/' + id, options).map(res => new Blob([res], {type: 'application/zip'}));
+        return this.http.get('/invoices/download/' + id, options).map(res => new Blob([res], {type: 'application/zip'}));
     }
 }
