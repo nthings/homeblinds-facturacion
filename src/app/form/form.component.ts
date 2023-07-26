@@ -273,7 +273,7 @@ export class FormComponent implements OnInit {
             data => {
                 this.notify.success('pe-7s-check', 'Factura enviada al cliente correctamente');
             },
-            error => {
+            err => {
                 this.notify.error('pe-7s-close-circle', `Error. ${err}`);
             }
         );
