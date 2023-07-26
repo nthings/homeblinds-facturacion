@@ -9,11 +9,10 @@
     "scripts": {
         "ng": "ng",
         "start": "node dist/server/server",
-        "build": "ng build",
+        "build": "tsc -p server && ng build --prod --environment=prod",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "postinstall": "tsc -p server && ng build --prod --environment=prod",
         "dev": "concurrently \"mongod\" \"tsc -w -p server\" \"ng build --watch\" \"nodemon dist/server/server\""
     },
     "private": true,
