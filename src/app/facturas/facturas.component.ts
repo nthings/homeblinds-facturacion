@@ -92,7 +92,7 @@ export class FacturasComponent implements OnInit {
                 this.notify.success('pe-7s-check', 'Factura enviada correctamente');
             },
             err => {
-                this.notify.error('pe-7s-close-circle', `Error. ${err}`);
+                this.notify.error('pe-7s-close-circle', `Error. ${err.error}`);
             }
         );
     }

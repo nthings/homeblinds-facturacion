@@ -27,7 +27,7 @@ export class DeleteDialogComponent {
             },
             err => {
                 console.log(err);
-                this.notify.error('pe-7s-close-circle', `Error. ${err}`);
+                this.notify.error('pe-7s-close-circle', `Error. ${err.error}`);
             }
         );
     }

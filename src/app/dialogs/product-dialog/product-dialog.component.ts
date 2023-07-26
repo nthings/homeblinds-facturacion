@@ -67,7 +67,7 @@ export class ProductDialogComponent implements OnInit {
                     if (err.status === 400) {
                         this.notify.error('pe-7s-close-circle', 'Producto duplicado.');
                     } else {
-                        this.notify.error('pe-7s-close-circle', `Error. ${err}`);
+                        this.notify.error('pe-7s-close-circle', `Error. ${err.error}`);
                     }
                 }
             );
@@ -81,7 +81,7 @@ export class ProductDialogComponent implements OnInit {
                     if (err.status === 400) {
                         this.notify.error('pe-7s-close-circle', 'Producto duplicado.');
                     } else {
-                        this.notify.error('pe-7s-close-circle', `Error. ${err}`);
+                        this.notify.error('pe-7s-close-circle', `Error. ${err.error}`);
                     }
                 }
             );

@@ -68,7 +68,7 @@ export class NavbarComponent implements OnInit {
     //         },
     //         error => {
     //             console.log(error);
-    //             this.notify.error('pe-7s-close-circle', `Error. ${err}`);
+    //             this.notify.error('pe-7s-close-circle', `Error. ${err.error}`);
     //         }
     //     );
     // }

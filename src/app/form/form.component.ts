@@ -262,7 +262,7 @@ export class FormComponent implements OnInit {
             },
             err => {
                 console.log(err);
-                this.notify.error('pe-7s-close-circle', `Error. ${err}`);
+                this.notify.error('pe-7s-close-circle', `Error. ${err.error}`);
             }
         );
     }
@@ -274,7 +274,7 @@ export class FormComponent implements OnInit {
                 this.notify.success('pe-7s-check', 'Factura enviada al cliente correctamente');
             },
             err => {
-                this.notify.error('pe-7s-close-circle', `Error. ${err}`);
+                this.notify.error('pe-7s-close-circle', `Error. ${err.error}`);
             }
         );
     }
