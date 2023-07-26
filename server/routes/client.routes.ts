@@ -27,7 +27,7 @@ router.get('/all', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-        customer = await facturapi.customers.create(req.body);
+        const customer = await facturapi.customers.create(req.body);
         res.send(customer);
     } catch (err) {
         console.log(err);
@@ -37,7 +37,7 @@ router.post('/add', async (req, res) => {
 
 router.get('/get/:id', async (req, res) => {
     try {
-        customer = await facturapi.customers.retrieve(req.params.id);
+        const customer = await facturapi.customers.retrieve(req.params.id);
         res.send(customer);
     } catch (err) {
         console.log(err);
@@ -47,7 +47,7 @@ router.get('/get/:id', async (req, res) => {
 
 router.post('/edit/:id', async (req, res) => {
     try {
-        customer = await facturapi.customers.update(req.params.id, req.body);
+        const customer = await facturapi.customers.update(req.params.id, req.body);
         res.send(customer);
     } catch (err) {
         console.log(err);
@@ -57,7 +57,7 @@ router.post('/edit/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     try {
-        customer = await facturapi.customers.del(req.params.id);
+        const customer = await facturapi.customers.del(req.params.id);
         res.send(customer);
     } catch (err) {
         console.log(err);
