@@ -21,7 +21,7 @@ router.get('/all', async (req, res) => {
         res.send(customers);
     } catch (err) {
         console.log(err);
-        throw err;
+        res.send(500).send(err.message);
     }
 });
 
@@ -31,7 +31,7 @@ router.post('/add', async (req, res) => {
         res.send(customer);
     } catch (err) {
         console.log(err);
-        throw err;
+        res.send(500).send(err.message);
     }
 });
 
@@ -41,7 +41,7 @@ router.get('/get/:id', async (req, res) => {
         res.send(customer);
     } catch (err) {
         console.log(err);
-        throw err;
+        res.send(500).send(err.message);
     }
 });
 
@@ -51,7 +51,7 @@ router.post('/edit/:id', async (req, res) => {
         res.send(customer);
     } catch (err) {
         console.log(err);
-        throw err;
+        res.send(500).send(err.message);
     }
 });
 
@@ -61,7 +61,7 @@ router.delete('/delete/:id', async (req, res) => {
         res.send(customer);
     } catch (err) {
         console.log(err);
-        throw err;
+        res.send(500).send(err.message);
     }
 });
 
