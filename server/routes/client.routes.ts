@@ -38,7 +38,7 @@ router.post('/add', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -49,7 +49,7 @@ router.get('/get/:id', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -60,7 +60,7 @@ router.post('/edit/:id', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -71,7 +71,7 @@ router.delete('/delete/:id', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 

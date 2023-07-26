@@ -13,7 +13,7 @@ router.get('/all', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -24,7 +24,7 @@ router.post('/add', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -35,7 +35,7 @@ router.get('/get/:id', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -46,7 +46,7 @@ router.delete('/cancel/:id', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -58,7 +58,7 @@ router.get('/send/:id', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 
@@ -71,7 +71,7 @@ router.get('/download/:id', (req, res) => {
         })
         .catch(err => { /* handle the error */
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 });
 

@@ -86,7 +86,7 @@ export class ClientDialogComponent implements OnInit {
                     if (err.status === 400) {
                         this.notify.error('pe-7s-close-circle', 'Cliente duplicado.');
                     } else {
-                        this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                        this.notify.error('pe-7s-close-circle', `Error. ${err}`);
                     }
                 }
             );
@@ -100,7 +100,7 @@ export class ClientDialogComponent implements OnInit {
                     if (err.status === 400) {
                         this.notify.error('pe-7s-close-circle', 'Cliente duplicado.');
                     } else {
-                        this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+                        this.notify.error('pe-7s-close-circle', `Error. ${err}`);
                     }
                 }
             );

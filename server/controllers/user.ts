@@ -11,7 +11,7 @@ export default class UserCtrl extends BaseCtrl {
         this.model.findOne({ username: req.body.username.toLowerCase() }, (err, user: any) => {
             if (err) {
                 console.log(err);
-                return res.sendStatus(500);
+                return res.status(500).send(err);
             }
             if (!user) {
                 return res.sendStatus(403);
@@ -19,7 +19,7 @@ export default class UserCtrl extends BaseCtrl {
             bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
                 if (err) {
                     console.log(err);
-                    return res.sendStatus(500);
+                    return res.status(500).send(err);
                 }
                 if (!isMatch) {
                     return res.sendStatus(403);
@@ -48,7 +48,7 @@ export default class UserCtrl extends BaseCtrl {
                     // error saving user
                     if (err) {
                         console.log(err);
-                        return res.sendStatus(500);
+                        return res.status(500).send(err);
                     }
                     res.sendStatus(200);
                 });

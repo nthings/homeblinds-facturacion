@@ -68,7 +68,7 @@ export class NavbarComponent implements OnInit {
     //         },
     //         error => {
     //             console.log(error);
-    //             this.notify.error('pe-7s-close-circle', 'Error de sistema. Verificar con el administrador.');
+    //             this.notify.error('pe-7s-close-circle', `Error. ${err}`);
     //         }
     //     );
     // }
