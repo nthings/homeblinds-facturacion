@@ -117,7 +117,8 @@ import {EmptyResponseBodyErrorInterceptor} from './utils/interceptors/empty-resp
         DeleteDialogComponent,
         ClientDialogComponent,
         ConceptosDialogComponent,
-        ProductDialogComponent
+        ProductDialogComponent,
+        CancelarFacturaDialogComponent,
     ]
 })
 export class AppModule {
