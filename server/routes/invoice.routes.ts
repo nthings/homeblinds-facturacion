@@ -27,6 +27,7 @@ router.get('/all', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
+        console.log(req.body)
         const invoice = await facturapi.invoices.create(req.body);
         res.send(invoice);
     } catch (err) {
