@@ -41,6 +41,7 @@ import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.compo
 import {ClientDialogComponent} from './dialogs/client-dialog/client-dialog.component';
 import {ConceptosDialogComponent} from './dialogs/conceptos-dialog/conceptos-dialog.component';
 import {ProductDialogComponent} from './dialogs/product-dialog/product-dialog.component';
+import {CancelarFacturaDialogComponent} from './dialogs/cancelar-factura-dialog/cancelar-factura-dialog.component';
 
 // Services
 import {ClientService} from './utils/services/client.service';
@@ -65,6 +66,7 @@ import {EmptyResponseBodyErrorInterceptor} from './utils/interceptors/empty-resp
         UnityPipe,
         ModPasswordComponent,
         DeleteDialogComponent,
+        CancelarFacturaDialogComponent,
         ClientDialogComponent,
         ConceptosDialogComponent,
         ProductDialogComponent,

@@ -84,4 +84,14 @@ export const conf = {
         { code: "629", description: "De los Regímenes Fiscales Preferentes y de las Empresas Multinacionales" }, 
         { code: "630", description: "Enajenación de acciones en bolsa de valores" }
     ],
+    invoiceCancelationReasons: [
+        { code: "01", description: "Comprobante emitido con errores con relación" },
+        { code: "02", description: "Comprobante emitido con errores sin relación" },
+        { code: "03", description: "No se llevó a cabo la operación" },
+        { code: "04", description: "Operación nominativa relacionada en la factura global" },
+    ],
+    payment_methods: [
+        { code: "PUE", description: "Pago en Una sola Exhibición" },
+        { code: "PPD", description: "Pago en Parcialidades o Diferido" },
+    ]
 };

@@ -107,9 +107,9 @@ export class FacturasComponent implements OnInit {
     }
 
     openDeleteDialog(factura): void {
-        const dialogRef = this.dialog.open(DeleteDialogComponent, {
+        const dialogRef = this.dialog.open(CancelarFacturaDialogComponent, {
             width: '500px',
-            data: {_id: factura.id, message: 'Factura ' + factura.id, service: this.facturaService, title: 'Cancelar'}
+            data: {_id: factura.id, title: 'Cancelar Factura ' + factura.id}
         } as MatDialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {

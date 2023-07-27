@@ -45,6 +45,20 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            
+            <div class="col-xs-12">
+                <h2 class="dialog-subtitle">Método de Pago</h2>
+                <mat-form-field class="col-xs-12 col-sm-6 full-width">
+                    <mat-select placeholder="Método de Pago" formControlName="payment_method" required>
+                        <mat-option *ngFor="let Método de Pago of payment_methods" [value]="payment_method.code">
+                            {{payment_method.description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="facturaForm['controls']['payment_method'].hasError('required')">
+                        La Método de Pago es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
             <div class="col-xs-12">
                 <h2 class="dialog-subtitle">Uso de La Factura</h2>

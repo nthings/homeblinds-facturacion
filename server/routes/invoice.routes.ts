@@ -47,7 +47,8 @@ router.get('/get/:id', async (req, res) => {
 
 router.delete('/cancel/:id', async (req, res) => {
     try {
-        const invoice = await facturapi.invoices.cancel(req.params.id, { motive: req.params.motive })
+        const motive = req.query.motive || "03"
+        const invoice = await facturapi.invoices.cancel(req.params.id, { motive: req.query.motive })
         res.send(invoice);
     } catch (err) {
         console.log(err);
