@@ -44,7 +44,7 @@ export class FormComponent implements OnInit {
     filteredProducts: Observable<string[]>[];
     formasdepago = conf.formasdepago;
     usos = conf.usos;
-    payment_methods = conf.payment_methods;
+    metodos_de_pago = conf.metodos_de_pago;
 
     constructor(public dialog: MatDialog,
                 private notify: NotifyService,

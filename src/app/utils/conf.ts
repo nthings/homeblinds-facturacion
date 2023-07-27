@@ -90,7 +90,7 @@ export const conf = {
         { code: "03", description: "No se llevó a cabo la operación" },
         { code: "04", description: "Operación nominativa relacionada en la factura global" },
     ],
-    payment_methods: [
+    metodos_de_pago: [
         { code: "PUE", description: "Pago en Una sola Exhibición" },
         { code: "PPD", description: "Pago en Parcialidades o Diferido" },
     ]
