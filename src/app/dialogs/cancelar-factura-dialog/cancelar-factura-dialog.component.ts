@@ -6,9 +6,9 @@ import {FacturaService} from '../../utils/services/factura.service';
 import {conf} from '../../utils/conf';
 
 @Component({
-    selector: 'app-delete-dialog',
-    templateUrl: './delete-dialog.component.html',
-    styleUrls: ['./delete-dialog.component.css']
+    selector: 'app-cancelar-factura-dialog',
+    templateUrl: './cancelar-factura-dialog.component.html',
+    styleUrls: ['./cancelar-factura-dialog.component.css']
 })
 
 export class CancelarFacturaDialogComponent {
