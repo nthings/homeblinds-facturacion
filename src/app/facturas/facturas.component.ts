@@ -4,7 +4,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {NotifyService} from '../utils/services/notify.service';
 import {FacturaService} from '../utils/services/factura.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
+import {CancelarFacturaDialogComponent} from '../dialogs/cancelar-factura-dialog/cancelar-factura-dialog.component';
 import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-dialog.component';
 
 @Component({

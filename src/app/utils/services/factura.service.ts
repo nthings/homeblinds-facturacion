@@ -18,7 +18,7 @@ export class FacturaService {
     }
 
     public delete(id, motive) {
-        return this.http.delete(`/invoices/cancel/${id}?motive=${reason}`, this.auth.options);
+        return this.http.delete(`/invoices/cancel/${id}?motive=${motive}`, this.auth.options);
     }
 
     public get(id) {
