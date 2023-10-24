@@ -70,8 +70,13 @@ router.get('/send/:id', async (req, res) => {
 
 router.get('/download/:id', async (req, res) => {
     try {
-        const invoice = await facturapi.invoices.downloadZip(req.params.id)
-        res.send(invoice);
+        // Tell the browser that this is a zip file.
+        res.writeHead(200, {
+            'Content-Type': 'application/zip',
+            'Content-disposition': `attachment; filename=${req.params.id}.zip`
+        })
+        const zipStream = await facturapi.invoices.downloadZip(req.params.id)
+        zipStream.pipe(res)
     } catch (err) {
         console.log(err);
         res.status(500).send(err.message);
