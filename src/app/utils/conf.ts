@@ -3,7 +3,8 @@ export const conf = {
         { key: 'EA', description: 'PIEZA' },
         { key: 'MTR', description: 'METRO' },
         { key: 'LM', description: 'METRO LINEAL' },
-        { key: 'MTK', description: 'METRO CUADRADO' }
+        { key: 'MTK', description: 'METRO CUADRADO' },
+        { key: 'E48', description: 'UNIDAD DE SERVICIO' },
     ],
     product_keys: [
         { key: '52131600', description: 'Persianas' },
@@ -11,7 +12,8 @@ export const conf = {
         { key: '52131602', description: 'Persianas enrollables' },
         { key: '52131604', description: 'Persianas verticales' },
         { key: '72153608', description: 'Servicio de instalación de cortinas o persianas' },
-        { key: '76111504', description: 'Servicios de limpieza de ventanas o persianas' }
+        { key: '76111504', description: 'Servicios de limpieza de ventanas o persianas' },
+        { key: '52131700', description: 'Accesorios y ferretería para tratamiento de ventanas' },
     ],
     formasdepago: [
         { code: '01', description: 'Efectivo' },
