@@ -2,15 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/server/server.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "public"
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -35,8 +28,11 @@
       "dest": "dist/server/server.js"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/public/$1"
     }
   ],
   "env": {

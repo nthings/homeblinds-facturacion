@@ -8,6 +8,34 @@ This project has been updated to Angular 19 and is ready for deployment on Verce
 - MongoDB database (MongoDB Atlas recommended for cloud deployment)
 - Vercel account
 
+## Important: Vercel Architecture
+
+**Critical Limitation**: `express.static()` does NOT work on Vercel!
+
+This application uses a **split architecture** on Vercel:
+
+### On Vercel:
+1. **Static Files** (HTML, CSS, JS, images): Served directly by Vercel's CDN from `public/` directory
+2. **API Routes** (`/login`, `/users`, `/clients`, `/invoices`, `/products`): Handled by Express as a serverless function
+3. **Express does NOT serve static files** - this is handled by Vercel's routing
+
+### Locally:
+1. Express serves both API routes AND static files using `express.static()`
+2. Works as a traditional Express application
+
+### Why This Split?
+
+Vercel's serverless architecture **ignores** `express.static()` completely. Static files MUST be:
+- Placed in `public/` directory
+- Served by Vercel's CDN infrastructure
+- Routed via `vercel.json` configuration
+
+The Express application runs as a Vercel Function and can ONLY:
+- Handle API routes
+- Return JSON responses
+- Access databases
+- NOT serve static files
+
 ## Static Asset Serving on Vercel
 
 **Important**: This application has been adapted for Vercel's serverless architecture:
