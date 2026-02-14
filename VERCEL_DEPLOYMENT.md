@@ -8,6 +8,29 @@ This project has been updated to Angular 19 and is ready for deployment on Verce
 - MongoDB database (MongoDB Atlas recommended for cloud deployment)
 - Vercel account
 
+## Static Asset Serving on Vercel
+
+**Important**: This application has been adapted for Vercel's serverless architecture:
+
+### Key Changes for Vercel Compatibility
+
+1. **Static Assets Location**: All static assets (HTML, CSS, JS, images) are built to the `public/` directory
+2. **express.static() Removed**: On Vercel, `express.static()` is ignored. Static files are served via Vercel's CDN from `public/`
+3. **Express as Function**: The Express application runs as a single Vercel Function
+4. **API Routes Only**: Express handles API routes (`/login`, `/users`, `/clients`, `/invoices`, `/products`)
+5. **SPA Fallback**: Express serves `index.html` for non-API routes to support Angular's SPA routing
+
+### How It Works
+
+- **On Vercel**: 
+  - Static files in `public/` are served via CDN automatically
+  - Express function only handles API routes and SPA fallback
+  - `express.static()` is not used (Vercel ignores it)
+
+- **Local Development**:
+  - `express.static()` serves files from `public/` directory
+  - Same file structure as Vercel deployment
+
 ## SCSS Compilation
 
 This project uses **Dart Sass** (`sass` npm package) for SCSS compilation. The legacy `node-sass` package has been explicitly avoided because:
@@ -64,7 +87,7 @@ Before deploying to Vercel, you need to configure the following environment vari
 2. Configure the following:
    - **Framework Preset**: Other
    - **Build Command**: `npm run build`
-   - **Output Directory**: `dist/client`
+   - **Output Directory**: Leave empty (handled by vercel.json)
    - **Install Command**: `npm install`
 
 3. Add environment variables in the Vercel dashboard:
@@ -75,10 +98,10 @@ Before deploying to Vercel, you need to configure the following environment vari
 
 ## Project Structure
 
-- `src/` - Angular 18 application
+- `src/` - Angular 19 application source
 - `server/` - Express backend with MongoDB
-- `dist/client/` - Built Angular application (after build)
-- `dist/server/` - Compiled server code (after build)
+- `public/` - Built Angular application (after build) - **served via Vercel CDN**
+- `dist/server/` - Compiled server code (after build) - **runs as Vercel Function**
 
 ## Build Process
 
@@ -89,8 +112,8 @@ npm run build
 ```
 
 This runs:
-1. `tsc -p server` - Compiles server TypeScript code
-2. `ng build --configuration production` - Builds Angular app for production
+1. `tsc -p server` - Compiles server TypeScript code to `dist/server/`
+2. `ng build --configuration production` - Builds Angular app to `public/`
 
 ## Local Development
 
@@ -113,17 +136,26 @@ This starts the Express server which serves the built Angular application.
 
 ## Important Changes
 
-- Upgraded from Angular 4 to Angular 18
+- Upgraded from Angular 4 to Angular 19
 - Updated RxJS from v5 to v7 (new pipe syntax)
 - Migrated from `.angular-cli.json` to `angular.json`
-- Updated Angular Material to v18 with individual package imports
+- Updated Angular Material to v19 with individual package imports
 - Updated Mongoose to v8.9.5 (security patches)
 - Updated body-parser to v1.20.3 (security patches)
-- Removed ng-http-loader (incompatible with Angular 18)
+- **Migrated to Vercel-compatible static serving** (public/ directory)
+- **Removed express.static() for Vercel deployment**
 
 ## Notes
 
 - The application uses JWT for authentication
 - MongoDB connection is required for the app to function
-- Static assets are served from the `dist/client` directory
+- **Static assets are served from the `public/` directory via Vercel CDN**
+- **Express only handles API routes and SPA fallback**
 - API routes are prefixed with `/users`, `/clients`, `/invoices`, `/products`
+
+## Vercel Limitations
+
+When deployed to Vercel:
+- Express app becomes a single Vercel Function (250MB limit)
+- `express.static()` is ignored - all static files must be in `public/`
+- The app uses Fluid compute and automatically scales with traffic

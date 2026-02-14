@@ -9,7 +9,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/client"
+        "distDir": "public"
       }
     }
   ],
@@ -36,7 +36,11 @@
     },
     {
       "src": "/(.*)",
-      "dest": "dist/client/$1"
+      "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "MONGODB_URI": "@mongodb-uri",
+    "SESSION_SECRET": "@session-secret"
+  }
 }

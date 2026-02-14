@@ -42,12 +42,18 @@ mongoose.connect(process.env.MONGODB_URI)
             app.use('/invoices', jwt({secret: process.env.SESSION_SECRET, algorithms: ['HS256']}), InvoiceRoutes);
             app.use('/products', jwt({secret: process.env.SESSION_SECRET, algorithms: ['HS256']}), ProductRoutes);
 
-            // Angular DIST output folder
-            app.use(express.static(path.join(__dirname, '../client')));
-
-            // Send all other requests to the Angular app
+            // Static assets handling:
+            // - On Vercel: Assets served from public/ via CDN, express.static() is ignored
+            // - Locally: We need to serve from public/ using express.static() for development
+            if (!process.env.VERCEL) {
+                // Only use express.static in local development
+                app.use(express.static(path.join(__dirname, '../../public')));
+            }
+            
+            // Send all other requests to the Angular app (SPA fallback)
             app.get('*', (req, res) => {
-                res.sendFile(path.join(__dirname, '../client/index.html'));
+                const indexPath = path.join(__dirname, '../../public/index.html');
+                res.sendFile(indexPath);
             });
             // Set server, In heroku we listen to a unix sock
             const port: any = process.env.PORT || 3000;
