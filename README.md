@@ -8,6 +8,7 @@ Facturación para negocio de persianas
 - **Database**: MongoDB with Mongoose 8
 - **Authentication**: JWT (JSON Web Tokens)
 - **UI Framework**: Bootstrap 3, Angular Material 19
+- **Styling**: Dart Sass (pure JavaScript, no native compilation)
 - **Invoice API**: [FacturAPI](https://github.com/FacturAPI/facturapi-node)
 
 ## 🚀 Quick Start
@@ -72,12 +73,14 @@ See [SECURITY.md](./SECURITY.md) for complete security information.
 - [Vercel Deployment Guide](./VERCEL_DEPLOYMENT.md)
 - [Security Report](./SECURITY.md) - All XSS vulnerabilities fixed!
 - [Upgrade Summary](./UPGRADE_SUMMARY.md)
+- [node-sass to Dart Sass Migration](./NODE_SASS_MIGRATION.md)
 
 ## 🛠️ Recent Updates (February 2026)
 
 - ✅ **Upgraded Angular from v4 to v19** (ALL XSS VULNERABILITIES FIXED)
 - ✅ Updated TypeScript from v3.9 to v5.5
 - ✅ Migrated RxJS operators to v7 pipe syntax
+- ✅ **Migrated from node-sass to Dart Sass** (Vercel compatible, no Python required)
 - ✅ Updated all server dependencies
 - ✅ Added Vercel deployment configuration
 - ✅ Fixed all security vulnerabilities
