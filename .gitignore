@@ -43,3 +43,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Backup files
+*.backup
+
+# Vercel
+.vercel
+

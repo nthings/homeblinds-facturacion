@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/server/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/client"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/login",
+      "dest": "dist/server/server.js"
+    },
+    {
+      "src": "/users/(.*)",
+      "dest": "dist/server/server.js"
+    },
+    {
+      "src": "/clients/(.*)",
+      "dest": "dist/server/server.js"
+    },
+    {
+      "src": "/invoices/(.*)",
+      "dest": "dist/server/server.js"
+    },
+    {
+      "src": "/products/(.*)",
+      "dest": "dist/server/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/client/$1"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "@mongodb-uri",
+    "SESSION_SECRET": "@session-secret"
+  }
+}

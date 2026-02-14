@@ -7,17 +7,28 @@
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "target": "es5",
+        "target": "ES2022",
+        "module": "ES2022",
+        "useDefineForClassFields": false,
         "types": [
-            // add node as an option
             "node"
         ],
         "typeRoots": [
             "node_modules/@types"
         ],
         "lib": [
-            "es2017",
+            "ES2022",
             "dom"
-        ]
+        ],
+        "strict": false,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": false,
+        "strictInputAccessModifiers": false,
+        "strictTemplates": false
     }
 }

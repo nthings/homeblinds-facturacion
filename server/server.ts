@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
-import * as expressJwt from 'express-jwt';
+import { expressjwt as jwt } from 'express-jwt';
 import * as path from 'path';
 import UserCtrl from './controllers/user';
 import {UserRoutes, ClientRoutes, InvoiceRoutes, ProductRoutes} from './routes';
@@ -32,10 +32,10 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
             //     res.sendStatus(200);
             // });
             // API location
-            app.use('/users', expressJwt({secret: process.env.SESSION_SECRET}), UserRoutes);
-            app.use('/clients', expressJwt({secret: process.env.SESSION_SECRET}), ClientRoutes);
-            app.use('/invoices', expressJwt({secret: process.env.SESSION_SECRET}), InvoiceRoutes);
-            app.use('/products', expressJwt({secret: process.env.SESSION_SECRET}), ProductRoutes);
+            app.use('/users', jwt({secret: process.env.SESSION_SECRET, algorithms: ['HS256']}), UserRoutes);
+            app.use('/clients', jwt({secret: process.env.SESSION_SECRET, algorithms: ['HS256']}), ClientRoutes);
+            app.use('/invoices', jwt({secret: process.env.SESSION_SECRET, algorithms: ['HS256']}), InvoiceRoutes);
+            app.use('/products', jwt({secret: process.env.SESSION_SECRET, algorithms: ['HS256']}), ProductRoutes);
 
             // Angular DIST output folder
             app.use(express.static(path.join(__dirname, '../client')));

@@ -4,20 +4,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import {RouterModule} from '@angular/router';
-import {
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatTooltipModule
-} from '@angular/material';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {AppRoutingModule} from './app.routing';
 import {NavbarModule} from './shared/navbar/navbar.module';
 import {SidebarModule} from './sidebar/sidebar.module';
@@ -95,8 +92,7 @@ import {EmptyResponseBodyErrorInterceptor} from './utils/interceptors/empty-resp
         MatNativeDateModule,
         MatSelectModule,
         MatTooltipModule,
-        MatAutocompleteModule,
-        NgHttpLoaderModule
+        MatAutocompleteModule
     ],
     providers: [
         AuthGuard,
@@ -112,14 +108,7 @@ import {EmptyResponseBodyErrorInterceptor} from './utils/interceptors/empty-resp
             multi: true
         }
     ],
-    bootstrap: [AppComponent],
-    entryComponents: [
-        DeleteDialogComponent,
-        ClientDialogComponent,
-        ConceptosDialogComponent,
-        ProductDialogComponent,
-        CancelarFacturaDialogComponent,
-    ]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
