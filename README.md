@@ -74,6 +74,7 @@ See [SECURITY.md](./SECURITY.md) for complete security information.
 - [Security Report](./SECURITY.md) - All XSS vulnerabilities fixed!
 - [Upgrade Summary](./UPGRADE_SUMMARY.md)
 - [node-sass to Dart Sass Migration](./NODE_SASS_MIGRATION.md)
+- [Express Static Serving for Vercel](./EXPRESS_STATIC_MIGRATION.md)
 
 ## 🛠️ Recent Updates (February 2026)
 
@@ -81,6 +82,7 @@ See [SECURITY.md](./SECURITY.md) for complete security information.
 - ✅ Updated TypeScript from v3.9 to v5.5
 - ✅ Migrated RxJS operators to v7 pipe syntax
 - ✅ **Migrated from node-sass to Dart Sass** (Vercel compatible, no Python required)
+- ✅ **Adapted Express for Vercel static serving** (public/ directory, no express.static())
 - ✅ Updated all server dependencies
 - ✅ Added Vercel deployment configuration
 - ✅ Fixed all security vulnerabilities
