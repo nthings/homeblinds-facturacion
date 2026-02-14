@@ -26,6 +26,10 @@ Upgrade the Homeblinds Facturacion application from Angular 4 to Angular 18 and 
 - Updated build scripts for production deployment
 - Fixed font inlining issues for offline builds
 - Optimized production build configuration
+- **Migrated from node-sass to Dart Sass** (pure JavaScript, no native compilation)
+  - Added `sass` v1.85+ to dependencies
+  - Added npm overrides to prevent `node-sass` installation
+  - Created `.npmrc` for consistent builds across environments
 
 ### 4. Code Modernization
 

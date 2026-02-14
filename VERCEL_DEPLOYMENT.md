@@ -1,12 +1,24 @@
 # Vercel Deployment Guide
 
-This project has been updated to Angular 18 and is ready for deployment on Vercel.
+This project has been updated to Angular 19 and is ready for deployment on Vercel.
 
 ## Prerequisites
 
 - Node.js 24.x
 - MongoDB database (MongoDB Atlas recommended for cloud deployment)
 - Vercel account
+
+## SCSS Compilation
+
+This project uses **Dart Sass** (`sass` npm package) for SCSS compilation. The legacy `node-sass` package has been explicitly avoided because:
+- It requires Python 2 for native compilation (not available on modern build systems)
+- It's deprecated and no longer maintained
+- Dart Sass is pure JavaScript and works everywhere
+
+The project includes:
+- `sass` in dependencies (Dart Sass)
+- npm overrides to prevent `node-sass` installation
+- `.npmrc` configuration for consistent builds
 
 ## Environment Variables
 
