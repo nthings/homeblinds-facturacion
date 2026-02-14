@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Subject, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
@@ -28,7 +27,7 @@ export class AuthenticationService {
 
     login(user): Observable<boolean> {
         return this.http.post('/login', user)
-            .map((response) => {
+            .pipe(map((response) => {
                 // login successful if there's a jwt token in the response
                 const res: any = response;
                 const token = res && res.token;
@@ -49,7 +48,7 @@ export class AuthenticationService {
                     // return false to indicate failed login
                     return false;
                 }
-            });
+            }));
     }
 
     logout(): void {

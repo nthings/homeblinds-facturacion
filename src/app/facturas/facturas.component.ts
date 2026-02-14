@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TableData} from '../utils/interfaces/TableData';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {NotifyService} from '../utils/services/notify.service';
 import {FacturaService} from '../utils/services/factura.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';

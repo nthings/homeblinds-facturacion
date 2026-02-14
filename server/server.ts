@@ -1,9 +1,9 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as morgan from 'morgan';
-import * as mongoose from 'mongoose';
+import express from 'express';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import mongoose from 'mongoose';
 import { expressjwt as jwt } from 'express-jwt';
-import * as path from 'path';
+import path from 'path';
 import UserCtrl from './controllers/user';
 import {UserRoutes, ClientRoutes, InvoiceRoutes, ProductRoutes} from './routes';
 
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
 
 // Mongoose
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI)
     .then(
         // Connection successfull
         () => {

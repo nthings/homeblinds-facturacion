@@ -3,10 +3,9 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {ClientDialogComponent} from '../dialogs/client-dialog/client-dialog.component';
 import {NotifyService} from '../utils/services/notify.service';
 import {ClientService} from '../utils/services/client.service';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/startWith';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import {FacturaService} from '../utils/services/factura.service';
 import {ProductService} from '../utils/services/product.service';
 import {ProductDialogComponent} from '../dialogs/product-dialog/product-dialog.component';
@@ -58,16 +57,20 @@ export class FormComponent implements OnInit {
         this.getProducts();
 
         this.filteredClients = this.facturaForm.get('customer').valueChanges
-            .startWith(null)
-            .map(client => client && typeof client === 'object' ? client.legal_name : client)
-            .map(val => val ? this.filterClientes(val) : this.clients.slice());
+            .pipe(
+                startWith(null),
+                map(client => client && typeof client === 'object' ? client.legal_name : client),
+                map(val => val ? this.filterClientes(val) : this.clients.slice())
+            );
 
         const conceptos: FormArray = this.facturaForm.get('items') as FormArray;
         this.filteredProducts = [
             conceptos.at(0).get('product').valueChanges
-                .startWith(null)
-                .map(product => product && typeof product === 'object' ? product.description : product)
-                .map(val => val ? this.filterProductos(val) : this.products.slice())
+                .pipe(
+                    startWith(null),
+                    map(product => product && typeof product === 'object' ? product.description : product),
+                    map(val => val ? this.filterProductos(val) : this.products.slice())
+                )
         ];
 
         // Client dont exist in autocomplete error handling
@@ -195,9 +198,11 @@ export class FormComponent implements OnInit {
         }));
 
         this.filteredProducts.push(conceptos.at(0).get('product').valueChanges
-            .startWith(null)
-            .map(product => product && typeof product === 'object' ? product.description : product)
-            .map(val => val ? this.filterProductos(val) : this.products.slice()));
+            .pipe(
+                startWith(null),
+                map(product => product && typeof product === 'object' ? product.description : product),
+                map(val => val ? this.filterProductos(val) : this.products.slice())
+            ));
     }
 
     // remove item
