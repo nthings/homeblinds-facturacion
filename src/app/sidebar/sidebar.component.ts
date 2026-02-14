@@ -27,6 +27,7 @@ export const ROUTES_NAV_BAR: RouteInfo[] = [
 
 @Component({
     selector: 'app-sidebar',
+    standalone: false,
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css'],
 })

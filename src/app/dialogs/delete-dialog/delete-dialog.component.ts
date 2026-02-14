@@ -5,6 +5,7 @@ import {NotifyService} from '../../utils/services/notify.service';
 
 @Component({
     selector: 'app-delete-dialog',
+    standalone: false,
     templateUrl: './delete-dialog.component.html',
     styleUrls: ['./delete-dialog.component.css']
 })

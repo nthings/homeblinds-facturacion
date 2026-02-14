@@ -11,6 +11,7 @@ import {ProductDialogComponent} from '../dialogs/product-dialog/product-dialog.c
 
 @Component({
     selector: 'app-productos',
+    standalone: false,
     templateUrl: './productos.component.html',
     styleUrls: ['./productos.component.css'],
     animations: [

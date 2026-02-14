@@ -7,6 +7,7 @@ import {AuthenticationService} from "../utils/services/authentication.service";
 
 @Component({
     selector: 'app-mod-password',
+    standalone: false,
     templateUrl: './mod-password.component.html',
     styleUrls: ['./mod-password.component.css']
 })

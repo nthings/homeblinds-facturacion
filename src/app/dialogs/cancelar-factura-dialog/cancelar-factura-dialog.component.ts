@@ -8,6 +8,7 @@ import {conf} from '../../utils/conf';
 
 @Component({
     selector: 'app-cancelar-factura-dialog',
+    standalone: false,
     templateUrl: './cancelar-factura-dialog.component.html',
     styleUrls: ['./cancelar-factura-dialog.component.css']
 })

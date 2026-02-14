@@ -8,6 +8,7 @@ import {conf} from '../../utils/conf';
 
 @Component({
     selector: 'app-client-dialog',
+    standalone: false,
     templateUrl: './client-dialog.component.html',
     styleUrls: ['./client-dialog.component.css']
 })

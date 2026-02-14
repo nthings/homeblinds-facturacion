@@ -13,6 +13,7 @@ import {conf} from '../utils/conf';
 
 @Component({
     selector: 'app-form',
+    standalone: false,
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.css']
 })

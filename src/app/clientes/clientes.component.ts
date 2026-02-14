@@ -12,6 +12,7 @@ import {FacturaService} from '../utils/services/factura.service';
 
 @Component({
     selector: 'app-clientes',
+    standalone: false,
     templateUrl: './clientes.component.html',
     styleUrls: ['./clientes.component.css'],
     animations: [

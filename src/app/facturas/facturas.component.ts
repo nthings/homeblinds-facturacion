@@ -9,6 +9,7 @@ import {ConceptosDialogComponent} from '../dialogs/conceptos-dialog/conceptos-di
 
 @Component({
     selector: 'app-facturas',
+    standalone: false,
     templateUrl: './facturas.component.html',
     styleUrls: ['./facturas.component.css'],
     animations: [

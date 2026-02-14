@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {conf} from '../conf';
 @Pipe({
     name: 'unity',
+    standalone: false,
     pure: false
 })
 export class UnityPipe implements PipeTransform {

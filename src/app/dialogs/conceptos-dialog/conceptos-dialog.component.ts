@@ -6,6 +6,7 @@ import {ProductService} from '../../utils/services/product.service';
 
 @Component({
     selector: 'app-departments-dialog',
+    standalone: false,
     templateUrl: 'conceptos-dialog.component.html',
 })
 export class ConceptosDialogComponent implements OnInit {
