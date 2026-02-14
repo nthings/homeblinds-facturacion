@@ -19,6 +19,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
 
 // Mongoose
+if (!process.env.MONGODB_URI) {
+    console.error('MONGODB_URI environment variable is not defined');
+    process.exit(1);
+}
+
 mongoose.connect(process.env.MONGODB_URI)
     .then(
         // Connection successfull
