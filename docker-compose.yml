@@ -16,15 +16,13 @@ services:
       - app-network
     restart: unless-stopped
 
-  # ngrok tunnel - expone la app a internet
-  ngrok:
-    image: ngrok/ngrok:latest
-    container_name: homeblinds-ngrok
-    command: http --url=facturacion-homeblinds.ngrok.app homeblinds-facturacion:3000
+  # Cloudflare Tunnel - expone la app a internet con tu dominio
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: homeblinds-cloudflared
+    command: tunnel run
     environment:
-      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
-    ports:
-      - '4040:4040'  # Panel de inspección local
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
     networks:
       - app-network
     restart: unless-stopped
