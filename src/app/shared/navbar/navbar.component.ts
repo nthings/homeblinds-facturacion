@@ -28,6 +28,7 @@ export const ROUTES_NAV_BAR: RouteInfo[] = [
 @Component({
     // moduleId: module.id,
     selector: 'app-navbar-cmp',
+    standalone: false,
     templateUrl: 'navbar.component.html'
 })
 

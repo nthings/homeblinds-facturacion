@@ -61,13 +61,18 @@ export default class UserCtrl extends BaseCtrl {
         this.model.findById(req.params.id)
             .populate('Department')
             .populate('Role')
-            .exec((err, user) => {
+            .exec()
+            .then(user => {
                 if (!user) {
                     console.log('User not found');
                     return res.sendStatus(401);
                 }
                 console.log(user);
-                return res.send(user.departamentos);
+                return res.send((user as any).departamentos);
+            })
+            .catch(err => {
+                console.error(err);
+                return res.sendStatus(500);
             });
     }
 }

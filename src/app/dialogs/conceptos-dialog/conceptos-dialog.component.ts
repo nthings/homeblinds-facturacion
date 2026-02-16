@@ -1,11 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import {TableData} from '../../utils/interfaces/TableData';
 import {ProductService} from '../../utils/services/product.service';
 
 @Component({
     selector: 'app-departments-dialog',
+    standalone: false,
     templateUrl: 'conceptos-dialog.component.html',
 })
 export class ConceptosDialogComponent implements OnInit {

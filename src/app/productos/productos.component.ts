@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 
 import {TableData} from '../utils/interfaces/TableData';
@@ -11,6 +11,7 @@ import {ProductDialogComponent} from '../dialogs/product-dialog/product-dialog.c
 
 @Component({
     selector: 'app-productos',
+    standalone: false,
     templateUrl: './productos.component.html',
     styleUrls: ['./productos.component.css'],
     animations: [

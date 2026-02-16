@@ -9,7 +9,7 @@ router.get('/logged', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    req.logout();
+    // No session to clear, JWT is stateless
     res.sendStatus(200);
 });
 

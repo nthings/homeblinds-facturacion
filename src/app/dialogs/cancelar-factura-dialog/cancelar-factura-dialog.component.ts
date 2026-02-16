@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup} from '@angular/forms';
 
 import {NotifyService} from '../../utils/services/notify.service';
@@ -8,6 +8,7 @@ import {conf} from '../../utils/conf';
 
 @Component({
     selector: 'app-cancelar-factura-dialog',
+    standalone: false,
     templateUrl: './cancelar-factura-dialog.component.html',
     styleUrls: ['./cancelar-factura-dialog.component.css']
 })

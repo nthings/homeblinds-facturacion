@@ -3,6 +3,7 @@ import {conf} from '../conf';
 
 @Pipe({
     name: 'productType',
+    standalone: false,
     pure: false
 })
 export class ProductTypePipe implements PipeTransform {

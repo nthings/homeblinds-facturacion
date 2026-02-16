@@ -5,6 +5,7 @@
 .idea
 # compiled output
 /dist
+/public
 /tmp
 /out-tsc
 
@@ -43,3 +44,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Backup files
+*.backup
+
+# Vercel
+.vercel
+

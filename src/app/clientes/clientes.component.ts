@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 
 import {TableData} from '../utils/interfaces/TableData';
@@ -12,6 +12,7 @@ import {FacturaService} from '../utils/services/factura.service';
 
 @Component({
     selector: 'app-clientes',
+    standalone: false,
     templateUrl: './clientes.component.html',
     styleUrls: ['./clientes.component.css'],
     animations: [

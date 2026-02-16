@@ -29,22 +29,23 @@ userSchema.pre('save', function(next){
 });
 
 userSchema.pre("findOneAndUpdate", function(next) {
-    const password = this.getUpdate().password;
+    const update = this.getUpdate() as any;
+    const password = update.password;
     if (!password) {
         return next();
     }
     try {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
-        this.getUpdate().password = hash;
+        update.password = hash;
         next();
     } catch (error) {
-        return next(error);
+        return next(error as any);
     }
 });
 
 
-userSchema.methods.comparePassword = (password, callback) => {
+userSchema.methods.comparePassword = function(password: string, callback: any) {
     bcrypt.compare(password, this.password, (err, isMatch) => {
       if (err) { return callback(err); }
       callback(null, isMatch);

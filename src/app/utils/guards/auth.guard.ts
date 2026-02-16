@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
 import {NotifyService} from '../services/notify.service';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
 import {AuthenticationService} from "../services/authentication.service";
 
 @Injectable()

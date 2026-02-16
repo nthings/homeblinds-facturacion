@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
     name: 'paymentForm',
+    standalone: false,
     pure: false
 })
 export class PaymentFormPipe implements PipeTransform {

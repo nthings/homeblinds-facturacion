@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import 'rxjs/add/operator/map';
+import {map} from 'rxjs/operators';
+
 import {AuthenticationService} from './authentication.service';
 
 @Injectable()
@@ -33,6 +34,6 @@ export class FacturaService {
         const options = this.auth.options;
         options.responseType = 'blob';
         options['Content-Type'] = 'application/zip';
-        return this.http.get('/invoices/download/' + id, options).map(res => new Blob([res], {type: 'application/zip'}));
+        return this.http.get('/invoices/download/' + id, options).pipe(map(res => new Blob([res], {type: 'application/zip'})));
     }
 }
