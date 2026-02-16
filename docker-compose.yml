@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  homeblinds-facturacion:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGODB_URI=${MONGODB_URI}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - API_KEY=${API_KEY}
+    env_file:
+      - .env
+    restart: unless-stopped
