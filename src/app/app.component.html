@@ -1,3 +1,7 @@
+<div class="loading-overlay" *ngIf="loading$ | async">
+    <div class="spinner"></div>
+</div>
+
 <div class="wrapper">
     <div class="sidebar" data-color="blue" data-image="" *ngIf="user.logged">
         <app-sidebar></app-sidebar>

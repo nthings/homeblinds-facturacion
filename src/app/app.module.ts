@@ -52,6 +52,7 @@ import {ProductService} from './utils/services/product.service';
 
 //Interceptors
 import {EmptyResponseBodyErrorInterceptor} from './utils/interceptors/empty-response-body-error.interceptor';
+import {LoadingInterceptor} from './utils/interceptors/loading.interceptor';
 
 @NgModule({
     declarations: [
@@ -105,6 +106,11 @@ import {EmptyResponseBodyErrorInterceptor} from './utils/interceptors/empty-resp
         {
             provide: HTTP_INTERCEPTORS,
             useClass: EmptyResponseBodyErrorInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoadingInterceptor,
             multi: true
         }
     ],

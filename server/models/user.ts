@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     apellidos: String,
     username: {type: String, unique: true},
     password: String,
+    nuevo: {type: Boolean, default: true},
 },
 {
   timestamps: true

@@ -1,18 +1,47 @@
 version: '3.8'
 
 services:
+  # Tu aplicación (Ahora aislada, sin puertos expuestos al host)
   homeblinds-facturacion:
+    container_name: homeblinds-facturacion
     build:
       context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+    # Eliminamos 'ports' porque NPM hablará con él por la red interna
     environment:
       - NODE_ENV=production
       - PORT=3000
       - MONGODB_URI=${MONGODB_URI}
       - SESSION_SECRET=${SESSION_SECRET}
       - API_KEY=${API_KEY}
-    env_file:
-      - .env
+    networks:
+      - proxy-tier
     restart: unless-stopped
+
+  # Nginx Proxy Manager: El único que da la cara a internet
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    ports:
+      - '80:80'   # Tráfico HTTP
+      - '443:443' # Tráfico HTTPS
+      - '81:81'   # Panel de administración (puedes cerrarlo después)
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - proxy-tier
+    restart: unless-stopped
+
+  # Mantenedor de IP
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: homeblinds-duckdns
+    network_mode: bridge
+    environment:
+      - SUBDOMAINS=${DUCKDNS_SUBDOMAIN}
+      - TOKEN=${DUCKDNS_TOKEN}
+    restart: unless-stopped
+
+networks:
+  proxy-tier:
+    driver: bridge

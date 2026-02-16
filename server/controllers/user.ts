@@ -7,53 +7,43 @@ import BaseCtrl from './base';
 export default class UserCtrl extends BaseCtrl {
     model = User;
 
-    login = (req, res) => {
-        this.model.findOne({ username: req.body.username.toLowerCase() }, (err, user: any) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).send(err);
-            }
+    login = async (req, res) => {
+        try {
+            const user: any = await this.model.findOne({ username: req.body.username.toLowerCase() });
             if (!user) {
                 return res.sendStatus(403);
             }
-            bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).send(err);
-                }
-                if (!isMatch) {
-                    return res.sendStatus(403);
-                }
-                const token = jwt.sign({user: user}, process.env.SESSION_SECRET); // , { expiresIn: 10 } seconds
-                res.status(200).json({user: user, token: token});
-            });
-        });
+            const isMatch = await bcrypt.compare(req.body.password, user.password);
+            if (!isMatch) {
+                return res.sendStatus(403);
+            }
+            const token = jwt.sign({user: user}, process.env.SESSION_SECRET); // , { expiresIn: 10 } seconds
+            res.status(200).json({user: user, token: token});
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        }
     }
 
-    changePass = (req, res) => {
-        this.model.findOne({username: req.body.username}, (err, user) => {
-            //User not found
+    changePass = async (req, res) => {
+        try {
+            const user = await this.model.findOne({username: req.body.username});
             if (!user) {
                 console.log("User not found");
                 return res.sendStatus(401);
             }
-            bcrypt.compare(req.body.oldPassword, user.password, (err, isMatch) => {
-                // Passwords don't match
-                if (!isMatch) {
-                    return res.sendStatus(403);
-                }
-                user.password = req.body.password;
-                user.nuevo = false;
-                user.save((err) => {
-                    // error saving user
-                    if (err) {
-                        console.log(err);
-                        return res.status(500).send(err);
-                    }
-                    res.sendStatus(200);
-                });
-            });
-        });
+            const isMatch = await bcrypt.compare(req.body.oldPassword, user.password);
+            if (!isMatch) {
+                return res.sendStatus(403);
+            }
+            user.password = req.body.password;
+            user.nuevo = false;
+            await user.save();
+            res.sendStatus(200);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        }
     }
 
     getDepartmentsAndRoles = (req, res) => {

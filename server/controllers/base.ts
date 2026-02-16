@@ -3,74 +3,80 @@ abstract class BaseCtrl {
     abstract model: any;
 
     // Get all
-    getAll = (req, res) => {
-        this.model.find({}, (err, docs) => {
-            if (err) {
-                return console.error(err);
-            }
+    getAll = async (req, res) => {
+        try {
+            const docs = await this.model.find({});
             res.json(docs);
-        });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send(err);
+        }
     }
 
     // Count all
-    count = (req, res) => {
-        this.model.count((err, count) => {
-            if (err) {
-                return console.error(err);
-            }
+    count = async (req, res) => {
+        try {
+            const count = await this.model.countDocuments();
             res.json(count);
-        });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send(err);
+        }
     }
 
     // Insert
-    insert = (req, res) => {
-        const obj = new this.model(req.body);
-        obj.save((err, item) => {
+    insert = async (req, res) => {
+        try {
+            const obj = new this.model(req.body);
+            const item = await obj.save();
+            res.status(200).json(item);
+        } catch (err: any) {
             // 11000 is the code for duplicate key error
             if (err && err.code === 11000) {
-                res.sendStatus(400);
+                return res.sendStatus(400);
             }
-            if (err) {
-                return console.error(err);
-            }
-            res.status(200).json(item);
-        });
+            console.error(err);
+            res.status(500).send(err);
+        }
     }
 
     // Get by id
-    get = (req, res) => {
-        this.model.findOne({_id: req.params.id}, (err, obj) => {
-            if (err && err.code === 11000) {
-                res.sendStatus(400);
-            }
-            if (err) {
-                return console.error(err);
-            }
+    get = async (req, res) => {
+        try {
+            const obj = await this.model.findOne({_id: req.params.id});
             res.json(obj);
-        });
+        } catch (err: any) {
+            if (err && err.code === 11000) {
+                return res.sendStatus(400);
+            }
+            console.error(err);
+            res.status(500).send(err);
+        }
     }
 
     // Update by id
-    update = (req, res) => {
-        this.model.findOneAndUpdate({_id: req.params.id}, req.body, (err) => {
-            if (err && err.code === 11000) {
-                res.sendStatus(400);
-            }
-            if (err) {
-                return console.error(err);
-            }
+    update = async (req, res) => {
+        try {
+            await this.model.findOneAndUpdate({_id: req.params.id}, req.body);
             res.sendStatus(200);
-        });
+        } catch (err: any) {
+            if (err && err.code === 11000) {
+                return res.sendStatus(400);
+            }
+            console.error(err);
+            res.status(500).send(err);
+        }
     }
 
     // Delete by id
-    delete = (req, res) => {
-        this.model.findOneAndRemove({_id: req.params.id}, (err) => {
-            if (err) {
-                return console.error(err);
-            }
+    delete = async (req, res) => {
+        try {
+            await this.model.findOneAndDelete({_id: req.params.id});
             res.sendStatus(200);
-        });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send(err);
+        }
     }
 }
 
