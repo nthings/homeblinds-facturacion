@@ -32,6 +32,7 @@ npm install
 # Set environment variables
 export MONGODB_URI=mongodb://localhost:27017/homeblinds
 export SESSION_SECRET=your-secret-key-here
+export API_KEY=your-facturapi-key-here
 
 # Run in development mode
 npm run dev
@@ -44,23 +45,6 @@ npm run dev
 - `npm start` - Start production server
 - `npm test` - Run tests
 - `npm run lint` - Lint code
-
-## 📦 Deployment
-
-### Vercel Deployment
-
-This application is ready to deploy on Vercel. See [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) for detailed instructions.
-
-Quick deploy:
-```bash
-npm install -g vercel
-vercel login
-vercel
-```
-
-Don't forget to set environment variables in Vercel:
-- `MONGODB_URI`
-- `SESSION_SECRET`
 
 ## 🔐 Security
 
