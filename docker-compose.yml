@@ -1,12 +1,11 @@
 version: '3.8'
 
 services:
-  # Tu aplicación (Ahora aislada, sin puertos expuestos al host)
+  # Tu aplicación
   homeblinds-facturacion:
     container_name: homeblinds-facturacion
     build:
       context: .
-    # Eliminamos 'ports' porque NPM hablará con él por la red interna
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -14,34 +13,24 @@ services:
       - SESSION_SECRET=${SESSION_SECRET}
       - API_KEY=${API_KEY}
     networks:
-      - proxy-tier
+      - app-network
     restart: unless-stopped
 
-  # Nginx Proxy Manager: El único que da la cara a internet
-  npm:
-    image: 'jc21/nginx-proxy-manager:latest'
-    container_name: nginx-proxy-manager
-    ports:
-      - '80:80'   # Tráfico HTTP
-      - '443:443' # Tráfico HTTPS
-      - '81:81'   # Panel de administración (puedes cerrarlo después)
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
-    networks:
-      - proxy-tier
-    restart: unless-stopped
-
-  # Mantenedor de IP
-  duckdns:
-    image: lscr.io/linuxserver/duckdns:latest
-    container_name: homeblinds-duckdns
-    network_mode: bridge
+  # ngrok tunnel - expone la app a internet
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: homeblinds-ngrok
+    command: http homeblinds-facturacion:3000
     environment:
-      - SUBDOMAINS=${DUCKDNS_SUBDOMAIN}
-      - TOKEN=${DUCKDNS_TOKEN}
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    ports:
+      - '4040:4040'  # Panel de inspección local
+    networks:
+      - app-network
     restart: unless-stopped
+    depends_on:
+      - homeblinds-facturacion
 
 networks:
-  proxy-tier:
+  app-network:
     driver: bridge
